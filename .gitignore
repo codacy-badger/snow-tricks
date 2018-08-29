@@ -14,3 +14,11 @@
 ###> symfony/web-server-bundle ###
 /.web-server-pid
 ###< symfony/web-server-bundle ###
+
+frontend-assets/node_modules
+frontend-assets/html
+
+
+public/css
+public/fonts
+public/js
