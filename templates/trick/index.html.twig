@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Snowtricks! | Homepage{% endblock %}
+
+{% block body %}
+
+    <header>
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner" role="listbox">
+                <!-- Slide One - Set the background image for this slide in the line below -->
+                <div class="carousel-item active" style="background-image: url('https://stillmed.olympic.org/media/Images/OlympicOrg/News/2018/02/19/Snowboard/2018-02-19-snowboard-trick-inside-02.jpg?interpolation=lanczos-none&resize=1060:*')">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h3>180 grabbé</h3>
+                        <p>Damien Vauchel</p>
+                    </div>
+                </div>
+                <!-- Slide Two - Set the background image for this slide in the line below -->
+                <div class="carousel-item" style="background-image: url('https://stillmed.olympic.org/media/Images/OlympicOrg/News/2018/02/19/Snowboard/2018-02-19-snowboard-trick-inside-01.jpg?interpolation=lanczos-none&resize=1060:*')">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h3>Korean Bacon</h3>
+                        <p>The KB is when the leading arm reach between the legs from behind and grab the toe edge at the front foot bending the knees pulling the board to the back. (Tweaked)</p>
+                    </div>
+                </div>
+                <!-- Slide Three - Set the background image for this slide in the line below -->
+                <div class="carousel-item" style="background-image: url('https://stillmed.olympic.org/media/Images/OlympicOrg/News/2018/02/19/Snowboard/2018-02-19-snowboard-trick-thumbnail.jpg')">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h3></h3>
+                        <p>
+                            </p>
+                    </div>
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <div class="row tricks_list">
+            {% for i in 0..15 %}
+                <div class="col-lg-3 col-sm-6 portfolio-item">
+                    <div class="card">
+                        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                        <div class="card-body">
+                            <p class="card-title">
+                                <a href="#">Trick Name</a>
+                                <a href="#" class="fa fa-pencil"></a>
+                                <a href="#" class="fa fa-trash"></a>
+                            </p>
+
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+{% endblock %}
