@@ -50,18 +50,16 @@ gulp.task('compile-theme', function () {
 // Default task
 gulp.task('default', ['copy', 'compile-theme']);
 
-// Configure the browserSync task
-gulp.task('browserSync', function() {
-  browserSync.init({
-    server: {
-      baseDir: "./"
-    }
-  });
+gulp.task('browserSync', function () {
+    browserSync.init({
+        proxy: "localhost:8000"
+    })
 });
 
 // Dev task
 gulp.task('dev', ['browserSync'], function() {
-  gulp.watch('./scss/*.scss', browserSync.reload);
-  gulp.watch('./js/*.js', browserSync.reload);
+  gulp.watch('./scss/*.scss', ['compile-theme', browserSync.reload]);
+  gulp.watch('./js/*.js', ['copy', browserSync.reload]);
   gulp.watch('../templates/*.twig', browserSync.reload);
+  gulp.watch('../templates/**/*.twig', browserSync.reload);
 });
