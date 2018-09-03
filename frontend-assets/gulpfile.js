@@ -50,15 +50,6 @@ gulp.task('compile-theme', function () {
 // Default task
 gulp.task('default', ['copy', 'compile-theme']);
 
-/*// Configure the browserSync task
-gulp.task('browserSync', function() {
-  browserSync.init({
-    server: {
-      baseDir: "./"
-    }
-  });
-});*/
-
 gulp.task('browserSync', function () {
     browserSync.init({
         proxy: "localhost:8000"
