@@ -11,9 +11,8 @@ class LoadFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $loader = new NativeLoader();
-        $objectSet = $loader->loadFile(__DIR__ . '/fixtures.yml')->getObjects();
-        foreach($objectSet as $object)
-        {
+        $objectSet = $loader->loadFile(__DIR__.'/fixtures.yml')->getObjects();
+        foreach ($objectSet as $object) {
             $manager->persist($object);
         }
 

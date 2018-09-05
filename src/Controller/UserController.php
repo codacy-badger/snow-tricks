@@ -12,7 +12,9 @@ class UserController extends AbstractController
 {
     /**
      * @Route("/user/sign-up", name="user-sign-up")
+     *
      * @param EntityManagerInterface $entityManager
+     *
      * @return Response
      */
     public function signUp(EntityManagerInterface $entityManager)
