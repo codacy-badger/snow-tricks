@@ -1,0 +1,10 @@
+App\Entity\User:
+    user_{1..50}:
+        roles: 'user'
+        username: <username()>
+        lastname: <lastname()>
+        firstname: <firstname()>
+        password: <password()>
+        created_at: <dateTimeBetween('-2 years')>
+        updated_at: <dateTimeBetween('-2 years')>
+        email: <email()>
