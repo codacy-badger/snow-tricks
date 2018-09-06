@@ -20,7 +20,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column()
-     * @Assert\Choice({"User", "Admin"})
+     * @Assert\Choice({"ROLE_USER", "ROLE_ADMIN"})
      */
     private $roles;
 
@@ -32,28 +32,19 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(unique=true)
-     * @Assert\Length(
-     *     min = 3,
-     *     max = 15
-     * )
+     * @Assert\Length(min = 3)
      */
     private $username;
 
     /**
      * @ORM\Column()
-     * @Assert\Length(
-     *     min = 2,
-     *     max = 25
-     * )
+     * @Assert\Length(min = 3)
      */
     private $lastname;
 
     /**
      * @ORM\Column(nullable=true)
-     * @Assert\Length(
-     *     min = 2,
-     *     max = 25
-     * )
+     * @Assert\Length(min =3)
      */
     private $firstname;
 
@@ -70,13 +61,13 @@ class User implements UserInterface
      * @ORM\Column(type="datetime")
      * @Assert\DateTime()
      */
-    private $created_at;
+    private $createdAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
      * @Assert\DateTime()
      */
-    private $updated_at;
+    private $updatedAt;
 
     public function getId(): ?int
     {
@@ -157,24 +148,24 @@ class User implements UserInterface
 
     public function getCreatedAt(): ?\DateTimeInterface
     {
-        return $this->created_at;
+        return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $created_at): self
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
-        $this->created_at = $created_at;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
 
     public function getUpdatedAt(): ?\DateTimeInterface
     {
-        return $this->updated_at;
+        return $this->updatedAt;
     }
 
-    public function setUpdatedAt(?\DateTimeInterface $updated_at): self
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
-        $this->updated_at = $updated_at;
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

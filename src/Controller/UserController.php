@@ -22,7 +22,7 @@ class UserController extends AbstractController
             ->setLastname('Toto')
             ->setUsername('BerToto'.rand(1, 1000))
             ->setEmail('berToto@jmail.fr'.rand(1, 1000))
-            ->setRoles('User')
+            ->setRoles('ROLE_USER')
             ->setPassword('motdepasse')
             ->setCreatedAt(new \DateTime('now'))
         ;

@@ -8,10 +8,10 @@ help:
 ## Project setup
 ##---------------------------------------------------------------------------
 cs: ## check cs problem
-	./vendor/bin/php-cs-fixer fix src/ --dry-run --stop-on-violation --diff
+	./vendor/bin/php-cs-fixer fix --dry-run --stop-on-violation --diff
 
 cs-fix: ## fix problems
-	./vendor/bin/php-cs-fixer fix src/
+	./vendor/bin/php-cs-fixer fix
 
 cs-ci:
 	./vendor/bin/php-cs-fixer fix src/ --dry-run --using-cache=no --verbose

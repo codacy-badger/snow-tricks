@@ -1,8 +1,12 @@
 <?php
 
-return PhpCsFixer\Config::create()
-    ->setRules([
-        '@Symfony' => true,
-        'array_syntax' => ['syntax' => 'short'],
-    ])
-;
+$config = new M6Web\CS\Config\Php71;
+
+$config->getFinder()
+    ->in([
+        __DIR__.'/src'
+    ])->exclude([
+        'Tests'
+    ]);
+
+return $config;
