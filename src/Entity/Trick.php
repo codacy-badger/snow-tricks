@@ -69,10 +69,16 @@ class Trick
      */
     private $photos;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Video", inversedBy="tricks")
+     */
+    private $video;
+
     public function __construct()
     {
         $this->messages = new ArrayCollection();
         $this->photos = new ArrayCollection();
+        $this->video = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -221,6 +227,32 @@ class Trick
             if ($photo->getTrick() === $this) {
                 $photo->setTrick(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Video[]
+     */
+    public function getVideo(): Collection
+    {
+        return $this->video;
+    }
+
+    public function addVideo(Video $video): self
+    {
+        if (!$this->video->contains($video)) {
+            $this->video[] = $video;
+        }
+
+        return $this;
+    }
+
+    public function removeVideo(Video $video): self
+    {
+        if ($this->video->contains($video)) {
+            $this->video->removeElement($video);
         }
 
         return $this;
