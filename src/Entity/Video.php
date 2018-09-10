@@ -35,7 +35,6 @@ class Video
      */
     private $platform;
 
-
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Trick", mappedBy="video")
      */
@@ -114,8 +113,4 @@ class Video
 
         return $this;
     }
-
-
-
-
 }
