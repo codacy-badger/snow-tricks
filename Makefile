@@ -19,7 +19,7 @@ cs-ci:
 ##
 ## database creation
 ##---------------------------------------------------------------------------
-db-reset: ## drop and recreate database
+db-reset: ## Drop and recreate database
 	./bin/console doctrine:database:drop --force --if-exists
 	./bin/console doctrine:database:create
 
@@ -27,5 +27,8 @@ db-hydrate: ## make migrations and add fixtures
 	./bin/console doctrine:migrations:migrate -n
 	./bin/console doctrine:fixtures:load -n
 
-db-recreate: ## reset and recreate database with fixtures
+db-recreate: ## Reset and recreate database with migrations and fixtures
 db-recreate: db-reset db-hydrate
+
+db-fixtures: ## Load fixtures into database
+	./bin/console doctrine:fixtures:load
