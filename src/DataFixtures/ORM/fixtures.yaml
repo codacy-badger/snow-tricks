@@ -1,6 +1,6 @@
 App\Entity\User:
     user_{1..50}:
-        roles: 'user'
+        roles: <randomElement(['ROLE_USER', 'ROLE_ADMIN'])>
         username: <username()>
         lastname: <lastname()>
         firstname: <firstname()>
@@ -8,3 +8,33 @@ App\Entity\User:
         created_at: <dateTimeBetween('-2 years')>
         updated_at: <dateTimeBetween('-2 years')>
         email: <email()>
+
+App\Entity\TrickGroup:
+    trickgroup_{1..10}:
+        name: 'grab'
+        description: <paragraphs(3, true)>
+
+App\Entity\Trick:
+    trick_{1..50}:
+        name: <catchPhrase()>
+        slug: <slug()>
+        description: <paragraphs(3, true)>
+        created_at: <dateTimeBetween('-2 years')>
+        updated_at: <dateTimeBetween('-2 years')>
+        user: '@user_*'
+        trickgroup: '@trickgroup_*'
+
+App\Entity\Message:
+    message_{1..50}:
+        content: <paragraphs(3, true)>
+        created_at: <dateTimeBetween('-2 years')>
+        user: '@user_*'
+        trick: '@trick_*'
+
+App\Entity\Video:
+    video_{1..50}:
+        video_code: 'KoHzXi7Usl8'
+        created_at: <dateTimeBetween('-2 years')>
+        platform: 'youtube'
+        tricks: '<numberBetween(1, 10)>x @trick_*'
+
