@@ -21,7 +21,7 @@ class User implements UserInterface
     private $id;
 
     /**
-     * @ORM\Column()
+     * @ORM\Column(type="json")
      * @Assert\Choice({"ROLE_USER", "ROLE_ADMIN"})
      */
     private $roles;
@@ -92,9 +92,13 @@ class User implements UserInterface
         return $this->id;
     }
 
-    public function getRoles(): ?string
+    public function getRoles(): ?array
     {
-        return $this->roles;
+        $roles = $this->roles;
+
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
     }
 
     public function setRoles(string $roles)
