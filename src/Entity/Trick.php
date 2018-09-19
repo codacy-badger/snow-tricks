@@ -91,11 +91,9 @@ class Trick
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName(string $name)
     {
         $this->name = $name;
-
-        return $this;
     }
 
     public function getSlug(): ?string
@@ -103,11 +101,9 @@ class Trick
         return $this->slug;
     }
 
-    public function setSlug(string $slug): self
+    public function setSlug(string $slug)
     {
         $this->slug = $slug;
-
-        return $this;
     }
 
     public function getDescription(): ?string
@@ -115,11 +111,9 @@ class Trick
         return $this->description;
     }
 
-    public function setDescription(?string $description): self
+    public function setDescription(?string $description)
     {
         $this->description = $description;
-
-        return $this;
     }
 
     public function getUpdatedAt(): ?\DateTimeInterface
@@ -127,11 +121,9 @@ class Trick
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt)
     {
         $this->updatedAt = $updatedAt;
-
-        return $this;
     }
 
     public function getCreatedAt(): ?\DateTimeInterface
@@ -139,11 +131,9 @@ class Trick
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    public function setCreatedAt(\DateTimeInterface $createdAt)
     {
         $this->createdAt = $createdAt;
-
-        return $this;
     }
 
     public function getUser(): ?User
@@ -151,11 +141,9 @@ class Trick
         return $this->user;
     }
 
-    public function setUser(?User $user): self
+    public function setUser(?User $user)
     {
         $this->user = $user;
-
-        return $this;
     }
 
     public function getTrickGroup(): ?TrickGroup
@@ -163,11 +151,9 @@ class Trick
         return $this->trickGroup;
     }
 
-    public function setTrickGroup(?TrickGroup $trickGroup): self
+    public function setTrickGroup(?TrickGroup $trickGroup)
     {
         $this->trickGroup = $trickGroup;
-
-        return $this;
     }
 
     /**
@@ -178,7 +164,7 @@ class Trick
         return $this->messages;
     }
 
-    public function addMessage(Message $message): self
+    public function addMessage(Message $message)
     {
         if (!$this->messages->contains($message)) {
             $this->messages[] = $message;
@@ -188,7 +174,7 @@ class Trick
         return $this;
     }
 
-    public function removeMessage(Message $message): self
+    public function removeMessage(Message $message)
     {
         if ($this->messages->contains($message)) {
             $this->messages->removeElement($message);
@@ -209,7 +195,7 @@ class Trick
         return $this->photos;
     }
 
-    public function addPhoto(Photo $photo): self
+    public function addPhoto(Photo $photo)
     {
         if (!$this->photos->contains($photo)) {
             $this->photos[] = $photo;
@@ -219,7 +205,7 @@ class Trick
         return $this;
     }
 
-    public function removePhoto(Photo $photo): self
+    public function removePhoto(Photo $photo)
     {
         if ($this->photos->contains($photo)) {
             $this->photos->removeElement($photo);
@@ -228,8 +214,6 @@ class Trick
                 $photo->setTrick(null);
             }
         }
-
-        return $this;
     }
 
     /**
@@ -240,21 +224,17 @@ class Trick
         return $this->video;
     }
 
-    public function addVideo(Video $video): self
+    public function addVideo(Video $video)
     {
         if (!$this->video->contains($video)) {
             $this->video[] = $video;
         }
-
-        return $this;
     }
 
-    public function removeVideo(Video $video): self
+    public function removeVideo(Video $video)
     {
         if ($this->video->contains($video)) {
             $this->video->removeElement($video);
         }
-
-        return $this;
     }
 }

@@ -55,11 +55,9 @@ class Video
         return $this->videoCode;
     }
 
-    public function setVideoCode(string $videoCode): self
+    public function setVideoCode(string $videoCode)
     {
         $this->videoCode = $videoCode;
-
-        return $this;
     }
 
     public function getCreatedAt(): ?\DateTimeInterface
@@ -67,11 +65,9 @@ class Video
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    public function setCreatedAt(\DateTimeInterface $createdAt)
     {
         $this->createdAt = $createdAt;
-
-        return $this;
     }
 
     public function getPlatform(): ?string
@@ -79,11 +75,9 @@ class Video
         return $this->platform;
     }
 
-    public function setPlatform(string $platform): self
+    public function setPlatform(string $platform)
     {
         $this->platform = $platform;
-
-        return $this;
     }
 
     /**
@@ -94,23 +88,19 @@ class Video
         return $this->tricks;
     }
 
-    public function addTrick(Trick $trick): self
+    public function addTrick(Trick $trick)
     {
         if (!$this->tricks->contains($trick)) {
             $this->tricks[] = $trick;
             $trick->addVideo($this);
         }
-
-        return $this;
     }
 
-    public function removeTrick(Trick $trick): self
+    public function removeTrick(Trick $trick)
     {
         if ($this->tricks->contains($trick)) {
             $this->tricks->removeElement($trick);
             $trick->removeVideo($this);
         }
-
-        return $this;
     }
 }

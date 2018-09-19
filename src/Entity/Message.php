@@ -51,7 +51,7 @@ class Message
         return $this->content;
     }
 
-    public function setContent(string $content): self
+    public function setContent(string $content)
     {
         $this->content = $content;
 
@@ -63,11 +63,9 @@ class Message
         return $this->created_at;
     }
 
-    public function setCreatedAt(\DateTimeInterface $created_at): self
+    public function setCreatedAt(\DateTimeInterface $created_at)
     {
         $this->created_at = $created_at;
-
-        return $this;
     }
 
     public function getUser(): ?User
@@ -75,11 +73,9 @@ class Message
         return $this->user;
     }
 
-    public function setUser(?User $user): self
+    public function setUser(?User $user)
     {
         $this->user = $user;
-
-        return $this;
     }
 
     public function getTrick(): ?Trick
@@ -87,10 +83,8 @@ class Message
         return $this->trick;
     }
 
-    public function setTrick(?Trick $trick): self
+    public function setTrick(?Trick $trick)
     {
         $this->trick = $trick;
-
-        return $this;
     }
 }

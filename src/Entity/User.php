@@ -97,11 +97,9 @@ class User implements UserInterface
         return $this->roles;
     }
 
-    public function setRoles(string $roles): self
+    public function setRoles(string $roles)
     {
         $this->roles = $roles;
-
-        return $this;
     }
 
     public function getEmail(): ?string
@@ -109,11 +107,9 @@ class User implements UserInterface
         return $this->email;
     }
 
-    public function setEmail(string $email): self
+    public function setEmail(string $email)
     {
         $this->email = $email;
-
-        return $this;
     }
 
     public function getUsername(): ?string
@@ -121,11 +117,9 @@ class User implements UserInterface
         return $this->username;
     }
 
-    public function setUsername(string $username): self
+    public function setUsername(string $username)
     {
         $this->username = $username;
-
-        return $this;
     }
 
     public function getLastname(): ?string
@@ -133,11 +127,9 @@ class User implements UserInterface
         return $this->lastname;
     }
 
-    public function setLastname(string $lastname): self
+    public function setLastname(string $lastname)
     {
         $this->lastname = $lastname;
-
-        return $this;
     }
 
     public function getFirstname(): ?string
@@ -145,11 +137,9 @@ class User implements UserInterface
         return $this->firstname;
     }
 
-    public function setFirstname(?string $firstname): self
+    public function setFirstname(?string $firstname)
     {
         $this->firstname = $firstname;
-
-        return $this;
     }
 
     public function getPassword(): ?string
@@ -157,11 +147,9 @@ class User implements UserInterface
         return $this->password;
     }
 
-    public function setPassword(string $password): self
+    public function setPassword(string $password)
     {
         $this->password = $password;
-
-        return $this;
     }
 
     public function getCreatedAt(): ?\DateTimeInterface
@@ -169,11 +157,9 @@ class User implements UserInterface
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    public function setCreatedAt(\DateTimeInterface $createdAt)
     {
         $this->createdAt = $createdAt;
-
-        return $this;
     }
 
     public function getUpdatedAt(): ?\DateTimeInterface
@@ -181,11 +167,9 @@ class User implements UserInterface
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt)
     {
         $this->updatedAt = $updatedAt;
-
-        return $this;
     }
 
     /**
@@ -217,17 +201,15 @@ class User implements UserInterface
         return $this->tricks;
     }
 
-    public function addTrick(Trick $trick): self
+    public function addTrick(Trick $trick)
     {
         if (!$this->tricks->contains($trick)) {
             $this->tricks[] = $trick;
             $trick->setUser($this);
         }
-
-        return $this;
     }
 
-    public function removeTrick(Trick $trick): self
+    public function removeTrick(Trick $trick)
     {
         if ($this->tricks->contains($trick)) {
             $this->tricks->removeElement($trick);
@@ -236,8 +218,6 @@ class User implements UserInterface
                 $trick->setUser(null);
             }
         }
-
-        return $this;
     }
 
     /**
@@ -248,17 +228,15 @@ class User implements UserInterface
         return $this->messages;
     }
 
-    public function addMessage(Message $message): self
+    public function addMessage(Message $message)
     {
         if (!$this->messages->contains($message)) {
             $this->messages[] = $message;
             $message->setUser($this);
         }
-
-        return $this;
     }
 
-    public function removeMessage(Message $message): self
+    public function removeMessage(Message $message)
     {
         if ($this->messages->contains($message)) {
             $this->messages->removeElement($message);
@@ -267,7 +245,5 @@ class User implements UserInterface
                 $message->setUser(null);
             }
         }
-
-        return $this;
     }
 }

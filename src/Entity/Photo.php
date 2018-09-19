@@ -44,11 +44,9 @@ class Photo
         return $this->filename;
     }
 
-    public function setFilename(string $filename): self
+    public function setFilename(string $filename)
     {
         $this->filename = $filename;
-
-        return $this;
     }
 
     public function getCreatedAt(): ?\DateTimeInterface
@@ -56,11 +54,9 @@ class Photo
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    public function setCreatedAt(\DateTimeInterface $createdAt)
     {
         $this->createdAt = $createdAt;
-
-        return $this;
     }
 
     public function getTrick(): ?Trick
@@ -68,10 +64,8 @@ class Photo
         return $this->trick;
     }
 
-    public function setTrick(?Trick $trick): self
+    public function setTrick(?Trick $trick)
     {
         $this->trick = $trick;
-
-        return $this;
     }
 }

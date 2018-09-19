@@ -50,11 +50,9 @@ class TrickGroup
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName(string $name)
     {
         $this->name = $name;
-
-        return $this;
     }
 
     public function getDescription(): ?string
@@ -62,11 +60,9 @@ class TrickGroup
         return $this->description;
     }
 
-    public function setDescription(?string $description): self
+    public function setDescription(?string $description)
     {
         $this->description = $description;
-
-        return $this;
     }
 
     /**
@@ -77,7 +73,7 @@ class TrickGroup
         return $this->tricks;
     }
 
-    public function addTrick(Trick $trick): self
+    public function addTrick(Trick $trick)
     {
         if (!$this->tricks->contains($trick)) {
             $this->tricks[] = $trick;
@@ -87,7 +83,7 @@ class TrickGroup
         return $this;
     }
 
-    public function removeTrick(Trick $trick): self
+    public function removeTrick(Trick $trick)
     {
         if ($this->tricks->contains($trick)) {
             $this->tricks->removeElement($trick);

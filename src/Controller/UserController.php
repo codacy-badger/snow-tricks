@@ -18,14 +18,13 @@ class UserController extends AbstractController
     {
         $user = new User();
 
-        $user->setFirstname('Bernard')
-            ->setLastname('Toto')
-            ->setUsername('BerToto'.rand(1, 1000))
-            ->setEmail('berToto@jmail.fr'.rand(1, 1000))
-            ->setRoles('ROLE_USER')
-            ->setPassword('motdepasse')
-            ->setCreatedAt(new \DateTime('now'))
-        ;
+        $user->setFirstname('Bernard');
+        $user->setLastname('Toto');
+        $user->setUsername('BerToto'.rand(1, 1000));
+        $user->setEmail('berToto@jmail.fr'.rand(1, 1000));
+        $user->setRoles('ROLE_USER');
+        $user->setPassword('motdepasse');
+        $user->setCreatedAt(new \DateTime('now'));
 
         $errors = $validator->validate($user);
 
