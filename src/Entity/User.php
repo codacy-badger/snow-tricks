@@ -21,22 +21,20 @@ class User implements UserInterface
     private $id;
 
     /**
-     * @ORM\Column(type="json")
-     * @Assert\Choice({"ROLE_USER", "ROLE_ADMIN"})
-     */
-    private $roles;
-
-    /**
-     * @ORM\Column(unique=true)
-     * @Assert\Email()
+     * @ORM\Column(type="string", length=180, unique=true)
      */
     private $email;
 
     /**
-     * @ORM\Column(unique=true)
-     * @Assert\Length(min = 3)
+     * @ORM\Column(type="json")
      */
-    private $username;
+    private $roles = [];
+
+    /**
+     * @var string The hashed password
+     * @ORM\Column(type="string")
+     */
+    private $password;
 
     /**
      * @ORM\Column()
@@ -49,15 +47,6 @@ class User implements UserInterface
      * @Assert\Length(min =3)
      */
     private $firstname;
-
-    /**
-     * @ORM\Column()
-     * @Assert\Length(
-     *     min = 6,
-     *     max = 25
-     * )
-     */
-    private $password;
 
     /**
      * @ORM\Column(type="datetime")
@@ -92,38 +81,60 @@ class User implements UserInterface
         return $this->id;
     }
 
-    public function getRoles(): ?array
-    {
-        $roles = $this->roles;
-
-        $roles[] = 'ROLE_USER';
-
-        return array_unique($roles);
-    }
-
-    public function setRoles(string $roles)
-    {
-        $this->roles = $roles;
-    }
-
     public function getEmail(): ?string
     {
         return $this->email;
     }
 
-    public function setEmail(string $email)
+    public function setEmail(string $email): self
     {
         $this->email = $email;
+
+        return $this;
     }
 
-    public function getUsername(): ?string
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUsername(): string
     {
-        return $this->username;
+        return (string) $this->email;
     }
 
-    public function setUsername(string $username)
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
     {
-        $this->username = $username;
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getPassword(): string
+    {
+        return (string) $this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
     }
 
     public function getLastname(): ?string
@@ -144,16 +155,6 @@ class User implements UserInterface
     public function setFirstname(?string $firstname)
     {
         $this->firstname = $firstname;
-    }
-
-    public function getPassword(): ?string
-    {
-        return $this->password;
-    }
-
-    public function setPassword(string $password)
-    {
-        $this->password = $password;
     }
 
     public function getCreatedAt(): ?\DateTimeInterface
@@ -177,24 +178,20 @@ class User implements UserInterface
     }
 
     /**
-     * Returns the salt that was originally used to encode the password.
-     *
-     * This can return null if the password was not encoded using a salt.
-     *
-     * @return string|null The salt
+     * @see UserInterface
      */
     public function getSalt()
     {
+        // not needed when using the "bcrypt" algorithm in security.yaml
     }
 
     /**
-     * Removes sensitive data from the user.
-     *
-     * This is important if, at any given point, sensitive information like
-     * the plain-text password is stored on this object.
+     * @see UserInterface
      */
     public function eraseCredentials()
     {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
     }
 
     /**

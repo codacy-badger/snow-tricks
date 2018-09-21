@@ -23,6 +23,14 @@
 
                     <div class="control-group form-group">
                         <div class="controls">
+                            <input type="hidden" class="form-control" id="csrf_token" name="_csrf_token"
+                                   value="{{ csrf_token('authenticate') }}" required>
+                            <p class="help-block"></p>
+                        </div>
+                    </div>
+
+                    <div class="control-group form-group">
+                        <div class="controls">
                             <label for="username">Email:</label>
                             <input type="text" class="form-control" id="username" name="_username"
                                    value="{{ last_username }}" required
