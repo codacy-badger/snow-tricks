@@ -54,6 +54,14 @@
     </nav>
 {% endblock %}
 
+<div class="main-content">
+    {% for msg in app.session.flashbag.get('success') %}
+        <div class="alert alert-success">
+            {{ msg }}
+        </div>
+    {% endfor %}
+</div>
+
 {% block body %} {% endblock %}
 
 {% block footer %}

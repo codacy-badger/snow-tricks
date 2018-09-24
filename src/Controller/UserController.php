@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\UserSignupType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -36,25 +38,28 @@ class UserController extends AbstractController
     {
         $user = new User();
 
-        $user->setFirstname('Bernard');
-        $user->setLastname('Toto');
-        $user->setEmail('berToto@jmail.fr'.rand(1, 1000));
-        $user->setRoles('ROLE_USER');
-        $user->setPassword('motdepasse');
-        $user->setCreatedAt(new \DateTime('now'));
+        $form = $this->createForm(UserSignupType::class, $user);
 
-        $errors = $validator->validate($user);
+        $form->handleRequest($request);
 
-        if (count($errors) > 0) {
-            $errorsString = (string) $errors;
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user = $form->getData();
 
-            return new Response($errorsString);
+            $user->setRoles('ROLE_USER');
+            $user->setCreatedAt(new \DateTime('now'));
+            $user->setUsername('BerToto'.rand(1, 1000));
+
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'your account is created');
+
+            return $this->redirectToRoute('homepage');
         }
 
-        $entityManager->persist($user);
-        $entityManager->flush();
-
-        return new Response('just creating a validate new user');
+        return $this->render('user/signup.html.twig', [
+            'userSignup' => $form->createView()
+        ]);
     }
 
     /**
