@@ -14,11 +14,14 @@
         <div class="row">
             <div class="col-lg-8 mb-4">
 
-                {{ form_start(userSignup, {'attr': {'novalidate': 'novalidate'}}) }}
+                {{ form_start(userSignup) }}
 
-                    {{ form_widget(userSignup) }}
+                    {{ form_row(userSignup.firstname) }}
+                    {{ form_row(userSignup.lastname) }}
+                    {{ form_row(userSignup.email) }}
+                    {{ form_row(userSignup.password) }}
 
-                    <button type="submit" class="btn btn-primary">sign up</button>
+                    <button type="submit" class="btn btn-primary" formnovalidate>sign up</button>
 
                 {{ form_end(userSignup) }}
 
