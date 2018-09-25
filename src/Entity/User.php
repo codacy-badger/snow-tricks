@@ -37,6 +37,11 @@ class User implements UserInterface
     private $password;
 
     /**
+     * @var string The plain password
+     */
+    private $plainPassword;
+
+    /**
      * @ORM\Column()
      * @Assert\Length(min = 3)
      */
@@ -183,6 +188,7 @@ class User implements UserInterface
     public function getSalt()
     {
         // not needed when using the "bcrypt" algorithm in security.yaml
+        return null;
     }
 
     /**
@@ -246,5 +252,15 @@ class User implements UserInterface
                 $message->setUser(null);
             }
         }
+    }
+
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword(?string $plainPassword): void
+    {
+        $this->plainPassword = $plainPassword;
     }
 }

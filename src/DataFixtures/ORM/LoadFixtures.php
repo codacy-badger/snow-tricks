@@ -2,7 +2,6 @@
 
 namespace App\DataFixtures\ORM;
 
-use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Nelmio\Alice\Loader\NativeLoader;
@@ -29,15 +28,6 @@ class LoadFixtures extends Fixture
     {
         $loader = new NativeLoader();
         $objectSet = $loader->loadFile(__DIR__.'/fixtures.yaml')->getObjects();
-
-        foreach ($objectSet as $object) {
-            if ($object instanceof User){
-                $plainPass = $object->getPassword();
-                $hachPass = $this->encoder->encodePassword($object, $plainPass);
-                dd([$plainPass,$hachPass]);
-                $object->setPassword($hachPass);
-            }
-        }
 
         foreach ($objectSet as $object) {
             $manager->persist($object);

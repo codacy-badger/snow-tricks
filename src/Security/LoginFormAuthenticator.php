@@ -40,8 +40,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         RouterInterface $router,
         CsrfTokenManagerInterface $csrfTokenManager,
         UserPasswordEncoderInterface $encoder
-    )
-    {
+    ) {
         $this->userRepository = $userRepository;
         $this->router = $router;
         $this->csrfTokenManager = $csrfTokenManager;
@@ -77,12 +76,13 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         if (!$this->csrfTokenManager->isTokenValid($token)) {
             throw new InvalidCsrfTokenException();
         }
+
         return $this->userRepository->findOneBy(['email' => $credentials['email']]);
     }
 
     public function checkCredentials($credentials, UserInterface $user)
     {
-        $this->encoder->isPasswordValid($user, $credentials['password']);
+        return $this->encoder->isPasswordValid($user, $credentials['password']);
     }
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
