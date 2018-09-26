@@ -34,7 +34,7 @@ class UserController extends AbstractController
     /**
      * @Route("/user/sign-up", name="user_signup")
      */
-    public function signUp(EntityManagerInterface $entityManager, ValidatorInterface $validator): Response
+    public function signUp(EntityManagerInterface $entityManager, ValidatorInterface $validator, Request $request): Response
     {
         $user = new User();
 
@@ -45,9 +45,8 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $form->getData();
 
-            $user->setRoles('ROLE_USER');
+            $user->setRoles(['ROLE_USER']);
             $user->setCreatedAt(new \DateTime('now'));
-            $user->setUsername('BerToto'.rand(1, 1000));
 
             $entityManager->persist($user);
             $entityManager->flush();
