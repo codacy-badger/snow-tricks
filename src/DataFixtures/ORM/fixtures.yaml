@@ -1,13 +1,20 @@
 App\Entity\User:
     user_{1..50}:
-        roles: <randomElement(['ROLE_USER', 'ROLE_ADMIN'])>
-        username: <username()>
+        roles: [ROLE_USER]
         lastname: <lastname()>
         firstname: <firstname()>
-        password: <password()>
+        plain_password: <password()>
         created_at: <dateTimeBetween('-2 years')>
         updated_at: <dateTimeBetween('-2 years')>
         email: <email()>
+    user_51:
+        roles: [ROLE_ADMIN]
+        lastname: 'Rupin'
+        firstname: 'Fabian'
+        plain_password: 'mypass'
+        created_at: <dateTimeBetween('-2 years')>
+        updated_at: <dateTimeBetween('-2 years')>
+        email: 'fabianrupin@hotmail.com'
 
 App\Entity\TrickGroup:
     trickgroup_{1..10}:

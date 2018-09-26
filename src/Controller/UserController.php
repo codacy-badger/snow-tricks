@@ -7,12 +7,30 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class UserController extends AbstractController
 {
     /**
-     * @Route("/user/sign-up", name="user-sign-up")
+     * @Route("/user/login", name="user_login")
+     */
+    public function login(AuthenticationUtils $authenticationUtils): Response
+    {
+        // get the login error if there is one
+        $error = $authenticationUtils->getLastAuthenticationError();
+
+        // last username entered by the user
+        $lastUsername = $authenticationUtils->getLastUsername();
+
+        return $this->render('user/login.html.twig', [
+            'last_username' => $lastUsername,
+            'error' => $error,
+        ]);
+    }
+
+    /**
+     * @Route("/user/sign-up", name="user_signup")
      */
     public function signUp(EntityManagerInterface $entityManager, ValidatorInterface $validator): Response
     {
@@ -20,7 +38,6 @@ class UserController extends AbstractController
 
         $user->setFirstname('Bernard');
         $user->setLastname('Toto');
-        $user->setUsername('BerToto'.rand(1, 1000));
         $user->setEmail('berToto@jmail.fr'.rand(1, 1000));
         $user->setRoles('ROLE_USER');
         $user->setPassword('motdepasse');
@@ -38,5 +55,12 @@ class UserController extends AbstractController
         $entityManager->flush();
 
         return new Response('just creating a validate new user');
+    }
+
+    /**
+     * @Route("/user/logout", name="user_logout")
+     */
+    public function logout()
+    {
     }
 }
