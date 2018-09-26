@@ -15,15 +15,38 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class UserController extends AbstractController
 {
     /**
+     * @var AuthenticationUtils
+     */
+    private $authenticationUtils;
+    /**
+     * @var EntityManagerInterface
+     */
+    private $entityManager;
+    /**
+     * @var ValidatorInterface
+     */
+    private $validator;
+
+    public function __construct(
+        AuthenticationUtils $authenticationUtils,
+        EntityManagerInterface $entityManager,
+        ValidatorInterface $validator
+    ) {
+        $this->authenticationUtils = $authenticationUtils;
+        $this->entityManager = $entityManager;
+        $this->validator = $validator;
+    }
+
+    /**
      * @Route("/user/login", name="user_login")
      */
-    public function login(AuthenticationUtils $authenticationUtils): Response
+    public function login(): Response
     {
         // get the login error if there is one
-        $error = $authenticationUtils->getLastAuthenticationError();
+        $error = $this->authenticationUtils->getLastAuthenticationError();
 
         // last username entered by the user
-        $lastUsername = $authenticationUtils->getLastUsername();
+        $lastUsername = $this->authenticationUtils->getLastUsername();
 
         return $this->render('user/login.html.twig', [
             'last_username' => $lastUsername,
@@ -34,7 +57,7 @@ class UserController extends AbstractController
     /**
      * @Route("/user/sign-up", name="user_signup")
      */
-    public function signUp(EntityManagerInterface $entityManager, ValidatorInterface $validator, Request $request): Response
+    public function signUp(Request $request): Response
     {
         $user = new User();
 
@@ -48,8 +71,8 @@ class UserController extends AbstractController
             $user->setRoles(['ROLE_USER']);
             $user->setCreatedAt(new \DateTime('now'));
 
-            $entityManager->persist($user);
-            $entityManager->flush();
+            $this->entityManager->persist($user);
+            $this->entityManager->flush();
 
             $this->addFlash('success', 'your account is created');
 
