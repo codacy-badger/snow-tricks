@@ -20,13 +20,13 @@ class Trick
     private $id;
 
     /**
-     * @ORM\Column()
+     * @ORM\Column(unique=true)
      * @Assert\Length(min = 3)
      */
     private $name;
 
     /**
-     * @ORM\Column()
+     * @ORM\Column(unique=true)
      * @Assert\Length(min = 3)
      */
     private $slug;

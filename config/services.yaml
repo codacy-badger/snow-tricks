@@ -33,3 +33,6 @@ services:
     App\Listener\Doctrine\HashPasswordListener:
         tags:
             - { name: doctrine.event_subscriber }
+
+    App\Faker\Provider\SnowboardProvider:
+        tags: [ { name: nelmio_alice.faker.provider } ]
