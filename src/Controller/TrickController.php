@@ -2,37 +2,42 @@
 
 namespace App\Controller;
 
-use App\Entity\Trick;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\TrickRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class TrickController extends AbstractController
 {
     /**
-     * @var EntityManagerInterface
+     * @var TrickRepository
      */
-    private $entityManager;
+    private $trickRepository;
 
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(TrickRepository $trickRepository)
     {
-        $this->entityManager = $entityManager;
+        $this->trickRepository = $trickRepository;
     }
 
     /**
      * @Route("/", name="homepage")
      */
-    public function index()
+    public function index(): Response
     {
         return $this->render('trick/index.html.twig', [
             'controller_name' => 'TrickController',
         ]);
     }
 
-    public function show(string $slug)
+    /**
+     * @Route("/trick/{slug}", name="trick_show")
+     */
+    public function show(string $slug): Response
     {
-        $repository = $this->entityManager->getRepository(Trick::class);
-        $trick = $repository->findOneBy(['slug' => $slug]);
+        $trick = $this->trickRepository->findOneBy(['slug' => $slug]);
+        if (!$trick) {
+            throw $this->createNotFoundException(sprintf('No "%s" trick found', $slug));
+        }
 
         return $this->render('trick/show.html.twig', [
             'trick' => $trick,

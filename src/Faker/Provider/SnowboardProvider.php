@@ -26,8 +26,33 @@ final class SnowboardProvider extends BaseProvider
             'Korean Bacon',
     ];
 
+    const TRICK_SLUG_PROVIDER = [
+        'one-two',
+        'a-b',
+        'beef-carpaccio',
+        'beef-curtains',
+        'bloody-dracula',
+        'canadian-Bacon',
+        'cannonball-UFO',
+        'chicken-salad',
+        'china-Air',
+        'crail',
+        'cross-rocket',
+        'drunk-driver',
+        'frontside-grab',
+        'gorilla',
+        'japan-air',
+        'lien-air',
+        'korean -bacon',
+    ];
+
     public function trickName()
     {
         return self::randomElement(self::TRICK_NAME_PROVIDER);
+    }
+
+    public function trickSlug()
+    {
+        return self::randomElement(self::TRICK_SLUG_PROVIDER);
     }
 }
