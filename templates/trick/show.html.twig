@@ -8,52 +8,42 @@
     <div class="container">
 
         <!-- Portfolio Item Row -->
-        <div class="row trick-show">
-            <div class="col-md-12">
-                <img class="img-fluid" src="http://placehold.it/1250x500" alt="">
+        <div class="row trick-show frontpage-image" style="background-image: url(http://placehold.it/1250x500) ">
+            <div class="col-md-12 frontpage-title">
+                <h1 class="display-2">{{ trick.name }}</h1>
             </div>
         </div>
 
         <div class="row trick-show">
+            {% for photo in trick.photos %}
             <div class="col-md-3 col-sm-6 mb-4">
                 <a href="#">
                     <img class="img-fluid" src="http://placehold.it/500x300" alt="">
                 </a>
             </div>
+            {% endfor %}
 
-            <div class="col-md-3 col-sm-6 mb-4">
-                <a href="#">
-                    <img class="img-fluid" src="http://placehold.it/500x300" alt="">
-                </a>
-            </div>
+            {% for video in trick.video%}
+                <div class="col-md-3 col-sm-6 mb-4">
+                    <a href="#">
+                        <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+                    </a>
+                </div>
+            {% endfor %}
 
-            <div class="col-md-3 col-sm-6 mb-4">
-                <a href="#">
-                    <img class="img-fluid" src="http://placehold.it/500x300" alt="">
-                </a>
-            </div>
-
-            <div class="col-md-3 col-sm-6 mb-4">
-                <a href="#">
-                    <img class="img-fluid" src="http://placehold.it/500x300" alt="">
-                </a>
-            </div>
         </div>
 
         <div class="row">
             <div class="col-md-12">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida
-                    pellentesque urna varius vitae. Sed dui lorem, adipiscing in adipiscing et, interdum nec metus.
-                    Mauris ultricies, justo eu convallis placerat, felis enim.</p>
+                <p>{{ trick.description }}</p>
             </div>
         </div>
 
         <div class="row text-center">
             <div class="col-md-12">
-                <span class="badge badge-secondary trick-info">creation date : mardi 21 janvier 2018</span>
-                <span class="badge badge-secondary trick-info">modification date : mardi 21 janvier 2018</span>
-                <span class="badge badge-primary trick-info">Trick type : Grab</span>
-
+                <span class="badge badge-secondary trick-info">created at {{ trick.createdAt|date() }}</span>
+                <span class="badge badge-secondary trick-info">last modification : {{ trick.updatedAt|date }}</span>
+                <span class="badge badge-primary trick-info">{{ trick.trickGroup.name }}</span>
             </div>
         </div>
 
@@ -71,36 +61,38 @@
                                       aria-describedby="inputGroup-sizing-default"
                                       id="content"
                                       name="content"
-                                      placeholder="Votre message"
+                                      placeholder="Your message"
                                       maxlength="100"
                                       rows="1"></textarea>
                             <span class="input-group-btn">
                                 <button class="btn btn-secondary" type="button">Leave a comment</button>
                             </span>
                         </div>
-
                     </form>
-
                 </div>
             </div>
+
             <hr/>
+
             <div class="container">
                 <div class="row">
                     <div class="col-lg-8 col-md-10 mx-auto">
+                        {% for message in trick.messages %}
                         <div class="media mb-4">
                             <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
                             <div class="media-body">
-                                <h5 class="mt-0">jacky bernard</h5>
-                                this is a content
+                                <h5 class="mt-0">{{ message.user.firstname }} at {{ message.createdAt|date }}</h5>
+                                {{ message.content }}
                             </div>
                         </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 
     <!-- /.container -->
-
 
 {% endblock %}

@@ -2,10 +2,25 @@
  * Specific SCSS for snow-trick website
  */
 
+.tricks_list {
+  padding-top: 40px;
+}
+
 .trick-show{
   margin-top: 30px;
 }
 
 .trick-info{
   font-size: large;
+}
+
+.frontpage-image{
+  min-height: 500px;
+  background: center center;
+  text-align: center;
+}
+
+.frontpage-title {
+  margin-top: 50vh;
+  transform: translateY(-50%);
 }
