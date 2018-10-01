@@ -1,5 +1,5 @@
 App\Entity\User:
-    user_{1..50}:
+    user_{1..10}:
         roles: [ROLE_USER]
         lastname: <lastname()>
         firstname: <firstname()>
@@ -22,7 +22,7 @@ App\Entity\TrickGroup:
         description: <paragraphs(3, true)>
 
 App\Entity\Trick:
-    trick_{1..50}:
+    trick_{1..10}:
         name: <catchPhrase()>
         slug: <slug()>
         description: <paragraphs(3, true)>
@@ -32,14 +32,14 @@ App\Entity\Trick:
         trickgroup: '@trickgroup_*'
 
 App\Entity\Message:
-    message_{1..50}:
+    message_{1..20}:
         content: <paragraphs(3, true)>
         created_at: <dateTimeBetween('-2 years')>
         user: '@user_*'
         trick: '@trick_*'
 
 App\Entity\Video:
-    video_{1..50}:
+    video_{1..10}:
         video_code: 'KoHzXi7Usl8'
         created_at: <dateTimeBetween('-2 years')>
         platform: 'youtube'

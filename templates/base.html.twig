@@ -41,7 +41,7 @@
                         </li>
                     {% else %}
                         <li class="nav-item">
-                            <a class="nav-link" href={{ path('homepage') }}>Sign up</a>
+                            <a class="nav-link" href={{ path('user_signup') }}>Sign up</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href={{ path('user_login') }}>Log in</a>
@@ -53,6 +53,14 @@
         </div>
     </nav>
 {% endblock %}
+
+<div class="main-content">
+    {% for msg in app.session.flashbag.get('success') %}
+        <div class="alert alert-success">
+            {{ msg }}
+        </div>
+    {% endfor %}
+</div>
 
 {% block body %} {% endblock %}
 
