@@ -18,13 +18,13 @@ App\Entity\User:
 
 App\Entity\TrickGroup:
     trickgroup_{1..10}:
-        name: 'grab'
+        name (unique): 'grab_<current()>'
         description: <paragraphs(3, true)>
 
 App\Entity\Trick:
     trick_{1..10}:
-        name: <catchPhrase()>
-        slug: <slug()>
+        name (unique): <trickName()>
+        slug (unique) : <trickSlug()>
         description: <paragraphs(3, true)>
         created_at: <dateTimeBetween('-2 years')>
         updated_at: <dateTimeBetween('-2 years')>
