@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Snowtricks! | Homepage{% endblock %}
+
+{% block body %}
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <!-- Page Heading/Breadcrumbs -->
+        <h1 class="mt-4 mb-3">Sign up!</h1>
+
+        <!-- Contact Form -->
+        <div class="row">
+            <div class="col-lg-8 mb-4">
+
+                {{ form_start(trickForm) }}
+
+                    {{ form_row(trickForm.name) }}
+                    {{ form_row(trickForm.description) }}
+                    {#{{ form_row(trickForm.trickGroup) }}#}
+
+                    <button type="submit" class="btn btn-primary" formnovalidate>sign up</button>
+
+                {{ form_end(trickForm) }}
+
+            </div>
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container -->
+
+{% endblock %}
