@@ -143,7 +143,12 @@ class TrickController extends AbstractController
      */
     public function delete(Trick $trick): Response
     {
-        return new Response('this page will destroy tricks soon');
+
+        $this->entityManager->remove($trick);
+
+        $this->addFlash('success', 'You just delete '.$trick->getName().' trick!');
+
+        return $this->redirectToRoute('homepage');
     }
 }
 
