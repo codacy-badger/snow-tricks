@@ -7,7 +7,9 @@ use App\Form\TrickFormType;
 use App\Repository\TrickGroupRepository;
 use App\Repository\TrickRepository;
 use App\Repository\UserRepository;
+use App\Slugger\Slugger;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,18 +33,24 @@ class TrickController extends AbstractController
      * @var TrickGroupRepository
      */
     private $trickGroupRepository;
+    /**
+     * @var Slugger
+     */
+    private $slugger;
 
     public function __construct(
         TrickRepository $trickRepository,
         UserRepository $userRepository,
         TrickGroupRepository $trickGroupRepository,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        Slugger $slugger
     )
     {
         $this->trickRepository = $trickRepository;
         $this->entityManager = $entityManager;
         $this->userRepository = $userRepository;
         $this->trickGroupRepository = $trickGroupRepository;
+        $this->slugger = $slugger;
     }
 
     /**
@@ -69,6 +77,7 @@ class TrickController extends AbstractController
 
     /**
      * @Route("/trick/create", name="trick_create")
+     * @IsGranted("ROLE_USER")
      */
     public function create(Request $request): Response
     {
@@ -80,20 +89,19 @@ class TrickController extends AbstractController
 
         if ($trickForm->isSubmitted() && $trickForm->isValid()) {
             $trick = $trickForm->getData();
+            $trick->setUser($this->getUser());
 
-            $user = $this->userRepository->find(1);
-            $trick->setUser($user);
             $trick->setCreatedAt(new \DateTime('now'));
             $trick->setUpdatedAt(new \DateTime('now'));
-            $trick->setTrickGroup($this->trickGroupRepository->find(1));
-            $trick->setSlug('monnouveautrick');
+
+            $trick->setSlug($this->slugger->slugify($trick->getName()));
 
             $this->entityManager->persist($trick);
             $this->entityManager->flush();
 
             $this->addFlash('success', 'You just created a new trick!');
 
-            return $this->redirectToRoute('trick_show', ['slug' => $trick->getSlug]);
+            return $this->redirectToRoute('trick_show', ['slug' => $trick->getSlug()]);
         }
 
         return $this->render('trick/new.html.twig', [
@@ -104,11 +112,38 @@ class TrickController extends AbstractController
 
     /**
      * @Route("/trick/edit/{slug}", name="trick_edit")
+     * @IsGranted("ROLE_USER")
      */
-    public function edit(Trick $trick): Response
+    public function edit(Request $request, Trick $trick): Response
     {
+        $trickForm = $this->createForm(TrickFormType::class, $trick);
+
+        $trickForm->handleRequest($request);
+
+        if ($trickForm->isSubmitted() && $trickForm->isValid()) {
+            $trick = $trickForm->getData();
+
+            $trick->setUpdatedAt(new \DateTime('now'));
+
+            $this->entityManager->persist($trick);
+            $this->entityManager->flush();
+
+            $this->addFlash('success', 'You just modify '.$trick->getName().' trick!');
+
+            return $this->redirectToRoute('trick_show', ['slug' => $trick->getSlug()]);
+        }
+
         return $this->render('trick/edit.html.twig', [
+            'trickForm' => $trickForm->createView()
         ]);
+    }
+
+    /**
+     * @Route("/trick/delete/{slug}", name="trick_delete")
+     */
+    public function delete(Trick $trick): Response
+    {
+        return new Response('this page will destroy tricks soon');
     }
 }
 
