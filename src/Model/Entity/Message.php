@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace App\Model\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -30,13 +30,13 @@ class Message
     private $created_at;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="messages")
+     * @ORM\ManyToOne(targetEntity="App\Model\Entity\User", inversedBy="messages")
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Trick", inversedBy="messages")
+     * @ORM\ManyToOne(targetEntity="App\Model\Entity\Trick", inversedBy="messages")
      * @ORM\JoinColumn(nullable=false)
      */
     private $trick;

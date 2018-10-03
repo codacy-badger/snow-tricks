@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace App\Model\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -49,28 +49,28 @@ class Trick
     private $createdAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="tricks")
+     * @ORM\ManyToOne(targetEntity="App\Model\Entity\User", inversedBy="tricks")
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\TrickGroup", inversedBy="tricks")
+     * @ORM\ManyToOne(targetEntity="App\Model\Entity\TrickGroup", inversedBy="tricks")
      */
     private $trickGroup;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="trick", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Model\Entity\Message", mappedBy="trick", orphanRemoval=true)
      */
     private $messages;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Photo", mappedBy="trick", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Model\Entity\Photo", mappedBy="trick", orphanRemoval=true)
      */
     private $photos;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Video", inversedBy="tricks")
+     * @ORM\ManyToMany(targetEntity="App\Model\Entity\Video", inversedBy="tricks")
      */
     private $video;
 

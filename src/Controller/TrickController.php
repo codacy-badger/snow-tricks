@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Trick;
+use App\Model\Entity\Trick;
 use App\Form\TrickFormType;
 use App\Repository\TrickGroupRepository;
 use App\Repository\TrickRepository;
@@ -44,8 +44,7 @@ class TrickController extends AbstractController
         TrickGroupRepository $trickGroupRepository,
         EntityManagerInterface $entityManager,
         Slugger $slugger
-    )
-    {
+    ) {
         $this->trickRepository = $trickRepository;
         $this->entityManager = $entityManager;
         $this->userRepository = $userRepository;
@@ -105,9 +104,8 @@ class TrickController extends AbstractController
         }
 
         return $this->render('trick/new.html.twig', [
-            'trickForm' => $trickForm->createView()
+            'trickForm' => $trickForm->createView(),
         ]);
-
     }
 
     /**
@@ -134,7 +132,7 @@ class TrickController extends AbstractController
         }
 
         return $this->render('trick/edit.html.twig', [
-            'trickForm' => $trickForm->createView()
+            'trickForm' => $trickForm->createView(),
         ]);
     }
 
@@ -143,7 +141,6 @@ class TrickController extends AbstractController
      */
     public function delete(Trick $trick): Response
     {
-
         $this->entityManager->remove($trick);
 
         $this->addFlash('success', 'You just delete '.$trick->getName().' trick!');
@@ -151,4 +148,3 @@ class TrickController extends AbstractController
         return $this->redirectToRoute('homepage');
     }
 }
-

@@ -2,7 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
+use App\Model\DTO\User\CreateUserDTO;
+use App\Model\Entity\User;
 use App\Form\UserSignupType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -59,14 +60,16 @@ class UserController extends AbstractController
      */
     public function signUp(Request $request): Response
     {
-        $user = new User();
 
-        $form = $this->createForm(UserSignupType::class, $user);
+        $createUser = new CreateUserDTO();
+
+        $form = $this->createForm(UserSignupType::class, $createUser);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $user = $form->getData();
+
+            $user = CreateUserDTO::create($createUser);
 
             $user->setRoles(['ROLE_USER']);
             $user->setCreatedAt(new \DateTime('now'));

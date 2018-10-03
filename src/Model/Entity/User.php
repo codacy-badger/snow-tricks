@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace App\Model\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -55,23 +55,21 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="datetime")
-     * @Assert\DateTime()
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
-     * @Assert\DateTime()
      */
     private $updatedAt;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Trick", mappedBy="user", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Model\Entity\Trick", mappedBy="user", orphanRemoval=true)
      */
     private $tricks;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="user", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Model\Entity\Message", mappedBy="user", orphanRemoval=true)
      */
     private $messages;
 

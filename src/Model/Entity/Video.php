@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace App\Model\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -8,9 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\TrickGroupRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\VideoRepository")
  */
-class TrickGroup
+class Video
 {
     /**
      * @ORM\Id()
@@ -20,18 +20,23 @@ class TrickGroup
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min = 3)
+     * @ORM\Column()
      */
-    private $name;
+    private $videoCode;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="datetime")
      */
-    private $description;
+    private $createdAt;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Trick", mappedBy="trickGroup")
+     * @ORM\Column()
+     * @Assert\Choice({"youtube", "vimeo", "dailymotion"})
+     */
+    private $platform;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Model\Entity\Trick", mappedBy="video")
      */
     private $tricks;
 
@@ -45,24 +50,34 @@ class TrickGroup
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getVideoCode(): ?string
     {
-        return $this->name;
+        return $this->videoCode;
     }
 
-    public function setName(string $name)
+    public function setVideoCode(string $videoCode)
     {
-        $this->name = $name;
+        $this->videoCode = $videoCode;
     }
 
-    public function getDescription(): ?string
+    public function getCreatedAt(): ?\DateTimeInterface
     {
-        return $this->description;
+        return $this->createdAt;
     }
 
-    public function setDescription(?string $description)
+    public function setCreatedAt(\DateTimeInterface $createdAt)
     {
-        $this->description = $description;
+        $this->createdAt = $createdAt;
+    }
+
+    public function getPlatform(): ?string
+    {
+        return $this->platform;
+    }
+
+    public function setPlatform(string $platform)
+    {
+        $this->platform = $platform;
     }
 
     /**
@@ -77,22 +92,15 @@ class TrickGroup
     {
         if (!$this->tricks->contains($trick)) {
             $this->tricks[] = $trick;
-            $trick->setTrickGroup($this);
+            $trick->addVideo($this);
         }
-
-        return $this;
     }
 
     public function removeTrick(Trick $trick)
     {
         if ($this->tricks->contains($trick)) {
             $this->tricks->removeElement($trick);
-            // set the owning side to null (unless already changed)
-            if ($trick->getTrickGroup() === $this) {
-                $trick->setTrickGroup(null);
-            }
+            $trick->removeVideo($this);
         }
-
-        return $this;
     }
 }
