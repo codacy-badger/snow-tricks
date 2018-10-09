@@ -60,7 +60,6 @@ class UserController extends AbstractController
      */
     public function signUp(Request $request): Response
     {
-
         $createUser = new CreateUserDTO();
 
         $form = $this->createForm(UserSignupType::class, $createUser);
@@ -68,11 +67,7 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $user = CreateUserDTO::create($createUser);
-
-            $user->setRoles(['ROLE_USER']);
-            $user->setCreatedAt(new \DateTime('now'));
 
             $this->entityManager->persist($user);
             $this->entityManager->flush();

@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Model\Entity\User;
+use App\Model\DTO\User\CreateUserDTO;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -17,14 +17,14 @@ class UserSignupType extends AbstractType
             ->add('email', EmailType::class)
             ->add('lastname')
             ->add('firstname')
-            ->add('password', PasswordType::class)
+            ->add('plainPassword', PasswordType::class)
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => User::class,
+            'data_class' => CreateUserDTO::class,
         ]);
     }
 }
