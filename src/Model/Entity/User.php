@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Entity;
+namespace App\Model\Entity;
 
+use App\Model\DTO\User\CreateUserDTO;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -55,23 +56,21 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="datetime")
-     * @Assert\DateTime()
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
-     * @Assert\DateTime()
      */
     private $updatedAt;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Trick", mappedBy="user", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Model\Entity\Trick", mappedBy="user", orphanRemoval=true)
      */
     private $tricks;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="user", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Model\Entity\Message", mappedBy="user", orphanRemoval=true)
      */
     private $messages;
 
@@ -262,5 +261,19 @@ class User implements UserInterface
     public function setPlainPassword(?string $plainPassword): void
     {
         $this->plainPassword = $plainPassword;
+    }
+
+    public static function create(CreateUserDTO $userDTO): User
+    {
+        $user = new self();
+
+        $user->setEmail($userDTO->getEmail());
+        $user->setFirstname($userDTO->getFirstname());
+        $user->setLastname($userDTO->getLastname());
+        $user->setPlainPassword($userDTO->getPlainPassword());
+        $user->setRoles(['ROLE_USER']);
+        $user->setCreatedAt(new \DateTime('now'));
+
+        return $user;
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entity\Photo;
+use App\Model\Entity\Photo;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Snowtricks! | Homepage{% endblock %}
+{% block title %}Snowtricks! | create trick{% endblock %}
 
 {% block body %}
 
@@ -8,22 +8,21 @@
     <div class="container">
 
         <!-- Page Heading/Breadcrumbs -->
-        <h1 class="mt-4 mb-3">Sign up!</h1>
+        <h1 class="mt-4 mb-3">Add a new trick!</h1>
 
         <!-- Contact Form -->
         <div class="row">
             <div class="col-lg-8 mb-4">
 
-                {{ form_start(userSignup) }}
+                {{ form_start(trickForm) }}
 
-                    {{ form_row(userSignup.firstname) }}
-                    {{ form_row(userSignup.lastname) }}
-                    {{ form_row(userSignup.email) }}
-                    {{ form_row(userSignup.plainPassword) }}
+                    {{ form_row(trickForm.name) }}
+                    {{ form_row(trickForm.description) }}
+                    {{ form_row(trickForm.trickGroup) }}
 
                     <button type="submit" class="btn btn-primary" formnovalidate>sign up</button>
 
-                {{ form_end(userSignup) }}
+                {{ form_end(trickForm) }}
 
             </div>
         </div>

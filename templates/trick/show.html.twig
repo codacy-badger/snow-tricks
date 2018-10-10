@@ -9,6 +9,10 @@
 
         <!-- Portfolio Item Row -->
         <div class="row trick-show frontpage-image" style="background-image: url(http://placehold.it/1250x500) ">
+            <div class="trick-icons">
+                <a href="{{ path('trick_edit', {'slug':trick.slug}) }}" class="fa fa-pencil"></a>
+                <a href="{{ path('trick_delete', {'slug':trick.slug}) }}" class="fa fa-trash"></a>
+            </div>
             <div class="col-md-12 frontpage-title">
                 <h1 class="display-2">{{ trick.name }}</h1>
             </div>
@@ -16,14 +20,14 @@
 
         <div class="row trick-show">
             {% for photo in trick.photos %}
-            <div class="col-md-3 col-sm-6 mb-4">
-                <a href="#">
-                    <img class="img-fluid" src="http://placehold.it/500x300" alt="">
-                </a>
-            </div>
+                <div class="col-md-3 col-sm-6 mb-4">
+                    <a href="#">
+                        <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+                    </a>
+                </div>
             {% endfor %}
 
-            {% for video in trick.video%}
+            {% for video in trick.video %}
                 <div class="col-md-3 col-sm-6 mb-4">
                     <a href="#">
                         <img class="img-fluid" src="http://placehold.it/500x300" alt="">
@@ -43,19 +47,25 @@
             <div class="col-md-12">
                 <span class="badge badge-secondary trick-info">created at {{ trick.createdAt|date() }}</span>
                 <span class="badge badge-secondary trick-info">last modification : {{ trick.updatedAt|date }}</span>
-                <span class="badge badge-primary trick-info">{{ trick.trickGroup.name }}</span>
+                {% if trick.trickGroup.name is defined %}
+                    <span class="badge badge-primary trick-info">{{ trick.trickGroup.name }}</span>
+                {% else %}
+                    <span class="badge badge-primary trick-info">No group!</span>
+                {% endif %}
             </div>
         </div>
 
         <hr/>
 
+
         <!-- Comments Form -->
         <div class="container">
-            <div class="row">
-                <div class="col-lg-10 col-md-10 mx-auto">
+            {% if is_granted('ROLE_USER') %}
+                <div class="row">
+                    <div class="col-lg-10 col-md-10 mx-auto">
 
-                    <form method="post">
-                        <div class="input-group">
+                        <form method="post">
+                            <div class="input-group">
                             <textarea class="form-control"
                                       aria-label="Default"
                                       aria-describedby="inputGroup-sizing-default"
@@ -64,31 +74,32 @@
                                       placeholder="Your message"
                                       maxlength="100"
                                       rows="1"></textarea>
-                            <span class="input-group-btn">
+                                <span class="input-group-btn">
                                 <button class="btn btn-secondary" type="button">Leave a comment</button>
                             </span>
-                        </div>
-                    </form>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-            </div>
-
+            {% endif %}
             <hr/>
 
             <div class="container">
                 <div class="row">
                     <div class="col-lg-8 col-md-10 mx-auto">
                         {% for message in trick.messages %}
-                        <div class="media mb-4">
-                            <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-                            <div class="media-body">
-                                <h5 class="mt-0">{{ message.user.firstname }} at {{ message.createdAt|date }}</h5>
-                                {{ message.content }}
+                            <div class="media mb-4">
+                                <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+                                <div class="media-body">
+                                    <h5 class="mt-0">{{ message.user.firstname }} at {{ message.createdAt|date }}</h5>
+                                    {{ message.content }}
+                                </div>
                             </div>
-                        </div>
                         {% endfor %}
                     </div>
                 </div>
             </div>
+
 
         </div>
     </div>

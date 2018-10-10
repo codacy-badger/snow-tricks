@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Listener\Doctrine;
 
-use App\Entity\User;
+use App\Model\Entity\User;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
