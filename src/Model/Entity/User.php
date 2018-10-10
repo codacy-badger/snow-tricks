@@ -2,6 +2,7 @@
 
 namespace App\Model\Entity;
 
+use App\Model\DTO\User\CreateUserDTO;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -260,5 +261,19 @@ class User implements UserInterface
     public function setPlainPassword(?string $plainPassword): void
     {
         $this->plainPassword = $plainPassword;
+    }
+
+    public static function create(CreateUserDTO $userDTO): User
+    {
+        $user = new self();
+
+        $user->setEmail($userDTO->getEmail());
+        $user->setFirstname($userDTO->getFirstname());
+        $user->setLastname($userDTO->getLastname());
+        $user->setPlainPassword($userDTO->getPlainPassword());
+        $user->setRoles(['ROLE_USER']);
+        $user->setCreatedAt(new \DateTime('now'));
+
+        return $user;
     }
 }

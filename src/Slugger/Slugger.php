@@ -4,7 +4,7 @@ namespace App\Slugger;
 
 class Slugger
 {
-    public static function slugify(string $name)
+    public static function slugify(string $name): string
     {
         $slug = '';
         $slugArray = explode(' ', $name);

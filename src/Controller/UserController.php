@@ -67,7 +67,7 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $user = CreateUserDTO::create($createUser);
+            $user = User::create($createUser);
 
             $this->entityManager->persist($user);
             $this->entityManager->flush();

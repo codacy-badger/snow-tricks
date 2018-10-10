@@ -2,7 +2,6 @@
 
 namespace App\Model\DTO\User;
 
-use App\Model\Entity\User;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class CreateUserDTO
@@ -73,19 +72,5 @@ class CreateUserDTO
     public function setFirstname(?string $firstname): void
     {
         $this->firstname = $firstname;
-    }
-
-    public static function create(CreateUserDTO $userDTO): User
-    {
-        $user = new User();
-
-        $user->setEmail($userDTO->getEmail());
-        $user->setFirstname($userDTO->getFirstname());
-        $user->setLastname($userDTO->getLastname());
-        $user->setPlainPassword($userDTO->getPlainPassword());
-        $user->setRoles(['ROLE_USER']);
-        $user->setCreatedAt(new \DateTime('now'));
-
-        return $user;
     }
 }
