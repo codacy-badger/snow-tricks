@@ -88,11 +88,10 @@ class TrickController extends AbstractController
 
         if ($trickForm->isSubmitted() && $trickForm->isValid()) {
             $trick = $trickForm->getData();
-            $trick->setUser($this->getUser());
 
+            $trick->setUser($this->getUser());
             $trick->setCreatedAt(new \DateTime('now'));
             $trick->setUpdatedAt(new \DateTime('now'));
-
             $trick->setSlug($this->slugger->slugify($trick->getName()));
 
             $this->entityManager->persist($trick);
