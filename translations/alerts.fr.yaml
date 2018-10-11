@@ -1,0 +1,6 @@
+flash.success.title: "Opération réalisée avec succès"
+flash.warning.title: "Opération non réalisable"
+flash.danger.title: "Opération non permise"
+flash.danger.form: "Le formulaire contient des erreurs"
+
+trick.success.creation: "Vous avez bien créé un nouveau trick !"

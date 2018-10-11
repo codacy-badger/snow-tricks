@@ -92,19 +92,9 @@ class Trick
         return $this->name;
     }
 
-    public function setName(string $name)
-    {
-        $this->name = $name;
-    }
-
     public function getSlug(): ?string
     {
         return $this->slug;
-    }
-
-    public function setSlug(string $slug)
-    {
-        $this->slug = $slug;
     }
 
     public function getDescription(): ?string
@@ -112,19 +102,9 @@ class Trick
         return $this->description;
     }
 
-    public function setDescription(?string $description)
-    {
-        $this->description = $description;
-    }
-
     public function getUpdatedAt(): ?\DateTimeInterface
     {
         return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(?\DateTimeInterface $updatedAt)
-    {
-        $this->updatedAt = $updatedAt;
     }
 
     public function getCreatedAt(): ?\DateTimeInterface
@@ -132,19 +112,9 @@ class Trick
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt)
-    {
-        $this->createdAt = $createdAt;
-    }
-
     public function getUser(): ?User
     {
         return $this->user;
-    }
-
-    public function setUser(?User $user)
-    {
-        $this->user = $user;
     }
 
     public function getTrickGroup(): ?TrickGroup
@@ -152,10 +122,6 @@ class Trick
         return $this->trickGroup;
     }
 
-    public function setTrickGroup(?TrickGroup $trickGroup)
-    {
-        $this->trickGroup = $trickGroup;
-    }
 
     /**
      * @return Collection|Message[]
@@ -239,16 +205,18 @@ class Trick
         }
     }
 
-    public static function create(CreateTrickDTO $createTrickDTO)
+    public static function create(CreateTrickDTO $createTrickDTO, User $user, string $trickSlug): Trick
     {
         $trick = new self();
 
-        $trick->setName($createTrickDTO->getName());
-        $trick->setDescription($createTrickDTO->getDescription());
-        $trick->setTrickGroup($createTrickDTO->getTrickGroup());
-        $trick->setCreatedAt(new \DateTime('now'));
-        $trick->setUpdatedAt(new \DateTime('now'));
-        //$trick->setUser();
-        //$trick->setSlug($this->slugger->slugify($trick->getName()));
+        $trick->name = $createTrickDTO->getName();
+        $trick->description = $createTrickDTO->getDescription();
+        $trick->trickGroup = $createTrickDTO->getTrickGroup();
+        $trick->createdAt = new \DateTime('now');
+        $trick->updatedAt = new \DateTime('now');
+        $trick->user = $user;
+        $trick->slug = $trickSlug;
+
+        return $trick;
     }
 }

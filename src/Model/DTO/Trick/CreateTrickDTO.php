@@ -29,7 +29,7 @@ class CreateTrickDTO
     /**
      * @return string
      */
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -37,7 +37,7 @@ class CreateTrickDTO
     /**
      * @param string $name
      */
-    public function setName(string $name): void
+    public function setName(?string $name): void
     {
         $this->name = $name;
     }
@@ -45,7 +45,7 @@ class CreateTrickDTO
     /**
      * @return string
      */
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
@@ -53,7 +53,7 @@ class CreateTrickDTO
     /**
      * @param string $description
      */
-    public function setDescription(string $description): void
+    public function setDescription(?string $description): void
     {
         $this->description = $description;
     }
@@ -61,7 +61,7 @@ class CreateTrickDTO
     /**
      * @return TrickGroup
      */
-    public function getTrickGroup(): TrickGroup
+    public function getTrickGroup(): ?TrickGroup
     {
         return $this->trickGroup;
     }
@@ -69,7 +69,7 @@ class CreateTrickDTO
     /**
      * @param TrickGroup $trickGroup
      */
-    public function setTrickGroup(TrickGroup $trickGroup): void
+    public function setTrickGroup(?TrickGroup $trickGroup): void
     {
         $this->trickGroup = $trickGroup;
     }

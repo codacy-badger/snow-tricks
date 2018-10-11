@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Model\DTO\Trick\CreateTrickDTO;
 use App\Model\Entity\Trick;
 use App\Form\TrickFormType;
 use App\Repository\TrickGroupRepository;
@@ -80,24 +81,22 @@ class TrickController extends AbstractController
      */
     public function create(Request $request): Response
     {
-        $trick = new Trick();
+        $createTrickDTO = new CreateTrickDTO();
 
-        $trickForm = $this->createForm(TrickFormType::class, $trick);
+        $trickForm = $this->createForm(TrickFormType::class, $createTrickDTO);
 
         $trickForm->handleRequest($request);
 
         if ($trickForm->isSubmitted() && $trickForm->isValid()) {
-            $trick = $trickForm->getData();
+            $user = $this->getUser();
+            $slug = $this->slugger->slugify($createTrickDTO->getName());
 
-            $trick->setUser($this->getUser());
-            $trick->setCreatedAt(new \DateTime('now'));
-            $trick->setUpdatedAt(new \DateTime('now'));
-            $trick->setSlug($this->slugger->slugify($trick->getName()));
+            $trick = Trick::create($createTrickDTO, $user, $slug);
 
             $this->entityManager->persist($trick);
             $this->entityManager->flush();
 
-            $this->addFlash('success', 'You just created a new trick!');
+            $this->addFlash('success', 'trick.success.creation');
 
             return $this->redirectToRoute('trick_show', ['slug' => $trick->getSlug()]);
         }

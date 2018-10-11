@@ -17,6 +17,7 @@
     {% endblock %}
 
 </head>
+
 <body>
 
 {% block nav %}
@@ -59,14 +60,14 @@
 {% endblock %}
 
 <div class="main-content">
-    {% for msg in app.session.flashbag.get('success') %}
-        <div class="alert alert-success">
-            {{ msg }}
-        </div>
-    {% endfor %}
+
+    {{ include('layout/alerts.html.twig') }}
+
+    {% block body %} {% endblock %}
+
 </div>
 
-{% block body %} {% endblock %}
+
 
 {% block footer %}
     <!-- Footer -->
