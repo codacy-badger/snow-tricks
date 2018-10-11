@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Model\Entity\Trick;
+use App\Model\DTO\Trick\CreateTrickDTO;
 use App\Model\Entity\TrickGroup;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -27,7 +27,7 @@ class TrickFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Trick::class,
+            'data_class' => CreateTrickDTO::class,
         ]);
     }
 }

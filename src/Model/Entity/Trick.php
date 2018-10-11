@@ -2,6 +2,7 @@
 
 namespace App\Model\Entity;
 
+use App\Model\DTO\Trick\CreateTrickDTO;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -236,5 +237,18 @@ class Trick
         if ($this->video->contains($video)) {
             $this->video->removeElement($video);
         }
+    }
+
+    public static function create(CreateTrickDTO $createTrickDTO)
+    {
+        $trick = new self();
+
+        $trick->setName($createTrickDTO->getName());
+        $trick->setDescription($createTrickDTO->getDescription());
+        $trick->setTrickGroup($createTrickDTO->getTrickGroup());
+        $trick->setCreatedAt(new \DateTime('now'));
+        $trick->setUpdatedAt(new \DateTime('now'));
+        //$trick->setUser();
+        //$trick->setSlug($this->slugger->slugify($trick->getName()));
     }
 }
