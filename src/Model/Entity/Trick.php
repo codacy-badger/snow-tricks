@@ -162,7 +162,7 @@ class Trick
         return $this->photos;
     }
 
-    public function addPhoto(Photo $photo)
+    public function addPhoto(Photo $photo): Trick
     {
         if (!$this->photos->contains($photo)) {
             $this->photos[] = $photo;

@@ -51,7 +51,7 @@ class Message
         return $this->content;
     }
 
-    public function setContent(string $content)
+    public function setContent(string $content): Message
     {
         $this->content = $content;
 
