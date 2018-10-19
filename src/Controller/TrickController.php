@@ -43,11 +43,9 @@ class TrickController extends AbstractController
         TrickRepository $trickRepository,
         UserRepository $userRepository,
         TrickGroupRepository $trickGroupRepository,
-        EntityManagerInterface $entityManager,
         Slugger $slugger
     ) {
         $this->trickRepository = $trickRepository;
-        $this->entityManager = $entityManager;
         $this->userRepository = $userRepository;
         $this->trickGroupRepository = $trickGroupRepository;
         $this->slugger = $slugger;
@@ -93,8 +91,7 @@ class TrickController extends AbstractController
 
             $trick = Trick::create($createTrickDTO, $user, $slug);
 
-            $this->entityManager->persist($trick);
-            $this->entityManager->flush();
+            $this->trickRepository->save($trick);
 
             $this->addFlash('success', 'trick.success.creation');
 
@@ -121,8 +118,7 @@ class TrickController extends AbstractController
 
             $trick->setUpdatedAt(new \DateTime('now'));
 
-            $this->entityManager->persist($trick);
-            $this->entityManager->flush();
+            $this->trickRepository->save($trick);
 
             $this->addFlash('success', 'You just modify '.$trick->getName().' trick!');
 

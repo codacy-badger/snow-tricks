@@ -7,8 +7,8 @@
     <div class="container">
 
         <!-- Page Heading/Breadcrumbs -->
-        <h1 class="mt-4 mb-3">Login
-            <small>To get all your best posts!</small>
+        <h1 class="mt-4 mb-3">{{ 'user.header.login.title'|trans({}, 'form') }}
+            <small>{{ 'user.header.login.subtitle'|trans({}, 'form') }}</small>
         </h1>
 
         <div class="row">
@@ -17,6 +17,17 @@
                 {% if error %}
                     <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                 {% endif %}
+
+{#
+                {{ form_start(user_login_form) }}
+
+                {{ form_row(user_login_form.email) }}
+                {{ form_row(user_login_form.plainPassword) }}
+
+                <button type="submit" class="btn btn-primary" formnovalidate>sign up</button>
+
+                {{ form_end(user_login_form) }}
+#}
 
                 <form name="openSession" id="loginForm" novalidate method="post">
 
@@ -47,11 +58,11 @@
                         </div>
                     </div>
 
-                    {#
+
                         If you want to control the URL the user
                         is redirected to on success (more details below)
                         <input type="hidden" name="_target_path" value="/account" />
-                    #}
+
 
                     <button type="submit" class="btn btn-primary" id="openSessionButton">Login</button>
                 </form>

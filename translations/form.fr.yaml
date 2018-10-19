@@ -1,0 +1,23 @@
+user:
+    form:
+        label:
+            firstname: "Prénom"
+            lastname: "Nom"
+            email: "Adresse électronique"
+            password: "Mot de passe"
+    header:
+        signup:
+            title: "Inscrivez-vous"
+        login:
+            title: "Connectez-vous"
+            subtitle: "Vous pourrez bientôt ajouter vos propres tricks !"
+
+trick:
+    form:
+        label:
+            trickname: "Nom de la figure"
+            description: "Description"
+            groupname: "Type de figure"
+
+    header:
+        title: "Ajouter une nouvelle figure"

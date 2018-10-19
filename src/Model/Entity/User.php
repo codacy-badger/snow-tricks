@@ -120,6 +120,11 @@ class User implements UserInterface
         return (string) $this->password;
     }
 
+    public function setPassword(string $password): void
+    {
+        $this->password = $password;
+    }
+
     public function getLastname(): ?string
     {
         return $this->lastname;

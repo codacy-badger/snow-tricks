@@ -2,10 +2,11 @@
 
 namespace App\Controller;
 
+use App\Form\UserLoginType;
 use App\Model\DTO\User\CreateUserDTO;
 use App\Model\Entity\User;
 use App\Form\UserSignupType;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,22 +21,22 @@ class UserController extends AbstractController
      */
     private $authenticationUtils;
     /**
-     * @var EntityManagerInterface
-     */
-    private $entityManager;
-    /**
      * @var ValidatorInterface
      */
     private $validator;
+    /**
+     * @var UserRepository
+     */
+    private $userRepository;
 
     public function __construct(
         AuthenticationUtils $authenticationUtils,
-        EntityManagerInterface $entityManager,
+        UserRepository $userRepository,
         ValidatorInterface $validator
     ) {
         $this->authenticationUtils = $authenticationUtils;
-        $this->entityManager = $entityManager;
         $this->validator = $validator;
+        $this->userRepository = $userRepository;
     }
 
     /**
@@ -43,6 +44,8 @@ class UserController extends AbstractController
      */
     public function login(): Response
     {
+        $userLoginForm = $this->createForm(UserLoginType::class);
+
         // get the login error if there is one
         $error = $this->authenticationUtils->getLastAuthenticationError();
 
@@ -50,6 +53,7 @@ class UserController extends AbstractController
         $lastUsername = $this->authenticationUtils->getLastUsername();
 
         return $this->render('user/login.html.twig', [
+            'user_login_form' => $userLoginForm->createView(),
             'last_username' => $lastUsername,
             'error' => $error,
         ]);
@@ -69,8 +73,7 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $user = User::create($createUser);
 
-            $this->entityManager->persist($user);
-            $this->entityManager->flush();
+            $this->userRepository->save($user);
 
             $this->addFlash('success', 'your account is created');
 

@@ -12,7 +12,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * @method Video[]    findAll()
  * @method Video[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class VideoRepository extends ServiceEntityRepository
+class VideoRepository extends BaseRepository
 {
     public function __construct(RegistryInterface $registry)
     {
