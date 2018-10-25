@@ -15,11 +15,16 @@ class TrickFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class)
-            ->add('description', TextType::class)
+            ->add('name', TextType::class, [
+                'label' => 'user.form.label.trickname'
+            ])
+            ->add('description', TextType::class, [
+                'label' => 'user.form.label.description'
+            ])
             ->add('trickGroup', EntityType::class, [
                 'class' => TrickGroup::class,
                 'choice_label' => 'name',
+                'label' => 'trick.form.label.groupname'
             ])
         ;
     }
@@ -28,6 +33,7 @@ class TrickFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => CreateTrickDTO::class,
+            'translation_domain' => 'form'
         ]);
     }
 }
