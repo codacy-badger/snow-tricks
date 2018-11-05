@@ -120,7 +120,7 @@ class TrickController extends AbstractController
 
             $this->trickRepository->save($trick);
 
-            $this->addFlash('success', 'You just modify '.$trick->getName().' trick!');
+            $this->addFlash('success', 'trick.success.modification');
 
             return $this->redirectToRoute('trick_show', ['slug' => $trick->getSlug()]);
         }
@@ -137,7 +137,7 @@ class TrickController extends AbstractController
     {
         $this->entityManager->remove($trick);
 
-        $this->addFlash('success', 'You just delete '.$trick->getName().' trick!');
+        $this->addFlash('success', 'trick.success.deletion');
 
         return $this->redirectToRoute('homepage');
     }

@@ -5,6 +5,7 @@ user:
             lastname: "Nom"
             email: "Adresse électronique"
             password: "Mot de passe"
+            submit: "S'inscrire"
     header:
         signup:
             title: "Inscrivez-vous"
@@ -22,3 +23,8 @@ trick:
     header:
         new:
             title: "Ajouter une nouvelle figure"
+    show:
+        comment:
+            placeholder: "Votre message"
+            submit: "Laisser un commentaire"
+

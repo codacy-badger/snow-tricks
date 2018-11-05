@@ -21,7 +21,7 @@
                     {{ form_row(userSignup.email) }}
                     {{ form_row(userSignup.plainPassword) }}
 
-                    <button type="submit" class="btn btn-primary" formnovalidate>sign up</button>
+                    <button type="submit" class="btn btn-primary" formnovalidate>{{ 'user.form.label.submit'|trans({}, 'form') }}</button>
 
                 {{ form_end(userSignup) }}
 

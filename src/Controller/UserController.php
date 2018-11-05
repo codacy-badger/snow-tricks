@@ -75,7 +75,7 @@ class UserController extends AbstractController
 
             $this->userRepository->save($user);
 
-            $this->addFlash('success', 'your account is created');
+            $this->addFlash('success', 'user.success.creation');
 
             return $this->redirectToRoute('homepage');
         }

@@ -2,3 +2,8 @@ trick:
     show:
         date:
             creation: "créé le "
+            modification: "modifié le "
+        group:
+            nogroup: "aucun groupe !"
+        comment:
+            date: " le "
