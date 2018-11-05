@@ -16,10 +16,10 @@ class TrickFormType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'user.form.label.trickname'
+                'label' => 'trick.form.label.trickname'
             ])
             ->add('description', TextType::class, [
-                'label' => 'user.form.label.description'
+                'label' => 'trick.form.label.description'
             ])
             ->add('trickGroup', EntityType::class, [
                 'class' => TrickGroup::class,

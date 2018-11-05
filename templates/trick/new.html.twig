@@ -8,7 +8,7 @@
     <div class="container">
 
         <!-- Page Heading/Breadcrumbs -->
-        <h1 class="mt-4 mb-3">{{ 'form.header.title'|trans({}, 'trickcreate') }}</h1>
+        <h1 class="mt-4 mb-3">{{ 'trick.header.new.title'|trans({}, 'form') }}</h1>
 
         <!-- Contact Form -->
         <div class="row">
@@ -20,7 +20,7 @@
                     {{ form_row(trickForm.description) }}
                     {{ form_row(trickForm.trickGroup) }}
 
-                    <button type="submit" class="btn btn-primary" formnovalidate>{{ 'form.label.submit'|trans({}, 'trickcreate')}}</button>
+                    <button type="submit" class="btn btn-primary" formnovalidate>{{ 'trick.form.label.submit'|trans({}, 'form')}}</button>
 
                 {{ form_end(trickForm) }}
 

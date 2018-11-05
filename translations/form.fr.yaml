@@ -18,6 +18,7 @@ trick:
             trickname: "Nom de la figure"
             description: "Description"
             groupname: "Type de figure"
-
+            submit: "Créer"
     header:
-        title: "Ajouter une nouvelle figure"
+        new:
+            title: "Ajouter une nouvelle figure"

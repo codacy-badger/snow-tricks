@@ -45,7 +45,7 @@
 
         <div class="row text-center">
             <div class="col-md-12">
-                <span class="badge badge-secondary trick-info">created at {{ trick.createdAt|date() }}</span>
+                <span class="badge badge-secondary trick-info">{{ 'trick.show.date.creation'|trans({}, 'trick') }}{{ trick.createdAt|localizeddate('medium', 'none', locale) }}</span>
                 <span class="badge badge-secondary trick-info">last modification : {{ trick.updatedAt|date }}</span>
                 {% if trick.trickGroup.name is defined %}
                     <span class="badge badge-primary trick-info">{{ trick.trickGroup.name }}</span>
