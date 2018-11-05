@@ -122,7 +122,6 @@ class Trick
         return $this->trickGroup;
     }
 
-
     /**
      * @return Collection|Message[]
      */

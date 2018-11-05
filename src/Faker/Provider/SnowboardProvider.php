@@ -48,7 +48,7 @@ final class SnowboardProvider extends BaseProvider
 
     public function trickName(): string
     {
-        return self::randomElement( self::TRICK_NAME_PROVIDER);
+        return self::randomElement(self::TRICK_NAME_PROVIDER);
     }
 
     public function trickSlug(): string

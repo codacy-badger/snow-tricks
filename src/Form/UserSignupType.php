@@ -16,16 +16,16 @@ class UserSignupType extends AbstractType
     {
         $builder
             ->add('email', EmailType::class, [
-                'label' => 'user.form.label.email'
+                'label' => 'user.form.label.email',
             ])
             ->add('lastname', TextType::class, [
-                'label' => 'user.form.label.lastname'
+                'label' => 'user.form.label.lastname',
             ])
             ->add('firstname', TextType::class, [
-                'label' => 'user.form.label.firstname'
+                'label' => 'user.form.label.firstname',
             ])
             ->add('plainPassword', PasswordType::class, [
-                'label' => 'user.form.label.password'
+                'label' => 'user.form.label.password',
             ])
         ;
     }
@@ -34,7 +34,7 @@ class UserSignupType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => CreateUserDTO::class,
-            'translation_domain' => 'form'
+            'translation_domain' => 'form',
         ]);
     }
 }

@@ -25,5 +25,4 @@ final class Version20181019145500 extends AbstractMigration
     {
         $this->addSql('TRUNCATE TABLE trick_group');
     }
-
 }

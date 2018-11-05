@@ -15,7 +15,7 @@ class UserLoginType extends AbstractType
     {
         $builder
             ->add('email', EmailType::class, [
-                'label' => 'user.form.label.email'
+                'label' => 'user.form.label.email',
             ])
             ->add('plainPassword', PasswordType::class, [
                 'label' => 'user.form.label.password',
@@ -27,7 +27,7 @@ class UserLoginType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
-            'translation_domain' => 'form'
+            'translation_domain' => 'form',
         ]);
     }
 }

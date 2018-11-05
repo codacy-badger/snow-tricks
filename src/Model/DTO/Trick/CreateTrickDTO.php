@@ -73,6 +73,4 @@ class CreateTrickDTO
     {
         $this->trickGroup = $trickGroup;
     }
-
-
 }
