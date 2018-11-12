@@ -2,6 +2,7 @@
 
 namespace App\Model\Entity;
 
+use App\Model\DTO\Trick\CreateTrickDTO;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -91,19 +92,9 @@ class Trick
         return $this->name;
     }
 
-    public function setName(string $name)
-    {
-        $this->name = $name;
-    }
-
     public function getSlug(): ?string
     {
         return $this->slug;
-    }
-
-    public function setSlug(string $slug)
-    {
-        $this->slug = $slug;
     }
 
     public function getDescription(): ?string
@@ -111,19 +102,9 @@ class Trick
         return $this->description;
     }
 
-    public function setDescription(?string $description)
-    {
-        $this->description = $description;
-    }
-
     public function getUpdatedAt(): ?\DateTimeInterface
     {
         return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(?\DateTimeInterface $updatedAt)
-    {
-        $this->updatedAt = $updatedAt;
     }
 
     public function getCreatedAt(): ?\DateTimeInterface
@@ -131,29 +112,14 @@ class Trick
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt)
-    {
-        $this->createdAt = $createdAt;
-    }
-
     public function getUser(): ?User
     {
         return $this->user;
     }
 
-    public function setUser(?User $user)
-    {
-        $this->user = $user;
-    }
-
     public function getTrickGroup(): ?TrickGroup
     {
         return $this->trickGroup;
-    }
-
-    public function setTrickGroup(?TrickGroup $trickGroup)
-    {
-        $this->trickGroup = $trickGroup;
     }
 
     /**
@@ -195,7 +161,7 @@ class Trick
         return $this->photos;
     }
 
-    public function addPhoto(Photo $photo)
+    public function addPhoto(Photo $photo): Trick
     {
         if (!$this->photos->contains($photo)) {
             $this->photos[] = $photo;
@@ -236,5 +202,20 @@ class Trick
         if ($this->video->contains($video)) {
             $this->video->removeElement($video);
         }
+    }
+
+    public static function create(CreateTrickDTO $createTrickDTO, string $trickSlug): Trick
+    {
+        $trick = new self();
+
+        $trick->name = $createTrickDTO->getName();
+        $trick->description = $createTrickDTO->getDescription();
+        $trick->trickGroup = $createTrickDTO->getTrickGroup();
+        $trick->createdAt = new \DateTime('now');
+        $trick->updatedAt = new \DateTime('now');
+        $trick->user = $createTrickDTO->getUser();
+        $trick->slug = $trickSlug;
+
+        return $trick;
     }
 }

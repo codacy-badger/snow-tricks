@@ -1,0 +1,9 @@
+trick:
+    show:
+        date:
+            creation: "créé le %date%"
+            modification: "modifié le %date% "
+        group:
+            nogroup: "aucun groupe !"
+        comment:
+            date: " le %date%"

@@ -90,13 +90,6 @@ class User implements UserInterface
         return $this->email;
     }
 
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
     /**
      * A visual identifier that represents this user.
      *
@@ -119,13 +112,6 @@ class User implements UserInterface
         return array_unique($roles);
     }
 
-    public function setRoles(array $roles): self
-    {
-        $this->roles = $roles;
-
-        return $this;
-    }
-
     /**
      * @see UserInterface
      */
@@ -134,11 +120,9 @@ class User implements UserInterface
         return (string) $this->password;
     }
 
-    public function setPassword(string $password): self
+    public function setPassword(string $password): void
     {
         $this->password = $password;
-
-        return $this;
     }
 
     public function getLastname(): ?string
@@ -146,19 +130,9 @@ class User implements UserInterface
         return $this->lastname;
     }
 
-    public function setLastname(string $lastname)
-    {
-        $this->lastname = $lastname;
-    }
-
     public function getFirstname(): ?string
     {
         return $this->firstname;
-    }
-
-    public function setFirstname(?string $firstname)
-    {
-        $this->firstname = $firstname;
     }
 
     public function getCreatedAt(): ?\DateTimeInterface
@@ -166,19 +140,9 @@ class User implements UserInterface
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt)
-    {
-        $this->createdAt = $createdAt;
-    }
-
     public function getUpdatedAt(): ?\DateTimeInterface
     {
         return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(?\DateTimeInterface $updatedAt)
-    {
-        $this->updatedAt = $updatedAt;
     }
 
     /**
@@ -207,7 +171,7 @@ class User implements UserInterface
         return $this->tricks;
     }
 
-    public function addTrick(Trick $trick)
+    public function addTrick(Trick $trick): void
     {
         if (!$this->tricks->contains($trick)) {
             $this->tricks[] = $trick;
@@ -215,7 +179,7 @@ class User implements UserInterface
         }
     }
 
-    public function removeTrick(Trick $trick)
+    public function removeTrick(Trick $trick): void
     {
         if ($this->tricks->contains($trick)) {
             $this->tricks->removeElement($trick);
@@ -234,7 +198,7 @@ class User implements UserInterface
         return $this->messages;
     }
 
-    public function addMessage(Message $message)
+    public function addMessage(Message $message): void
     {
         if (!$this->messages->contains($message)) {
             $this->messages[] = $message;
@@ -242,7 +206,7 @@ class User implements UserInterface
         }
     }
 
-    public function removeMessage(Message $message)
+    public function removeMessage(Message $message): void
     {
         if ($this->messages->contains($message)) {
             $this->messages->removeElement($message);
@@ -258,21 +222,16 @@ class User implements UserInterface
         return $this->plainPassword;
     }
 
-    public function setPlainPassword(?string $plainPassword): void
-    {
-        $this->plainPassword = $plainPassword;
-    }
-
     public static function create(CreateUserDTO $userDTO): User
     {
         $user = new self();
 
-        $user->setEmail($userDTO->getEmail());
-        $user->setFirstname($userDTO->getFirstname());
-        $user->setLastname($userDTO->getLastname());
-        $user->setPlainPassword($userDTO->getPlainPassword());
-        $user->setRoles(['ROLE_USER']);
-        $user->setCreatedAt(new \DateTime('now'));
+        $user->email = $userDTO->getEmail();
+        $user->firstname = $userDTO->getFirstname();
+        $user->lastname = $userDTO->getLastname();
+        $user->plainPassword = $userDTO->getPlainPassword();
+        $user->roles = ['ROLE_USER'];
+        $user->createdAt = new \DateTime('now');
 
         return $user;
     }

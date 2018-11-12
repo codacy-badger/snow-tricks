@@ -1,0 +1,7 @@
+nav:
+    title:
+        tricks: "Liste des tricks"
+        signup: "S'inscrire"
+        login: "Se connecter"
+        logout: "Se déconnecter"
+        newtrick: "Créer un nouveau trick"

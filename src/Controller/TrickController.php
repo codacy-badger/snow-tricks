@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Model\DTO\Trick\CreateTrickDTO;
 use App\Model\Entity\Trick;
 use App\Form\TrickFormType;
 use App\Repository\TrickGroupRepository;
@@ -42,11 +43,9 @@ class TrickController extends AbstractController
         TrickRepository $trickRepository,
         UserRepository $userRepository,
         TrickGroupRepository $trickGroupRepository,
-        EntityManagerInterface $entityManager,
         Slugger $slugger
     ) {
         $this->trickRepository = $trickRepository;
-        $this->entityManager = $entityManager;
         $this->userRepository = $userRepository;
         $this->trickGroupRepository = $trickGroupRepository;
         $this->slugger = $slugger;
@@ -80,24 +79,20 @@ class TrickController extends AbstractController
      */
     public function create(Request $request): Response
     {
-        $trick = new Trick();
+        $createTrickDTO = new CreateTrickDTO($this->getUser());
 
-        $trickForm = $this->createForm(TrickFormType::class, $trick);
+        $trickForm = $this->createForm(TrickFormType::class, $createTrickDTO);
 
         $trickForm->handleRequest($request);
 
         if ($trickForm->isSubmitted() && $trickForm->isValid()) {
-            $trick = $trickForm->getData();
+            $slug = $this->slugger->slugify($createTrickDTO->getName());
 
-            $trick->setUser($this->getUser());
-            $trick->setCreatedAt(new \DateTime('now'));
-            $trick->setUpdatedAt(new \DateTime('now'));
-            $trick->setSlug($this->slugger->slugify($trick->getName()));
+            $trick = Trick::create($createTrickDTO, $slug);
 
-            $this->entityManager->persist($trick);
-            $this->entityManager->flush();
+            $this->trickRepository->save($trick);
 
-            $this->addFlash('success', 'You just created a new trick!');
+            $this->addFlash('success', 'trick.success.creation');
 
             return $this->redirectToRoute('trick_show', ['slug' => $trick->getSlug()]);
         }
@@ -122,10 +117,9 @@ class TrickController extends AbstractController
 
             $trick->setUpdatedAt(new \DateTime('now'));
 
-            $this->entityManager->persist($trick);
-            $this->entityManager->flush();
+            $this->trickRepository->save($trick);
 
-            $this->addFlash('success', 'You just modify '.$trick->getName().' trick!');
+            $this->addFlash('success', 'trick.success.modification');
 
             return $this->redirectToRoute('trick_show', ['slug' => $trick->getSlug()]);
         }
@@ -142,7 +136,7 @@ class TrickController extends AbstractController
     {
         $this->entityManager->remove($trick);
 
-        $this->addFlash('success', 'You just delete '.$trick->getName().' trick!');
+        $this->addFlash('success', 'trick.success.deletion');
 
         return $this->redirectToRoute('homepage');
     }

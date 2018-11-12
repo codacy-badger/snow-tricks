@@ -1,0 +1,41 @@
+{% for msg in app.session.flashBag.get('success') %}
+<div class="container-fluid">
+    <div class="card text-white border-0">
+        <div class="card-header bg-success text-uppercase font-weight-bold">
+            {{ 'flash.success.title'|trans({}, 'alerts') }}
+        </div>
+
+        <div class="card-body bg-success">
+            {{ msg|trans({}, 'alerts') }}
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+{% for msg in app.session.flashBag.get('warning') %}
+<div class="container-fluid">
+    <div class="card text-white border-0">
+        <div class="card-header bg-warning text-uppercase font-weight-bold">
+            {{ 'flash.warning.title'|trans({}, 'alerts') }}
+        </div>
+
+        <div class="card-body bg-lighten-warning">
+            {{ msg|trans({}, 'alerts') }}
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+{% for msg in app.session.flashBag.get('danger') %}
+<div class="container-fluid">
+    <div class="card text-white border-0">
+        <div class="card-header bg-danger text-uppercase font-weight-bold">
+            {{ 'flash.danger.title'|trans({}, 'alerts') }}
+        </div>
+
+        <div class="card-body bg-lighten-danger">
+            {{ msg|trans({}, 'alerts') }}
+        </div>
+    </div>
+</div>
+{% endfor %}

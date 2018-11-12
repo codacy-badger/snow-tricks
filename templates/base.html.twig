@@ -2,13 +2,21 @@
 <html lang="fr">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}{{ 'title'|trans({}, 'seo') }}{% endblock %}</title>
+    <meta name="description" content="{{ 'description'|trans({}, 'seo') }}">
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="The incredible website to know everything about snowboard's tricks!">
-    <meta name="author" content="Fabian Rupin">
-
-    <title>{% block title %}Welcome!{% endblock %}</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="">
+    <link rel="icon" type="image/png" sizes="32x32" href="">
+    <link rel="icon" type="image/png" sizes="16x16" href="">
+    <link rel="manifest" href="">
+    <link rel="mask-icon" href="" color="#f4199a">
+    <meta name="msapplication-config" content="">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="theme-color" content="#ffffff">
 
     {% block stylesheets %}
         <!-- Bootstrap custom styles for this template -->
@@ -17,66 +25,20 @@
     {% endblock %}
 
 </head>
+
 <body>
 
-{% block nav %}
-    <!-- Navigation -->
-    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
-        <div class="container">
-
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-                    data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href={{ path('homepage') }}>Tricks</a>
-                    </li>
-
-
-                    {% if is_granted('ROLE_USER') %}
-                        <li class="nav-item">
-                            <a class="nav-link" href={{ path('user_logout') }}>Log out</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href={{ path('trick_create') }}>Create new trick</a>
-                        </li>
-                    {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link" href={{ path('user_signup') }}>Sign up</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href={{ path('user_login') }}>Log in</a>
-                        </li>
-                    {% endif %}
-
-                </ul>
-            </div>
-        </div>
-    </nav>
-{% endblock %}
+{{ include('layout/nav.html.twig') }}
 
 <div class="main-content">
-    {% for msg in app.session.flashbag.get('success') %}
-        <div class="alert alert-success">
-            {{ msg }}
-        </div>
-    {% endfor %}
+
+    {{ include('layout/alerts.html.twig') }}
+
+    {% block body %} {% endblock %}
+
 </div>
 
-{% block body %} {% endblock %}
-
-{% block footer %}
-    <!-- Footer -->
-    <footer class="py-5 bg-dark">
-        <div class="container">
-            <p class="m-0 text-center text-white">Copyright &copy; Fabian Rupin 2018</p>
-        </div>
-    </footer>
-
-{% endblock %}
+{{ include('layout/footer.html.twig') }}
 
 {% block javascripts %}
     <script src="{{ asset('js/jquery/jquery.min.js') }}"></script>

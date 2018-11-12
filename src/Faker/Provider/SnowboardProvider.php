@@ -46,12 +46,12 @@ final class SnowboardProvider extends BaseProvider
         'korean -bacon',
     ];
 
-    public function trickName()
+    public function trickName(): string
     {
         return self::randomElement(self::TRICK_NAME_PROVIDER);
     }
 
-    public function trickSlug()
+    public function trickSlug(): string
     {
         return self::randomElement(self::TRICK_SLUG_PROVIDER);
     }
