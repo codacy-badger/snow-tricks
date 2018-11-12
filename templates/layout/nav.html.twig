@@ -13,7 +13,6 @@
                     <a class="nav-link" href={{ path('homepage') }}>{{ 'nav.title.tricks'|trans({}, 'nav') }}</a>
                 </li>
 
-
                 {% if is_granted('ROLE_USER') %}
                     <li class="nav-item">
                         <a class="nav-link" href={{ path('user_logout') }}>{{ 'nav.title.logout'|trans({}, 'nav') }}</a>

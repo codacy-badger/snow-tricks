@@ -3,6 +3,7 @@
 namespace App\Model\DTO\Trick;
 
 use App\Model\Entity\TrickGroup;
+use App\Model\Entity\User;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class CreateTrickDTO
@@ -25,6 +26,16 @@ class CreateTrickDTO
      * @var TrickGroup
      */
     private $trickGroup;
+
+    /**
+     * @var User
+     */
+    private $user;
+
+    public function __construct(User $user)
+    {
+        $this->user = $user;
+    }
 
     /**
      * @return string
@@ -72,5 +83,21 @@ class CreateTrickDTO
     public function setTrickGroup(?TrickGroup $trickGroup): void
     {
         $this->trickGroup = $trickGroup;
+    }
+
+    /**
+     * @return User
+     */
+    public function getUser(): User
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param User $user
+     */
+    public function setUser(User $user): void
+    {
+        $this->user = $user;
     }
 }

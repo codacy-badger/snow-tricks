@@ -79,17 +79,16 @@ class TrickController extends AbstractController
      */
     public function create(Request $request): Response
     {
-        $createTrickDTO = new CreateTrickDTO();
+        $createTrickDTO = new CreateTrickDTO($this->getUser());
 
         $trickForm = $this->createForm(TrickFormType::class, $createTrickDTO);
 
         $trickForm->handleRequest($request);
 
         if ($trickForm->isSubmitted() && $trickForm->isValid()) {
-            $user = $this->getUser();
             $slug = $this->slugger->slugify($createTrickDTO->getName());
 
-            $trick = Trick::create($createTrickDTO, $user, $slug);
+            $trick = Trick::create($createTrickDTO, $slug);
 
             $this->trickRepository->save($trick);
 

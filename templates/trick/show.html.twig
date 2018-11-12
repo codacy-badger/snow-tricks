@@ -46,10 +46,10 @@
         <div class="row text-center">
             <div class="col-md-12">
                 <span class="badge badge-secondary trick-info">
-                {{ 'trick.show.date.creation'|trans({}, 'trick') }}{{ trick.createdAt|localizeddate }}
+                {{ 'trick.show.date.creation'|trans({'%date%':trick.createdAt|localizeddate}, 'trick') }}
                 </span>
                 <span class="badge badge-secondary trick-info">
-                {{ 'trick.show.date.modification'|trans({}, 'trick') }}{{ trick.updatedAt|localizeddate }}
+                {{ 'trick.show.date.modification'|trans({'%date%':trick.updatedAt|localizeddate}, 'trick') }}
                 </span>
                 {% if trick.trickGroup.name is defined %}
                     <span class="badge badge-primary trick-info">{{ trick.trickGroup.name }}</span>
@@ -96,7 +96,7 @@
                                 <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
                                 <div class="media-body">
                                     <h5 class="mt-0">
-                                        {{ message.user.firstname }}{{ 'trick.show.comment.date'|trans({}, 'trick') }}{{ message.createdAt|localizeddate }}
+                                        {{ message.user.firstname }}{{ 'trick.show.comment.date'|trans({'%date%':message.createdAt|localizeddate }, 'trick') }}
                                     </h5>
                                     {{ message.content }}
                                 </div>

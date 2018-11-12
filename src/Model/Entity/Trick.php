@@ -204,7 +204,7 @@ class Trick
         }
     }
 
-    public static function create(CreateTrickDTO $createTrickDTO, User $user, string $trickSlug): Trick
+    public static function create(CreateTrickDTO $createTrickDTO, string $trickSlug): Trick
     {
         $trick = new self();
 
@@ -213,7 +213,7 @@ class Trick
         $trick->trickGroup = $createTrickDTO->getTrickGroup();
         $trick->createdAt = new \DateTime('now');
         $trick->updatedAt = new \DateTime('now');
-        $trick->user = $user;
+        $trick->user = $createTrickDTO->getUser();
         $trick->slug = $trickSlug;
 
         return $trick;

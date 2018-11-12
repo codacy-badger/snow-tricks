@@ -11,12 +11,12 @@ class Tricks
 {
     public static function create(array $arguments): Trick
     {
-        $createTrickDTO = new CreateTrickDTO();
+        $createTrickDTO = new CreateTrickDTO($arguments['user']);
 
         $createTrickDTO->setName($arguments['name']);
         $createTrickDTO->setDescription($arguments['description']);
         $createTrickDTO->setTrickGroup($arguments['trickgroup']);
 
-        return Trick::create($createTrickDTO, $arguments['user'], $arguments['slug']);
+        return Trick::create($createTrickDTO, $arguments['slug']);
     }
 }
