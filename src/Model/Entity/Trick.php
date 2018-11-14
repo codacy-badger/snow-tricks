@@ -3,6 +3,7 @@
 namespace App\Model\Entity;
 
 use App\Model\DTO\Trick\CreateTrickDTO;
+use App\Model\DTO\Trick\ModifyTrickDTO;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -223,13 +224,14 @@ class Trick
         return $trick;
     }
 
-    public static function modify(CreateTrickDTO $createTrickDTO): Trick
+    public static function modify(ModifyTrickDTO $modifyTrickDTO): Trick
     {
         $trick = new self();
 
-        $trick->name = $createTrickDTO->getName();
-        $trick->description = $createTrickDTO->getDescription();
-        $trick->trickGroup = $createTrickDTO->getTrickGroup();
+        $trick->id = $modifyTrickDTO->getId();
+        $trick->name = $modifyTrickDTO->getName();
+        $trick->description = $modifyTrickDTO->getDescription();
+        $trick->trickGroup = $modifyTrickDTO->getTrickGroup();
         $trick->updatedAt = new \DateTime('now');
 
         return $trick;

@@ -2,11 +2,13 @@
 
 namespace App\Controller;
 
+use App\Form\Trick\TrickModificationFormType;
 use App\IO\Upload\TrickPhotoUploader;
 use App\Model\DTO\Trick\CreateTrickDTO;
+use App\Model\DTO\Trick\ModifyTrickDTO;
 use App\Model\Entity\Photo;
 use App\Model\Entity\Trick;
-use App\Form\TrickFormType;
+use App\Form\Trick\TrickFormType;
 use App\Repository\PhotoRepository;
 use App\Repository\TrickGroupRepository;
 use App\Repository\TrickRepository;
@@ -130,27 +132,27 @@ class TrickController extends AbstractController
      * @Route("/trick/edit/{slug}", name="trick_edit")
      * @IsGranted("ROLE_USER")
      */
-    public function edit(Request $request, Trick $trick): Response
+    public function edit(Trick $trick, Request $request): Response
     {
-        $createTrickDTO = new CreateTrickDTO($this->getUser(), $trick);
+        $modifyTrickDTO = new ModifyTrickDTO($this->getUser(), $trick);
 
-        $trickForm = $this->createForm(TrickFormType::class, $createTrickDTO);
+        $trickForm = $this->createForm(TrickModificationFormType::class, $modifyTrickDTO);
 
         $trickForm->handleRequest($request);
 
         if ($trickForm->isSubmitted() && $trickForm->isValid()) {
-            $trick = Trick::modify($createTrickDTO);
+            $trick = Trick::modify($modifyTrickDTO);
 
-            $this->trickRepository->save($trick);
-
-            $fileArray = $createTrickDTO->getPhotos();
+            $fileArray = $modifyTrickDTO->getPhotos();
 
             foreach ($fileArray as $file){
                 $filename = $this->trickPhotoUploader->upload($file);
 
                 $photo = Photo::create($filename, $trick);
-                $this->photoRepository->save($photo);
+                $trick->addPhoto($photo);
             }
+
+            $this->trickRepository->save($trick);
 
             $this->addFlash('success', 'trick.success.modification');
 

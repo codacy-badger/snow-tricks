@@ -7,8 +7,10 @@ use App\Model\Entity\TrickGroup;
 use App\Model\Entity\User;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class CreateTrickDTO
+class ModifyTrickDTO
 {
+    private $id;
+
     /**
      * @var string
      *
@@ -40,9 +42,14 @@ class CreateTrickDTO
     private $user;
 
 
-    public function __construct(User $user)
+    public function __construct(User $user, Trick $trick)
     {
-        $this->user = $user;
+        $this->id = $trick->getId();
+        $this->name = $trick->getName();
+        $this->description = $trick->getDescription();
+        $this->trickGroup = $trick->getTrickGroup();
+        //$this->photos = $trick->getPhotos();
+        $this->user = $trick->getUser();
     }
 
     /**
@@ -119,6 +126,22 @@ class CreateTrickDTO
     public function setPhotos(array $photos): void
     {
         $this->photos = $photos;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id): void
+    {
+        $this->id = $id;
     }
 
 }
