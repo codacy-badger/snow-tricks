@@ -16,11 +16,12 @@
 
                 {{ form_start(trickForm) }}
 
-                    {{ form_row(trickForm.name) }}
-                    {{ form_row(trickForm.description) }}
-                    {{ form_row(trickForm.trickGroup) }}
+                {{ form_row(trickForm.name) }}
+                {{ form_row(trickForm.description) }}
+                {{ form_row(trickForm.trickGroup) }}
+                {{ form_row(trickForm.photos) }}
 
-                    <button type="submit" class="btn btn-primary" formnovalidate>Modify</button>
+                <button type="submit" class="btn btn-primary" formnovalidate>Modify</button>
 
                 {{ form_end(trickForm) }}
 

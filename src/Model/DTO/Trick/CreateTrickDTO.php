@@ -2,6 +2,7 @@
 
 namespace App\Model\DTO\Trick;
 
+use App\Model\Entity\Trick;
 use App\Model\Entity\TrickGroup;
 use App\Model\Entity\User;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -28,13 +29,28 @@ class CreateTrickDTO
     private $trickGroup;
 
     /**
+     * @var array
+     *
+     */
+    private $photos;
+
+    /**
      * @var User
      */
     private $user;
 
-    public function __construct(User $user)
+
+    public function __construct(User $user, Trick $trick = null)
     {
-        $this->user = $user;
+        if ($trick) {
+            $this->name = $trick->getName();
+            $this->description = $trick->getDescription();
+            $this->trickGroup = $trick->getTrickGroup();
+            //$this->photos = $trick->getPhotos();
+            $this->user = $trick->getUser();
+        } else {
+            $this->user = $user;
+        }
     }
 
     /**
@@ -100,4 +116,17 @@ class CreateTrickDTO
     {
         $this->user = $user;
     }
+
+
+    public function getPhotos(): ?array
+    {
+        return $this->photos;
+    }
+
+
+    public function setPhotos(array $photos): void
+    {
+        $this->photos = $photos;
+    }
+
 }

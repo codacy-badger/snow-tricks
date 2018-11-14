@@ -66,7 +66,7 @@ class Trick
     private $messages;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Model\Entity\Photo", mappedBy="trick", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Model\Entity\Photo", mappedBy="trick", orphanRemoval=true, cascade={"persist"})
      */
     private $photos;
 
@@ -161,24 +161,28 @@ class Trick
         return $this->photos;
     }
 
-    public function addPhoto(Photo $photo): Trick
-    {
-        if (!$this->photos->contains($photo)) {
-            $this->photos[] = $photo;
-            $photo->setTrick($this);
-        }
-
-        return $this;
-    }
-
-    public function removePhoto(Photo $photo)
+    public function addPhoto(Photo $photo): void
     {
         if ($this->photos->contains($photo)) {
-            $this->photos->removeElement($photo);
-            // set the owning side to null (unless already changed)
-            if ($photo->getTrick() === $this) {
-                $photo->setTrick(null);
-            }
+            return;
+        }
+
+        $photo->setTrick($this);
+
+        $this->photos->add($photo);
+    }
+
+    public function removePhoto(Photo $photo): void
+    {
+        if (!$this->photos->contains($photo)) {
+            return;
+        }
+
+        $this->photos->removeElement($photo);
+
+        // set the owning side to null (unless already changed)
+        if ($photo->getTrick() === $this) {
+            $photo->setTrick(null);
         }
     }
 
@@ -218,4 +222,18 @@ class Trick
 
         return $trick;
     }
+
+    public static function modify(CreateTrickDTO $createTrickDTO): Trick
+    {
+        $trick = new self();
+
+        $trick->name = $createTrickDTO->getName();
+        $trick->description = $createTrickDTO->getDescription();
+        $trick->trickGroup = $createTrickDTO->getTrickGroup();
+        $trick->updatedAt = new \DateTime('now');
+
+        return $trick;
+    }
+
+
 }

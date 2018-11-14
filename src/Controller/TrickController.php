@@ -2,13 +2,16 @@
 
 namespace App\Controller;
 
+use App\IO\Upload\TrickPhotoUploader;
 use App\Model\DTO\Trick\CreateTrickDTO;
+use App\Model\Entity\Photo;
 use App\Model\Entity\Trick;
 use App\Form\TrickFormType;
+use App\Repository\PhotoRepository;
 use App\Repository\TrickGroupRepository;
 use App\Repository\TrickRepository;
 use App\Repository\UserRepository;
-use App\Slugger\Slugger;
+use App\Utils\Slugger;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -38,17 +41,29 @@ class TrickController extends AbstractController
      * @var Slugger
      */
     private $slugger;
+    /**
+     * @var PhotoRepository
+     */
+    private $photoRepository;
+    /**
+     * @var TrickPhotoUploader
+     */
+    private $trickPhotoUploader;
 
     public function __construct(
         TrickRepository $trickRepository,
         UserRepository $userRepository,
         TrickGroupRepository $trickGroupRepository,
+        PhotoRepository $photoRepository,
+        TrickPhotoUploader $trickPhotoUploader,
         Slugger $slugger
     ) {
         $this->trickRepository = $trickRepository;
         $this->userRepository = $userRepository;
         $this->trickGroupRepository = $trickGroupRepository;
         $this->slugger = $slugger;
+        $this->photoRepository = $photoRepository;
+        $this->trickPhotoUploader = $trickPhotoUploader;
     }
 
     /**
@@ -90,6 +105,15 @@ class TrickController extends AbstractController
 
             $trick = Trick::create($createTrickDTO, $slug);
 
+            $fileArray = $createTrickDTO->getPhotos();
+
+            foreach ($fileArray as $file){
+                $filename = $this->trickPhotoUploader->upload($file);
+
+                $photo = Photo::create($filename, $trick);
+                $trick->addPhoto($photo);
+            }
+
             $this->trickRepository->save($trick);
 
             $this->addFlash('success', 'trick.success.creation');
@@ -108,16 +132,25 @@ class TrickController extends AbstractController
      */
     public function edit(Request $request, Trick $trick): Response
     {
-        $trickForm = $this->createForm(TrickFormType::class, $trick);
+        $createTrickDTO = new CreateTrickDTO($this->getUser(), $trick);
+
+        $trickForm = $this->createForm(TrickFormType::class, $createTrickDTO);
 
         $trickForm->handleRequest($request);
 
         if ($trickForm->isSubmitted() && $trickForm->isValid()) {
-            $trick = $trickForm->getData();
-
-            $trick->setUpdatedAt(new \DateTime('now'));
+            $trick = Trick::modify($createTrickDTO);
 
             $this->trickRepository->save($trick);
+
+            $fileArray = $createTrickDTO->getPhotos();
+
+            foreach ($fileArray as $file){
+                $filename = $this->trickPhotoUploader->upload($file);
+
+                $photo = Photo::create($filename, $trick);
+                $this->photoRepository->save($photo);
+            }
 
             $this->addFlash('success', 'trick.success.modification');
 
