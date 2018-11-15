@@ -8,7 +8,7 @@ use App\Model\DTO\Trick\CreateTrickDTO;
 use App\Model\DTO\Trick\ModifyTrickDTO;
 use App\Model\Entity\Photo;
 use App\Model\Entity\Trick;
-use App\Form\Trick\TrickFormType;
+use App\Form\Trick\TrickCreationFormType;
 use App\Repository\PhotoRepository;
 use App\Repository\TrickGroupRepository;
 use App\Repository\TrickRepository;
@@ -98,7 +98,7 @@ class TrickController extends AbstractController
     {
         $createTrickDTO = new CreateTrickDTO($this->getUser());
 
-        $trickForm = $this->createForm(TrickFormType::class, $createTrickDTO);
+        $trickForm = $this->createForm(TrickCreationFormType::class, $createTrickDTO);
 
         $trickForm->handleRequest($request);
 

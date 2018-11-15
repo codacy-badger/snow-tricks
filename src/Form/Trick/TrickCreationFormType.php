@@ -2,11 +2,11 @@
 
 namespace App\Form\Trick;
 
-use App\Model\DTO\Trick\ModifyTrickDTO;
+use App\Model\DTO\Trick\CreateTrickDTO;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class TrickModificationFormType extends AbstractTrickFormType
+class TrickCreationFormType extends AbstractTrickFormType
 {
     public function builform(FormBuilderInterface $builder, array $options): void
     {
@@ -16,7 +16,7 @@ class TrickModificationFormType extends AbstractTrickFormType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => ModifyTrickDTO::class,
+            'data_class' => CreateTrickDTO::class,
             'translation_domain' => 'form',
         ]);
     }
