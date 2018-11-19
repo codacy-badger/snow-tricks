@@ -109,7 +109,7 @@ class TrickController extends AbstractController
 
             $fileArray = $createTrickDTO->getPhotos();
 
-            foreach ($fileArray as $file){
+            foreach ($fileArray as $file) {
                 $filename = $this->trickPhotoUploader->upload($file);
 
                 $photo = Photo::create($filename, $trick);
@@ -134,7 +134,7 @@ class TrickController extends AbstractController
      */
     public function edit(Trick $trick, Request $request): Response
     {
-        $modifyTrickDTO = new ModifyTrickDTO($this->getUser(), $trick);
+        $modifyTrickDTO = new ModifyTrickDTO($trick);
 
         $trickForm = $this->createForm(TrickModificationFormType::class, $modifyTrickDTO);
 
@@ -145,7 +145,7 @@ class TrickController extends AbstractController
 
             $fileArray = $modifyTrickDTO->getPhotos();
 
-            foreach ($fileArray as $file){
+            foreach ($fileArray as $file) {
                 $filename = $this->trickPhotoUploader->upload($file);
 
                 $photo = Photo::create($filename, $trick);
@@ -161,6 +161,7 @@ class TrickController extends AbstractController
 
         return $this->render('trick/edit.html.twig', [
             'trickForm' => $trickForm->createView(),
+            'trick' => $trick,
         ]);
     }
 
@@ -169,7 +170,7 @@ class TrickController extends AbstractController
      */
     public function delete(Trick $trick): Response
     {
-        $this->entityManager->remove($trick);
+        $this->trickRepository->remove($trick);
 
         $this->addFlash('success', 'trick.success.deletion');
 

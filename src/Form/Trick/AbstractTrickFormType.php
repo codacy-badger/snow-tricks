@@ -11,7 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-Abstract class AbstractTrickFormType extends AbstractType
+abstract class AbstractTrickFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -32,7 +32,7 @@ Abstract class AbstractTrickFormType extends AbstractType
                 'label' => 'trick.form.label.photofile',
                 'attr' => [
                     'accept' => 'image/*',
-                    'multiple' => 'multiple'
+                    'multiple' => 'multiple',
                 ],
             ])
         ;

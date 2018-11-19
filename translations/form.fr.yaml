@@ -20,7 +20,8 @@ trick:
             description: "Description"
             groupname: "Type de figure"
             photofile: "Ajouter des photos"
-            submit: "Créer"
+            create: "Créer"
+            modify: "Modifier"
     header:
         new:
             title: "Ajouter une nouvelle figure"

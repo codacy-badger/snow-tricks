@@ -21,7 +21,7 @@ class LoadFixtures extends Fixture
         $faker = $loader->getFakerGenerator();
         $faker->addProvider(SnowboardProvider::class);
 
-        $objectSet = $loader->loadFile(__DIR__.'/fixtures/users.yaml')->getObjects();
+        $objectSet = $loader->loadFile(__DIR__.'/fixtures.yaml')->getObjects();
 
         foreach ($objectSet as $object) {
             $manager->persist($object);

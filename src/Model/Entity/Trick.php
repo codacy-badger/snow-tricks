@@ -226,9 +226,8 @@ class Trick
 
     public static function modify(ModifyTrickDTO $modifyTrickDTO): Trick
     {
-        $trick = new self();
+        $trick = $modifyTrickDTO->getTrick();
 
-        $trick->id = $modifyTrickDTO->getId();
         $trick->name = $modifyTrickDTO->getName();
         $trick->description = $modifyTrickDTO->getDescription();
         $trick->trickGroup = $modifyTrickDTO->getTrickGroup();
@@ -236,6 +235,4 @@ class Trick
 
         return $trick;
     }
-
-
 }

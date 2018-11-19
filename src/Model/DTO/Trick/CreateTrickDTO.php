@@ -2,7 +2,6 @@
 
 namespace App\Model\DTO\Trick;
 
-use App\Model\Entity\Trick;
 use App\Model\Entity\TrickGroup;
 use App\Model\Entity\User;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -30,7 +29,6 @@ class CreateTrickDTO
 
     /**
      * @var array
-     *
      */
     private $photos;
 
@@ -38,7 +36,6 @@ class CreateTrickDTO
      * @var User
      */
     private $user;
-
 
     public function __construct(User $user)
     {
@@ -109,16 +106,13 @@ class CreateTrickDTO
         $this->user = $user;
     }
 
-
     public function getPhotos(): ?array
     {
         return $this->photos;
     }
 
-
     public function setPhotos(array $photos): void
     {
         $this->photos = $photos;
     }
-
 }
