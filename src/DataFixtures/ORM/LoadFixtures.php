@@ -21,9 +21,16 @@ class LoadFixtures extends Fixture
         $faker = $loader->getFakerGenerator();
         $faker->addProvider(SnowboardProvider::class);
 
-        $objectSet = $loader->loadFile(__DIR__.'/fixtures.yaml')->getObjects();
+        $userSet = $loader->loadFile(__DIR__.'/fixtures/users.yaml')->getObjects();
+        $trickGroupsSet = $loader->loadFile(__DIR__.'/fixtures/trickgroups.yaml')->getObjects();
+        $trickSet = $loader->loadFile(__DIR__.'/fixtures/tricks.yaml')->getObjects();
+        $messageSet = $loader->loadFile(__DIR__.'/fixtures/messages.yaml')->getObjects();
+        $videoSet = $loader->loadFile(__DIR__.'/fixtures/videos.yaml')->getObjects();
 
-        foreach ($objectSet as $object) {
+        $objectSet = array_merge($userSet, $trickGroupsSet, $trickSet, $messageSet, $videoSet);
+
+        foreach ($objectSet as $object)
+        {
             $manager->persist($object);
         }
 
