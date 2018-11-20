@@ -14,7 +14,6 @@ use App\Repository\TrickGroupRepository;
 use App\Repository\TrickRepository;
 use App\Repository\UserRepository;
 use App\Utils\Slugger;
-use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,10 +26,7 @@ class TrickController extends AbstractController
      * @var TrickRepository
      */
     private $trickRepository;
-    /**
-     * @var EntityManagerInterface
-     */
-    private $entityManager;
+
     /**
      * @var UserRepository
      */
@@ -156,7 +152,7 @@ class TrickController extends AbstractController
 
             $this->addFlash('success', 'trick.success.modification');
 
-            return $this->redirectToRoute('trick_show', ['slug' => $trick->getSlug()]);
+            return $this->redirectToRoute('trick_edit', ['slug' => $trick->getSlug()]);
         }
 
         return $this->render('trick/edit.html.twig', [
@@ -166,6 +162,7 @@ class TrickController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_USER")
      * @Route("/trick/delete/{slug}", name="trick_delete")
      */
     public function delete(Trick $trick): Response

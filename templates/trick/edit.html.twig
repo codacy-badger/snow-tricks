@@ -15,11 +15,6 @@
         {% endif %}
 
         <div class="row trick-show frontpage-image" style="background-image: url({{ urlBackgroundPhoto }}) ">
-
-            <div class="trick-icons">
-                <a href="{{ path('trick_edit', {'slug':trick.slug}) }}" class="fa fa-pencil"></a>
-                <a href="{{ path('trick_delete', {'slug':trick.slug}) }}" class="fa fa-trash"></a>
-            </div>
             <div class="col-md-12 frontpage-title">
                 <h1 class="display-2">{{ trick.name }}</h1>
             </div>
@@ -28,13 +23,15 @@
         <div class="row trick-show">
             {% for photo in trick.photos %}
                 <div class="col-md-3 col-sm-6 mb-4">
-                    <div class="trick-icons">
-                        <a href="#" class="fa fa-pencil"></a>
-                        <a href="{{ path('trick_delete', {'slug':trick.slug}) }}" class="fa fa-trash"></a>
+                    <div class="card">
+                        <img class="img-fluid" src="{{ asset('photos/'~photo.filename) }}" alt="">
                     </div>
-
-                    <img class="img-fluid" src="{{ asset('photos/'~photo.filename) }}" alt="">
-
+                    <div class="card-body">
+                        <p class="card-title">
+                            <a href="#" class="fa fa-pencil"></a>
+                            <a href="{{ path('photo_delete', {'id':photo.id}) }}" class="fa fa-trash"></a>
+                        </p>
+                    </div>
                 </div>
             {% endfor %}
 

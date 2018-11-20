@@ -15,3 +15,7 @@ trick:
 user:
     success:
         creation: "Votre compte a bien été créée"
+
+photo:
+    success:
+        deletion: "La photo a bien été supprimée"
