@@ -105,14 +105,14 @@ class Video
         }
     }
 
-    public static function create(string $code, string $platform, Trick $trick)
+    public static function create(string $code, string $platform)
     {
         $video = new self();
 
         $video->videoCode = $code;
         $video->platform = $platform;
         $video->createdAt = new \DateTime('now');
-        $video->addTrick($trick);
+
 
         return $video;
     }

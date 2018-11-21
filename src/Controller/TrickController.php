@@ -17,6 +17,7 @@ use App\Repository\PhotoRepository;
 use App\Repository\TrickGroupRepository;
 use App\Repository\TrickRepository;
 use App\Repository\UserRepository;
+use App\Repository\VideoRepository;
 use App\Utils\Slugger;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -56,6 +57,10 @@ class TrickController extends AbstractController
      * @var TrickVideoCategorizer
      */
     private $videoCategorizer;
+    /**
+     * @var VideoRepository
+     */
+    private $videoRepository;
 
     public function __construct(
         TrickRepository $trickRepository,
@@ -63,6 +68,7 @@ class TrickController extends AbstractController
         TrickGroupRepository $trickGroupRepository,
         PhotoRepository $photoRepository,
         TrickPhotoUploader $trickPhotoUploader,
+        VideoRepository $videoRepository,
         Slugger $slugger,
         TrickVideoCategorizer $videoCategorizer
     ) {
@@ -73,6 +79,7 @@ class TrickController extends AbstractController
         $this->photoRepository = $photoRepository;
         $this->trickPhotoUploader = $trickPhotoUploader;
         $this->videoCategorizer = $videoCategorizer;
+        $this->videoRepository = $videoRepository;
     }
 
     /**
@@ -132,9 +139,11 @@ class TrickController extends AbstractController
                 $videoCode = $this->videoCategorizer->getCode($hyperlink);
                 $videoPlatform =  $this->videoCategorizer->getPlatformType($hyperlink);
 
-                $video = Video::create($videoCode, $videoPlatform, $trick);
+                $video = Video::create($videoCode, $videoPlatform);
 
                 $trick->addVideo($video);
+
+                $this->videoRepository->save($video);
             }
 
             $this->trickRepository->save($trick);

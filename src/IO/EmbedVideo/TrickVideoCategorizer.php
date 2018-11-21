@@ -10,33 +10,28 @@ class TrickVideoCategorizer
 {
 
     CONST RECOGNIZED_PLATFORM = ['youtube', 'youtu.be', 'dailymotion', 'dai.ly', 'vimeo'];
-    CONST SEPARATOR = [',',';',' '];
+    CONST SEPARATOR = ' ';
 
     public function getCode($hyperlink): string
     {
-        if(!$this->isRecognizedPlatform($hyperlink)){
+        if (!$this->isRecognizedPlatform($hyperlink)) {
             throw new Exception("Not recognized video");
         }
 
-        $test = strrchr($hyperlink, '/');
-        dd($test);
-
-        return substr( 1, strrchr($hyperlink, '/'));
+        return substr(strrchr($hyperlink, '/'), 1);
     }
 
     public function getPlatformType($hyperlink): string
     {
-        if(!$this->isRecognizedPlatform($hyperlink)){
+        if (!$this->isRecognizedPlatform($hyperlink)) {
             throw new Exception("Not recognized video");
         }
 
-        if(preg_match('youtu', $hyperlink))
-        {
+        if (strpos($hyperlink, 'youtu')) {
             return 'youtube';
         }
 
-        if(preg_match('dai', $hyperlink))
-        {
+        if (strpos($hyperlink, 'dai')) {
             return 'dailymotion';
         }
 
@@ -45,28 +40,17 @@ class TrickVideoCategorizer
 
     private function isRecognizedPlatform(string $hyperlink): bool
     {
-        foreach(self::RECOGNIZED_PLATFORM as $knownPlatform){
-            if(strpos($hyperlink, $knownPlatform) !== false){
+        foreach (self::RECOGNIZED_PLATFORM as $knownPlatform) {
+            if (strpos($hyperlink, $knownPlatform) !== false) {
                 return true;
             }
         }
+        
+        return false;
     }
 
-    public function getHyperlinkArray (string $linksString): array
+    public function getHyperlinkArray(string $linksString): array
     {
-        $links = [];
-        foreach (self::SEPARATOR as $separator)
-        {
-            $linksArray = explode($separator, $linksString);
-
-            foreach ($linksArray as $link)
-            {
-                if(!strpos($link,' ')){
-                    $links[] = $link;
-                }
-            }
-        }
-
-        return $links;
+        return explode(self::SEPARATOR, $linksString);
     }
 }
