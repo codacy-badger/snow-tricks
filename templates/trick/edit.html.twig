@@ -7,8 +7,43 @@
     <!-- Page Content -->
     <div class="container">
 
-        <!-- Page Heading/Breadcrumbs -->
-        <h1 class="mt-4 mb-3">Modify a trick</h1>
+        <!-- Portfolio Item Row -->
+        {% if trick.photos|first() %}
+            {% set urlBackgroundPhoto = asset('photos/'~trick.photos|first().filename) %}
+        {% else %}
+            {% set urlBackgroundPhoto = 'http://placehold.it/1250x500' %}
+        {% endif %}
+
+        <div class="row trick-show frontpage-image" style="background-image: url({{ urlBackgroundPhoto }}) ">
+            <div class="col-md-12 frontpage-title">
+                <h1 class="display-2">{{ trick.name }}</h1>
+            </div>
+        </div>
+
+        <div class="row trick-show">
+            {% for photo in trick.photos %}
+                <div class="col-md-3 col-sm-6 mb-4">
+                    <div class="card">
+                        <img class="img-fluid" src="{{ asset('photos/'~photo.filename) }}" alt="">
+                    </div>
+                    <div class="card-body">
+                        <p class="card-title">
+                            <a href="#" class="fa fa-pencil"></a>
+                            <a href="{{ path('photo_delete', {'id':photo.id}) }}" class="fa fa-trash"></a>
+                        </p>
+                    </div>
+                </div>
+            {% endfor %}
+
+            {% for video in trick.video %}
+                <div class="col-md-3 col-sm-6 mb-4">
+                    <a href="#">
+                        <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+                    </a>
+                </div>
+            {% endfor %}
+
+        </div>
 
         <!-- Contact Form -->
         <div class="row">
@@ -16,11 +51,13 @@
 
                 {{ form_start(trickForm) }}
 
-                    {{ form_row(trickForm.name) }}
-                    {{ form_row(trickForm.description) }}
-                    {{ form_row(trickForm.trickGroup) }}
+                {{ form_row(trickForm.name) }}
+                {{ form_row(trickForm.description) }}
+                {{ form_row(trickForm.trickGroup) }}
+                {{ form_row(trickForm.photos) }}
 
-                    <button type="submit" class="btn btn-primary" formnovalidate>Modify</button>
+                <button type="submit" class="btn btn-primary"
+                        formnovalidate>{{ 'trick.form.label.modify'|trans({}, 'form') }}</button>
 
                 {{ form_end(trickForm) }}
 

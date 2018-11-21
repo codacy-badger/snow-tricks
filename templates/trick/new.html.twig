@@ -19,8 +19,9 @@
                     {{ form_row(trickForm.name) }}
                     {{ form_row(trickForm.description) }}
                     {{ form_row(trickForm.trickGroup) }}
+                    {{ form_row(trickForm.photos) }}
 
-                    <button type="submit" class="btn btn-primary" formnovalidate>{{ 'trick.form.label.submit'|trans({}, 'form')}}</button>
+                    <button type="submit" class="btn btn-primary" formnovalidate>{{ 'trick.form.label.create'|trans({}, 'form')}}</button>
 
                 {{ form_end(trickForm) }}
 

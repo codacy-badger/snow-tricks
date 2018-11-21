@@ -2,12 +2,14 @@
 
 namespace App\Model\DTO\Trick;
 
+use App\Model\Entity\Trick;
 use App\Model\Entity\TrickGroup;
-use App\Model\Entity\User;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class CreateTrickDTO
+class ModifyTrickDTO
 {
+    private $trick;
+
     /**
      * @var string
      *
@@ -32,78 +34,42 @@ class CreateTrickDTO
      */
     private $photos;
 
-    /**
-     * @var User
-     */
-    private $user;
-
-    public function __construct(User $user)
+    public function __construct(Trick $trick)
     {
-        $this->user = $user;
+        $this->trick = $trick;
+        $this->name = $trick->getName();
+        $this->description = $trick->getDescription();
+        $this->trickGroup = $trick->getTrickGroup();
     }
 
-    /**
-     * @return string
-     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
-    /**
-     * @param string $name
-     */
     public function setName(?string $name): void
     {
         $this->name = $name;
     }
 
-    /**
-     * @return string
-     */
     public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    /**
-     * @param string $description
-     */
     public function setDescription(?string $description): void
     {
         $this->description = $description;
     }
 
-    /**
-     * @return TrickGroup
-     */
     public function getTrickGroup(): ?TrickGroup
     {
         return $this->trickGroup;
     }
 
-    /**
-     * @param TrickGroup $trickGroup
-     */
     public function setTrickGroup(?TrickGroup $trickGroup): void
     {
         $this->trickGroup = $trickGroup;
-    }
-
-    /**
-     * @return User
-     */
-    public function getUser(): User
-    {
-        return $this->user;
-    }
-
-    /**
-     * @param User $user
-     */
-    public function setUser(User $user): void
-    {
-        $this->user = $user;
     }
 
     public function getPhotos(): ?array
@@ -114,5 +80,15 @@ class CreateTrickDTO
     public function setPhotos(array $photos): void
     {
         $this->photos = $photos;
+    }
+
+    public function getTrick(): Trick
+    {
+        return $this->trick;
+    }
+
+    public function setTrick(Trick $trick): void
+    {
+        $this->trick = $trick;
     }
 }

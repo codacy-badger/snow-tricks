@@ -18,7 +18,7 @@ class Photo
     private $id;
 
     /**
-     * @ORM\Column()
+     * @ORM\Column(type="string")
      */
     private $filename;
 
@@ -67,5 +67,16 @@ class Photo
     public function setTrick(?Trick $trick)
     {
         $this->trick = $trick;
+    }
+
+    public static function create(string $filename, Trick $trick): self
+    {
+        $photo = new self();
+
+        $photo->filename = $filename;
+        $photo->createdAt = new \DateTime('now');
+        $photo->trick = $trick;
+
+        return $photo;
     }
 }

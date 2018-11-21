@@ -8,7 +8,14 @@
     <div class="container">
 
         <!-- Portfolio Item Row -->
-        <div class="row trick-show frontpage-image" style="background-image: url(http://placehold.it/1250x500) ">
+        {% if trick.photos|first() %}
+            {% set urlBackgroundPhoto = asset('photos/'~trick.photos|first().filename) %}
+        {% else %}
+            {% set urlBackgroundPhoto = 'http://placehold.it/1250x500' %}
+        {% endif %}
+
+        <div class="row trick-show frontpage-image" style="background-image: url({{ urlBackgroundPhoto }}) ">
+
             <div class="trick-icons">
                 <a href="{{ path('trick_edit', {'slug':trick.slug}) }}" class="fa fa-pencil"></a>
                 <a href="{{ path('trick_delete', {'slug':trick.slug}) }}" class="fa fa-trash"></a>
@@ -22,7 +29,7 @@
             {% for photo in trick.photos %}
                 <div class="col-md-3 col-sm-6 mb-4">
                     <a href="#">
-                        <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+                        <img class="img-fluid" src="{{ asset('photos/'~photo.filename) }}" alt="">
                     </a>
                 </div>
             {% endfor %}
@@ -79,7 +86,8 @@
                                       maxlength="100"
                                       rows="1"></textarea>
                                 <span class="input-group-btn">
-                                <button class="btn btn-secondary" type="button">{{ 'trick.show.comment.submit'|trans({}, 'form') }}</button>
+                                <button class="btn btn-secondary"
+                                        type="button">{{ 'trick.show.comment.submit'|trans({}, 'form') }}</button>
                             </span>
                             </div>
                         </form>

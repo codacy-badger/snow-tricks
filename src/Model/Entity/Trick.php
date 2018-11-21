@@ -3,6 +3,7 @@
 namespace App\Model\Entity;
 
 use App\Model\DTO\Trick\CreateTrickDTO;
+use App\Model\DTO\Trick\ModifyTrickDTO;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -66,7 +67,7 @@ class Trick
     private $messages;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Model\Entity\Photo", mappedBy="trick", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Model\Entity\Photo", mappedBy="trick", orphanRemoval=true, cascade={"persist"})
      */
     private $photos;
 
@@ -161,24 +162,28 @@ class Trick
         return $this->photos;
     }
 
-    public function addPhoto(Photo $photo): Trick
-    {
-        if (!$this->photos->contains($photo)) {
-            $this->photos[] = $photo;
-            $photo->setTrick($this);
-        }
-
-        return $this;
-    }
-
-    public function removePhoto(Photo $photo)
+    public function addPhoto(Photo $photo): void
     {
         if ($this->photos->contains($photo)) {
-            $this->photos->removeElement($photo);
-            // set the owning side to null (unless already changed)
-            if ($photo->getTrick() === $this) {
-                $photo->setTrick(null);
-            }
+            return;
+        }
+
+        $photo->setTrick($this);
+
+        $this->photos->add($photo);
+    }
+
+    public function removePhoto(Photo $photo): void
+    {
+        if (!$this->photos->contains($photo)) {
+            return;
+        }
+
+        $this->photos->removeElement($photo);
+
+        // set the owning side to null (unless already changed)
+        if ($photo->getTrick() === $this) {
+            $photo->setTrick(null);
         }
     }
 
@@ -215,6 +220,18 @@ class Trick
         $trick->updatedAt = new \DateTime('now');
         $trick->user = $createTrickDTO->getUser();
         $trick->slug = $trickSlug;
+
+        return $trick;
+    }
+
+    public static function modify(ModifyTrickDTO $modifyTrickDTO): Trick
+    {
+        $trick = $modifyTrickDTO->getTrick();
+
+        $trick->name = $modifyTrickDTO->getName();
+        $trick->description = $modifyTrickDTO->getDescription();
+        $trick->trickGroup = $modifyTrickDTO->getTrickGroup();
+        $trick->updatedAt = new \DateTime('now');
 
         return $trick;
     }

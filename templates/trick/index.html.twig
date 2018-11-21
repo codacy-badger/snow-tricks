@@ -55,11 +55,18 @@
 
         <div class="row tricks_list">
             {% for trick in tricks %}
+
+                {% if trick.photos|first %}
+                    {% set urlTrickPhoto = asset('photos/'~trick.photos|first().filename) %}
+                {% else %}
+                    {% set urlTrickPhoto = 'http://placehold.it/700x400' %}
+                {% endif %}
+
                 <div class="col-lg-3 col-sm-6 portfolio-item">
                     <div class="card">
                         <a href="{{ path('trick_show', {'slug':trick.slug}) }}">
                             <img class="card-img-top"
-                                 src="http://placehold.it/700x400"
+                                 src="{{ urlTrickPhoto }}"
                                  alt="">
                         </a>
                         <div class="card-body">

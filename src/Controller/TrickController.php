@@ -2,14 +2,18 @@
 
 namespace App\Controller;
 
+use App\Form\Trick\TrickModificationFormType;
+use App\IO\Upload\TrickPhotoUploader;
 use App\Model\DTO\Trick\CreateTrickDTO;
+use App\Model\DTO\Trick\ModifyTrickDTO;
+use App\Model\Entity\Photo;
 use App\Model\Entity\Trick;
-use App\Form\TrickFormType;
+use App\Form\Trick\TrickCreationFormType;
+use App\Repository\PhotoRepository;
 use App\Repository\TrickGroupRepository;
 use App\Repository\TrickRepository;
 use App\Repository\UserRepository;
-use App\Slugger\Slugger;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Utils\Slugger;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,10 +26,7 @@ class TrickController extends AbstractController
      * @var TrickRepository
      */
     private $trickRepository;
-    /**
-     * @var EntityManagerInterface
-     */
-    private $entityManager;
+
     /**
      * @var UserRepository
      */
@@ -38,17 +39,29 @@ class TrickController extends AbstractController
      * @var Slugger
      */
     private $slugger;
+    /**
+     * @var PhotoRepository
+     */
+    private $photoRepository;
+    /**
+     * @var TrickPhotoUploader
+     */
+    private $trickPhotoUploader;
 
     public function __construct(
         TrickRepository $trickRepository,
         UserRepository $userRepository,
         TrickGroupRepository $trickGroupRepository,
+        PhotoRepository $photoRepository,
+        TrickPhotoUploader $trickPhotoUploader,
         Slugger $slugger
     ) {
         $this->trickRepository = $trickRepository;
         $this->userRepository = $userRepository;
         $this->trickGroupRepository = $trickGroupRepository;
         $this->slugger = $slugger;
+        $this->photoRepository = $photoRepository;
+        $this->trickPhotoUploader = $trickPhotoUploader;
     }
 
     /**
@@ -81,7 +94,7 @@ class TrickController extends AbstractController
     {
         $createTrickDTO = new CreateTrickDTO($this->getUser());
 
-        $trickForm = $this->createForm(TrickFormType::class, $createTrickDTO);
+        $trickForm = $this->createForm(TrickCreationFormType::class, $createTrickDTO);
 
         $trickForm->handleRequest($request);
 
@@ -89,6 +102,15 @@ class TrickController extends AbstractController
             $slug = $this->slugger->slugify($createTrickDTO->getName());
 
             $trick = Trick::create($createTrickDTO, $slug);
+
+            $fileArray = $createTrickDTO->getPhotos();
+
+            foreach ($fileArray as $file) {
+                $filename = $this->trickPhotoUploader->upload($file);
+
+                $photo = Photo::create($filename, $trick);
+                $trick->addPhoto($photo);
+            }
 
             $this->trickRepository->save($trick);
 
@@ -106,35 +128,46 @@ class TrickController extends AbstractController
      * @Route("/trick/edit/{slug}", name="trick_edit")
      * @IsGranted("ROLE_USER")
      */
-    public function edit(Request $request, Trick $trick): Response
+    public function edit(Trick $trick, Request $request): Response
     {
-        $trickForm = $this->createForm(TrickFormType::class, $trick);
+        $modifyTrickDTO = new ModifyTrickDTO($trick);
+
+        $trickForm = $this->createForm(TrickModificationFormType::class, $modifyTrickDTO);
 
         $trickForm->handleRequest($request);
 
         if ($trickForm->isSubmitted() && $trickForm->isValid()) {
-            $trick = $trickForm->getData();
+            $trick = Trick::modify($modifyTrickDTO);
 
-            $trick->setUpdatedAt(new \DateTime('now'));
+            $fileArray = $modifyTrickDTO->getPhotos();
+
+            foreach ($fileArray as $file) {
+                $filename = $this->trickPhotoUploader->upload($file);
+
+                $photo = Photo::create($filename, $trick);
+                $trick->addPhoto($photo);
+            }
 
             $this->trickRepository->save($trick);
 
             $this->addFlash('success', 'trick.success.modification');
 
-            return $this->redirectToRoute('trick_show', ['slug' => $trick->getSlug()]);
+            return $this->redirectToRoute('trick_edit', ['slug' => $trick->getSlug()]);
         }
 
         return $this->render('trick/edit.html.twig', [
             'trickForm' => $trickForm->createView(),
+            'trick' => $trick,
         ]);
     }
 
     /**
+     * @IsGranted("ROLE_USER")
      * @Route("/trick/delete/{slug}", name="trick_delete")
      */
     public function delete(Trick $trick): Response
     {
-        $this->entityManager->remove($trick);
+        $this->trickRepository->remove($trick);
 
         $this->addFlash('success', 'trick.success.deletion');
 

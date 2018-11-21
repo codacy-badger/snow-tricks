@@ -1,0 +1,6 @@
+App\Model\Entity\Message:
+    message_{1..20}:
+        content: <paragraphs(3, true)>
+        created_at: <dateTimeBetween('-2 years')>
+        user: '@user_*'
+        trick: '@trick_*'

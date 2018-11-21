@@ -21,6 +21,7 @@ frontend-assets/html
 public/css
 public/fonts
 public/js
+public/photos
 
 ###> friendsofphp/php-cs-fixer ###
 /.php_cs.cache

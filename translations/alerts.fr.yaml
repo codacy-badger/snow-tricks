@@ -11,6 +11,11 @@ trick:
     success:
         creation: "Vous avez bien créé une nouvelle figure !"
         modification: "La figure a bien été modifiée"
+        deletion: "Vous avez supprimé une figure"
 user:
     success:
         creation: "Votre compte a bien été créée"
+
+photo:
+    success:
+        deletion: "La photo a bien été supprimée"
