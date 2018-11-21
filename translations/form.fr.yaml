@@ -20,6 +20,7 @@ trick:
             description: "Description"
             groupname: "Type de figure"
             photofile: "Ajouter des photos"
+            videos: "Ajouter des liens videos, séparé par un espace"
             create: "Créer"
             modify: "Modifier"
     header:
@@ -29,4 +30,5 @@ trick:
         comment:
             placeholder: "Votre message"
             submit: "Laisser un commentaire"
+
 

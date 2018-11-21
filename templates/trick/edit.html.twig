@@ -45,7 +45,7 @@
 
         </div>
 
-        <!-- Contact Form -->
+        <!-- Trick modification form -->
         <div class="row">
             <div class="col-lg-8 mb-4">
 
@@ -55,6 +55,7 @@
                 {{ form_row(trickForm.description) }}
                 {{ form_row(trickForm.trickGroup) }}
                 {{ form_row(trickForm.photos) }}
+                {{ form_row(trickForm.videos) }}
 
                 <button type="submit" class="btn btn-primary"
                         formnovalidate>{{ 'trick.form.label.modify'|trans({}, 'form') }}</button>
@@ -63,6 +64,22 @@
 
             </div>
         </div>
+
+{#        <!-- Video addition form -->
+        <div class="row">
+            <div class="col-lg-8 mb-4">
+
+                {{ form_start(videoForm) }}
+
+                {{ form_row(videoForm.hyperlink) }}
+
+                <button type="submit" class="btn btn-primary"
+                        formnovalidate>{{ 'video.form.label.modify'|trans({}, 'form') }}</button>
+
+                {{ form_end(videoForm) }}
+            </div>
+        </div>#}
+
         <!-- /.row -->
     </div>
     <!-- /.container -->

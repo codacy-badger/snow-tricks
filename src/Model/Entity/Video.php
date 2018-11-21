@@ -2,6 +2,7 @@
 
 namespace App\Model\Entity;
 
+use App\Model\DTO\Video\CreateVideoDTO;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -102,5 +103,17 @@ class Video
             $this->tricks->removeElement($trick);
             $trick->removeVideo($this);
         }
+    }
+
+    public static function create(string $code, string $platform, Trick $trick)
+    {
+        $video = new self();
+
+        $video->videoCode = $code;
+        $video->platform = $platform;
+        $video->createdAt = new \DateTime('now');
+        $video->addTrick($trick);
+
+        return $video;
     }
 }

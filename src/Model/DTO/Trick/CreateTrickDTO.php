@@ -33,6 +33,11 @@ class CreateTrickDTO
     private $photos;
 
     /**
+     * @var string
+     */
+    private $videos;
+
+    /**
      * @var User
      */
     private $user;
@@ -114,5 +119,21 @@ class CreateTrickDTO
     public function setPhotos(array $photos): void
     {
         $this->photos = $photos;
+    }
+
+    /**
+     * @return string
+     */
+    public function getVideos(): ?string
+    {
+        return $this->videos;
+    }
+
+    /**
+     * @param string $videos
+     */
+    public function setVideos(string $videos): void
+    {
+        $this->videos = $videos;
     }
 }
