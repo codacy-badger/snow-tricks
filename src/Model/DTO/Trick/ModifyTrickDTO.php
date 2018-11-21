@@ -40,52 +40,33 @@ class ModifyTrickDTO
         $this->name = $trick->getName();
         $this->description = $trick->getDescription();
         $this->trickGroup = $trick->getTrickGroup();
-        //$this->photos = $trick->getPhotos();
     }
 
-    /**
-     * @return string
-     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
-    /**
-     * @param string $name
-     */
     public function setName(?string $name): void
     {
         $this->name = $name;
     }
 
-    /**
-     * @return string
-     */
     public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    /**
-     * @param string $description
-     */
     public function setDescription(?string $description): void
     {
         $this->description = $description;
     }
 
-    /**
-     * @return TrickGroup
-     */
     public function getTrickGroup(): ?TrickGroup
     {
         return $this->trickGroup;
     }
 
-    /**
-     * @param TrickGroup $trickGroup
-     */
     public function setTrickGroup(?TrickGroup $trickGroup): void
     {
         $this->trickGroup = $trickGroup;
@@ -101,17 +82,11 @@ class ModifyTrickDTO
         $this->photos = $photos;
     }
 
-    /**
-     * @return Trick
-     */
     public function getTrick(): Trick
     {
         return $this->trick;
     }
 
-    /**
-     * @param Trick $trick
-     */
     public function setTrick(Trick $trick): void
     {
         $this->trick = $trick;

@@ -46,6 +46,20 @@ final class SnowboardProvider extends BaseProvider
         'korean -bacon',
     ];
 
+    const TRICK_VIDEOS_PROVIDER = [
+        'n0F6hSpxaFc',
+        'aINlzgrOovI',
+        '3_fr5l-JvTM',
+        'FYQesbQXCac',
+        '-27nqjI844I',
+        'PZlqeg-PjC4',
+        'KoHzXi7Usl8',
+        'G9qlTInKbNE',
+        'PePNEXh_1N4',
+        'X9DIG3Ux79E',
+        'K-RKP3BizWM',
+    ];
+
     public function trickName(): string
     {
         return self::randomElement(self::TRICK_NAME_PROVIDER);
@@ -54,5 +68,10 @@ final class SnowboardProvider extends BaseProvider
     public function trickSlug(): string
     {
         return self::randomElement(self::TRICK_SLUG_PROVIDER);
+    }
+
+    public function trickVideos(): string
+    {
+        return self::randomElement(self::TRICK_VIDEOS_PROVIDER);
     }
 }

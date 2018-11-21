@@ -27,14 +27,14 @@ class PhotoController extends AbstractController
      */
     public function delete(Photo $photo): Response
     {
-        $slug = $photo->getTrick()->getSlug();
+        $trickSlug = $photo->getTrick()->getSlug();
 
         $this->photoRepository->remove($photo);
 
         $this->addFlash('success', 'photo.success.deletion');
 
         return $this->redirectToRoute('trick_edit', [
-            'slug' => $slug,
+            'slug' => $trickSlug,
         ]);
     }
 }
