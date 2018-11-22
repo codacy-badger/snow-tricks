@@ -121,6 +121,10 @@ class TrickController extends AbstractController
         if ($trickForm->isSubmitted() && $trickForm->isValid()) {
             $slug = $this->slugger->slugify($createTrickDTO->getName());
 
+            // ajouter un service pour préparer un tableau de video, vérifier qu'elles n'existent pas
+            //to do boucler sur la propriété video de mon dto et créer a la volé les entités video à partir des AddVideoLinkDTO
+            // ajouter un 3e arguments dans la méthode create (arrayCollection ou array de video)
+
             $trick = Trick::create($createTrickDTO, $slug);
 
             $fileArray = $createTrickDTO->getPhotos();

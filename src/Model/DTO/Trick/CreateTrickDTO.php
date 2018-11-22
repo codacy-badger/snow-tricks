@@ -4,6 +4,8 @@ namespace App\Model\DTO\Trick;
 
 use App\Model\Entity\TrickGroup;
 use App\Model\Entity\User;
+use App\Model\Entity\Video;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class CreateTrickDTO
@@ -33,7 +35,7 @@ class CreateTrickDTO
     private $photos;
 
     /**
-     * @var string
+     * @var ArrayCollection|Video[]
      */
     private $videos;
 
@@ -45,67 +47,47 @@ class CreateTrickDTO
     public function __construct(User $user)
     {
         $this->user = $user;
+
+        $this->videos = new ArrayCollection();
     }
 
-    /**
-     * @return string
-     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
-    /**
-     * @param string $name
-     */
     public function setName(?string $name): void
     {
         $this->name = $name;
     }
 
-    /**
-     * @return string
-     */
     public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    /**
-     * @param string $description
-     */
     public function setDescription(?string $description): void
     {
         $this->description = $description;
     }
 
-    /**
-     * @return TrickGroup
-     */
     public function getTrickGroup(): ?TrickGroup
     {
         return $this->trickGroup;
     }
 
-    /**
-     * @param TrickGroup $trickGroup
-     */
     public function setTrickGroup(?TrickGroup $trickGroup): void
     {
         $this->trickGroup = $trickGroup;
     }
 
-    /**
-     * @return User
-     */
+
     public function getUser(): User
     {
         return $this->user;
     }
 
-    /**
-     * @param User $user
-     */
+
     public function setUser(User $user): void
     {
         $this->user = $user;
@@ -121,19 +103,14 @@ class CreateTrickDTO
         $this->photos = $photos;
     }
 
-    /**
-     * @return string
-     */
-    public function getVideos(): ?string
+    public function getVideos(): ?ArrayCollection
     {
         return $this->videos;
     }
 
-    /**
-     * @param string $videos
-     */
-    public function setVideos(string $videos): void
+    public function addVideo(AddVideoLinkDTO $videoLinkDTO): void
     {
-        $this->videos = $videos;
+
     }
+
 }

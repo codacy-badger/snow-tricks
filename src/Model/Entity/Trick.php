@@ -197,16 +197,21 @@ class Trick
 
     public function addVideo(Video $video)
     {
-        if (!$this->video->contains($video)) {
-            $this->video[] = $video;
+        // to do : renommer video en videos
+        if ($this->video->contains($video)) {
+            return;
         }
+
+        $this->video->add($video);
     }
 
     public function removeVideo(Video $video)
     {
-        if ($this->video->contains($video)) {
-            $this->video->removeElement($video);
+        if (!$this->video->contains($video)) {
+            return;
         }
+
+        $this->video->removeElement($video);
     }
 
     public static function create(CreateTrickDTO $createTrickDTO, string $trickSlug): Trick
@@ -220,6 +225,8 @@ class Trick
         $trick->updatedAt = new \DateTime('now');
         $trick->user = $createTrickDTO->getUser();
         $trick->slug = $trickSlug;
+
+
 
         return $trick;
     }
