@@ -112,14 +112,14 @@ class TrickController extends AbstractController
     {
         $createTrickDTO = new CreateTrickDTO($this->getUser());
 
-
         $trickForm = $this->createForm(TrickCreationFormType::class, $createTrickDTO);
-
 
         $trickForm->handleRequest($request);
 
         if ($trickForm->isSubmitted() && $trickForm->isValid()) {
             $slug = $this->slugger->slugify($createTrickDTO->getName());
+
+            $videos = $createTrickDTO->getVideos();
 
             // ajouter un service pour préparer un tableau de video, vérifier qu'elles n'existent pas
             //to do boucler sur la propriété video de mon dto et créer a la volé les entités video à partir des AddVideoLinkDTO

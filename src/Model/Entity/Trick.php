@@ -74,13 +74,13 @@ class Trick
     /**
      * @ORM\ManyToMany(targetEntity="App\Model\Entity\Video", inversedBy="tricks")
      */
-    private $video;
+    private $videos;
 
     public function __construct()
     {
         $this->messages = new ArrayCollection();
         $this->photos = new ArrayCollection();
-        $this->video = new ArrayCollection();
+        $this->videos = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -145,7 +145,6 @@ class Trick
     {
         if ($this->messages->contains($message)) {
             $this->messages->removeElement($message);
-            // set the owning side to null (unless already changed)
             if ($message->getTrick() === $this) {
                 $message->setTrick(null);
             }
@@ -190,28 +189,28 @@ class Trick
     /**
      * @return Collection|Video[]
      */
-    public function getVideo(): Collection
+    public function getVideos(): Collection
     {
-        return $this->video;
+        return $this->videos;
     }
 
     public function addVideo(Video $video)
     {
         // to do : renommer video en videos
-        if ($this->video->contains($video)) {
+        if ($this->videos->contains($video)) {
             return;
         }
 
-        $this->video->add($video);
+        $this->videos->add($video);
     }
 
     public function removeVideo(Video $video)
     {
-        if (!$this->video->contains($video)) {
+        if (!$this->videos->contains($video)) {
             return;
         }
 
-        $this->video->removeElement($video);
+        $this->videos->removeElement($video);
     }
 
     public static function create(CreateTrickDTO $createTrickDTO, string $trickSlug): Trick

@@ -2,7 +2,7 @@
 
 namespace App\Model\Entity;
 
-use App\Model\DTO\Video\CreateVideoDTO;
+use App\Model\DTO\Video\AddVideoLinkDTO;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -105,14 +105,13 @@ class Video
         }
     }
 
-    public static function create(string $code, string $platform)
+    public static function create(AddVideoLinkDTO $videoLinkDTO)
     {
         $video = new self();
 
-        $video->videoCode = $code;
-        $video->platform = $platform;
+        $video->videoCode = 'GCNTKAyeOAA';
+        $video->platform = 'youtube';
         $video->createdAt = new \DateTime('now');
-
 
         return $video;
     }

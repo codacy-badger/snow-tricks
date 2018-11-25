@@ -2,8 +2,10 @@
 
 namespace App\Form\Trick;
 
-use App\Model\DTO\Trick\AddVideoLinkDTO;
+use App\Model\DTO\Video\AddVideoLinkDTO;
+
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 

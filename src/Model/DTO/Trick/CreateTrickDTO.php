@@ -2,6 +2,7 @@
 
 namespace App\Model\DTO\Trick;
 
+use App\Model\DTO\Video\AddVideoLinkDTO;
 use App\Model\Entity\TrickGroup;
 use App\Model\Entity\User;
 use App\Model\Entity\Video;
@@ -81,7 +82,6 @@ class CreateTrickDTO
         $this->trickGroup = $trickGroup;
     }
 
-
     public function getUser(): User
     {
         return $this->user;
@@ -109,6 +109,15 @@ class CreateTrickDTO
     }
 
     public function addVideo(AddVideoLinkDTO $videoLinkDTO): void
+    {
+
+        $video = Video::create($videoLinkDTO);
+
+        $this->videos[] = $video;
+
+    }
+
+    public function removeVideo(AddVideoLinkDTO $videoLinkDTO): void
     {
 
     }
