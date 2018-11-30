@@ -2,13 +2,13 @@
 
 namespace App\Controller;
 
+use App\Form\Trick\CreateTrickType;
+use App\Form\Trick\EditTrickType;
 use App\Form\Trick\TrickModificationFormType;
-use App\Form\VideoFormType;
 use App\IO\EmbedVideo\TrickVideoCategorizer;
 use App\IO\Upload\TrickPhotoUploader;
 use App\Model\DTO\Trick\CreateTrickDTO;
 use App\Model\DTO\Trick\ModifyTrickDTO;
-use App\Model\DTO\Video\CreateVideoDTO;
 use App\Model\Entity\Photo;
 use App\Model\Entity\Trick;
 use App\Form\Trick\TrickCreationFormType;
@@ -113,7 +113,7 @@ class TrickController extends AbstractController
     {
         $createTrickDTO = new CreateTrickDTO($this->getUser());
 
-        $trickForm = $this->createForm(TrickCreationFormType::class, $createTrickDTO);
+        $trickForm = $this->createForm(CreateTrickType::class, $createTrickDTO);
 
         $trickForm->handleRequest($request);
 
@@ -128,12 +128,15 @@ class TrickController extends AbstractController
 
             foreach($createTrickDTO->getVideos() as $addVideoLinkDTO)
             {
-                $code = $this->videoCategorizer->getPlatformCode($addVideoLinkDTO)[0];
-                $platform = $this->videoCategorizer->getPlatformCode($addVideoLinkDTO)[1];
+                $platform = $this->videoCategorizer->getPlatformCode($addVideoLinkDTO)[0];
+                $code = $this->videoCategorizer->getPlatformCode($addVideoLinkDTO)[1];
 
-                $video = Video::create($code, $platform);
+                if(!$video = $this->videoRepository->findOneBy(['videoCode' => $code])){
 
-                $this->videoRepository->save($video);
+                    $video = Video::create($code, $platform);
+
+                    $this->videoRepository->save($video);
+                }
 
                 $videosCollection[] = $video;
             }
@@ -157,7 +160,7 @@ class TrickController extends AbstractController
         }
 
         return $this->render('trick/new.html.twig', [
-            'trickForm' => $trickForm->createView()
+            'trickForm' => $trickForm->createView(),
         ]);
     }
 
@@ -168,7 +171,7 @@ class TrickController extends AbstractController
     public function edit(Trick $trick, Request $request): Response
     {
         $modifyTrickDTO = new ModifyTrickDTO($trick);
-        $trickForm = $this->createForm(TrickModificationFormType::class, $modifyTrickDTO);
+        $trickForm = $this->createForm(EditTrickType::class, $modifyTrickDTO);
 
         $trickForm->handleRequest($request);
 
@@ -208,5 +211,20 @@ class TrickController extends AbstractController
         $this->addFlash('success', 'trick.success.deletion');
 
         return $this->redirectToRoute('homepage');
+    }
+
+    /**
+     * @IsGranted("ROLE_USER")
+     * @Route("/video/delete/{slug}/{id}", name="video_delete")
+     */
+    public function removeVideo(Trick $trick, Video $video)
+    {
+        $trick->removeVideo($video);
+
+        $this->trickRepository->save($trick);
+
+        return $this->redirectToRoute('trick_edit', [
+            'slug' => $trick->getSlug(),
+        ]);
     }
 }

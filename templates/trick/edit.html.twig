@@ -35,11 +35,17 @@
                 </div>
             {% endfor %}
 
-            {% for video in trick.video %}
+            {% for video in trick.videos %}
                 <div class="col-md-3 col-sm-6 mb-4">
                     <a href="#">
                         <img class="img-fluid" src="http://placehold.it/500x300" alt="">
                     </a>
+                </div>
+                <div class="card-body">
+                    <p class="card-title">
+                        <a href="#" class="fa fa-pencil"></a>
+                        <a href="{{ path('video_delete', {'slug':trick.slug}, {'id':video.id}) }}" class="fa fa-trash"></a>
+                    </p>
                 </div>
             {% endfor %}
 
@@ -55,31 +61,24 @@
                 {{ form_row(trickForm.description) }}
                 {{ form_row(trickForm.trickGroup) }}
                 {{ form_row(trickForm.photos) }}
-                {{ form_row(trickForm.videos) }}
+
+                <ul class="videos"
+                    data-prototype="{{ form_widget(trickForm.videos.vars.prototype)|e }}">
+
+                    {% for video in trickForm.videos %}
+                        <li>
+                            {{ form_row(video) }}
+                        </li>
+                    {% endfor %}
+                </ul>
 
                 <button type="submit" class="btn btn-primary"
-                        formnovalidate>{{ 'trick.form.label.modify'|trans({}, 'form') }}</button>
+                        formnovalidate>{{ 'trick.form.button.modify'|trans({}, 'form') }}</button>
 
                 {{ form_end(trickForm) }}
 
             </div>
         </div>
-
-{#        <!-- Video addition form -->
-        <div class="row">
-            <div class="col-lg-8 mb-4">
-
-                {{ form_start(videoForm) }}
-
-                {{ form_row(videoForm.hyperlink) }}
-
-                <button type="submit" class="btn btn-primary"
-                        formnovalidate>{{ 'video.form.label.modify'|trans({}, 'form') }}</button>
-
-                {{ form_end(videoForm) }}
-            </div>
-        </div>#}
-
         <!-- /.row -->
     </div>
     <!-- /.container -->

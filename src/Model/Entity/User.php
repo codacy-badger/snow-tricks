@@ -91,8 +91,6 @@ class User implements UserInterface
     }
 
     /**
-     * A visual identifier that represents this user.
-     *
      * @see UserInterface
      */
     public function getUsername(): string
@@ -163,9 +161,6 @@ class User implements UserInterface
         // $this->plainPassword = null;
     }
 
-    /**
-     * @return Collection|Trick[]
-     */
     public function getTricks(): Collection
     {
         return $this->tricks;
@@ -190,9 +185,6 @@ class User implements UserInterface
         }
     }
 
-    /**
-     * @return Collection|Message[]
-     */
     public function getMessages(): Collection
     {
         return $this->messages;

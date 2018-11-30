@@ -2,10 +2,10 @@
 
 namespace App\Controller;
 
-use App\Form\UserLoginType;
+use App\Form\User\UserLoginType;
 use App\Model\DTO\User\CreateUserDTO;
 use App\Model\Entity\User;
-use App\Form\UserSignupType;
+use App\Form\User\UserSignupType;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;

@@ -118,14 +118,21 @@ class Trick
         return $this->user;
     }
 
+    public function setUser($user): void
+    {
+        $this->user = $user;
+    }
+
     public function getTrickGroup(): ?TrickGroup
     {
         return $this->trickGroup;
     }
 
-    /**
-     * @return Collection|Message[]
-     */
+    public function setTrickGroup($trickGroup): void
+    {
+        $this->trickGroup = $trickGroup;
+    }
+
     public function getMessages(): Collection
     {
         return $this->messages;
@@ -153,9 +160,6 @@ class Trick
         return $this;
     }
 
-    /**
-     * @return Collection|Photo[]
-     */
     public function getPhotos(): Collection
     {
         return $this->photos;
@@ -186,9 +190,6 @@ class Trick
         }
     }
 
-    /**
-     * @return Collection|Video[]
-     */
     public function getVideos(): Collection
     {
         return $this->videos;

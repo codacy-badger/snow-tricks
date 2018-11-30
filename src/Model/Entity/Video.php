@@ -2,7 +2,6 @@
 
 namespace App\Model\Entity;
 
-use App\Model\DTO\Video\AddVideoLinkDTO;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -56,11 +55,6 @@ class Video
         return $this->videoCode;
     }
 
-    public function setVideoCode(string $videoCode)
-    {
-        $this->videoCode = $videoCode;
-    }
-
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
@@ -71,19 +65,12 @@ class Video
         $this->createdAt = $createdAt;
     }
 
-    public function getPlatform(): ?string
-    {
-        return $this->platform;
-    }
 
     public function setPlatform(string $platform)
     {
         $this->platform = $platform;
     }
 
-    /**
-     * @return Collection|Trick[]
-     */
     public function getTricks(): Collection
     {
         return $this->tricks;

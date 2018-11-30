@@ -5,7 +5,6 @@ namespace App\Model\DTO\Trick;
 use App\Model\DTO\Video\AddVideoLinkDTO;
 use App\Model\Entity\TrickGroup;
 use App\Model\Entity\User;
-use App\Model\Entity\Video;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -87,7 +86,6 @@ class CreateTrickDTO
         return $this->user;
     }
 
-
     public function setUser(User $user): void
     {
         $this->user = $user;
@@ -125,5 +123,4 @@ class CreateTrickDTO
 
         $this->videos->removeElement($videoLinkDTO);
     }
-
 }

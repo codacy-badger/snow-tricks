@@ -2,8 +2,10 @@
 
 namespace App\Model\DTO\Trick;
 
+use App\Model\DTO\Video\AddVideoLinkDTO;
 use App\Model\Entity\Trick;
 use App\Model\Entity\TrickGroup;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class ModifyTrickDTO
@@ -33,6 +35,11 @@ class ModifyTrickDTO
      * @var array
      */
     private $photos;
+
+    /**
+     * @var ArrayCollection|AddVideoLinkDTO[]
+     */
+    private $videos;
 
     public function __construct(Trick $trick)
     {
@@ -91,4 +98,28 @@ class ModifyTrickDTO
     {
         $this->trick = $trick;
     }
+
+    public function getVideos(): ?ArrayCollection
+    {
+        return $this->videos;
+    }
+
+    public function addVideo(AddVideoLinkDTO $videoLinkDTO): void
+    {
+        if ($this->videos->contains($videoLinkDTO)) {
+            return;
+        }
+
+        $this->videos->add($videoLinkDTO);
+    }
+
+    public function removeVideo(AddVideoLinkDTO $videoLinkDTO): void
+    {
+        if (!$this->videos->contains($videoLinkDTO)) {
+            return;
+        }
+
+        $this->videos->removeElement($videoLinkDTO);
+    }
+
 }
