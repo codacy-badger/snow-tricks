@@ -36,7 +36,7 @@ class CreateTrickDTO
     private $photos;
 
     /**
-     * @var ArrayCollection|Video[]
+     * @var ArrayCollection|AddVideoLinkDTO[]
      */
     private $videos;
 
@@ -110,16 +110,20 @@ class CreateTrickDTO
 
     public function addVideo(AddVideoLinkDTO $videoLinkDTO): void
     {
+        if ($this->videos->contains($videoLinkDTO)) {
+            return;
+        }
 
-        $video = Video::create($videoLinkDTO);
-
-        $this->videos[] = $video;
-
+        $this->videos->add($videoLinkDTO);
     }
 
     public function removeVideo(AddVideoLinkDTO $videoLinkDTO): void
     {
+        if (!$this->videos->contains($videoLinkDTO)) {
+            return;
+        }
 
+        $this->videos->removeElement($videoLinkDTO);
     }
 
 }

@@ -19,6 +19,7 @@ use App\Repository\TrickRepository;
 use App\Repository\UserRepository;
 use App\Repository\VideoRepository;
 use App\Utils\Slugger;
+use Doctrine\Common\Collections\ArrayCollection;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -119,13 +120,25 @@ class TrickController extends AbstractController
         if ($trickForm->isSubmitted() && $trickForm->isValid()) {
             $slug = $this->slugger->slugify($createTrickDTO->getName());
 
-            $videos = $createTrickDTO->getVideos();
-
-            // ajouter un service pour préparer un tableau de video, vérifier qu'elles n'existent pas
-            //to do boucler sur la propriété video de mon dto et créer a la volé les entités video à partir des AddVideoLinkDTO
+            // to do: ajouter un service pour préparer un tableau de video, vérifier qu'elles n'existent pas
+            // boucler sur la propriété video de mon dto et créer a la volé les entités video à partir des AddVideoLinkDTO
             // ajouter un 3e arguments dans la méthode create (arrayCollection ou array de video)
 
-            $trick = Trick::create($createTrickDTO, $slug);
+            $videosCollection = new ArrayCollection();
+
+            foreach($createTrickDTO->getVideos() as $addVideoLinkDTO)
+            {
+                $code = $this->videoCategorizer->getPlatformCode($addVideoLinkDTO)[0];
+                $platform = $this->videoCategorizer->getPlatformCode($addVideoLinkDTO)[1];
+
+                $video = Video::create($code, $platform);
+
+                $this->videoRepository->save($video);
+
+                $videosCollection[] = $video;
+            }
+
+            $trick = Trick::create($createTrickDTO, $slug, $videosCollection);
 
             $fileArray = $createTrickDTO->getPhotos();
 
@@ -134,20 +147,6 @@ class TrickController extends AbstractController
 
                 $photo = Photo::create($filename, $trick);
                 $trick->addPhoto($photo);
-            }
-
-            $videoLinks = $this->videoCategorizer->getHyperlinkArray($createTrickDTO->getVideos());
-
-            foreach($videoLinks as $hyperlink)
-            {
-                $videoCode = $this->videoCategorizer->getCode($hyperlink);
-                $videoPlatform =  $this->videoCategorizer->getPlatformType($hyperlink);
-
-                $video = Video::create($videoCode, $videoPlatform);
-
-                $trick->addVideo($video);
-
-                $this->videoRepository->save($video);
             }
 
             $this->trickRepository->save($trick);

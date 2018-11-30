@@ -196,7 +196,6 @@ class Trick
 
     public function addVideo(Video $video)
     {
-        // to do : renommer video en videos
         if ($this->videos->contains($video)) {
             return;
         }
@@ -213,7 +212,7 @@ class Trick
         $this->videos->removeElement($video);
     }
 
-    public static function create(CreateTrickDTO $createTrickDTO, string $trickSlug): Trick
+    public static function create(CreateTrickDTO $createTrickDTO, string $trickSlug, ArrayCollection $videos): Trick
     {
         $trick = new self();
 
@@ -224,8 +223,7 @@ class Trick
         $trick->updatedAt = new \DateTime('now');
         $trick->user = $createTrickDTO->getUser();
         $trick->slug = $trickSlug;
-
-
+        $trick->videos = $videos;
 
         return $trick;
     }

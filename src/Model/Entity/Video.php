@@ -21,7 +21,7 @@ class Video
     private $id;
 
     /**
-     * @ORM\Column()
+     * @ORM\Column(unique=true)
      */
     private $videoCode;
 
@@ -105,12 +105,12 @@ class Video
         }
     }
 
-    public static function create(AddVideoLinkDTO $videoLinkDTO)
+    public static function create(string $platform, string $code): Video
     {
         $video = new self();
 
-        $video->videoCode = 'GCNTKAyeOAA';
-        $video->platform = 'youtube';
+        $video->videoCode = $code;
+        $video->platform = $platform;
         $video->createdAt = new \DateTime('now');
 
         return $video;
