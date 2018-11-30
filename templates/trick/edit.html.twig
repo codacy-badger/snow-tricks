@@ -37,16 +37,19 @@
 
             {% for video in trick.videos %}
                 <div class="col-md-3 col-sm-6 mb-4">
-                    <a href="#">
+                    <div class="card">
                         <img class="img-fluid" src="http://placehold.it/500x300" alt="">
-                    </a>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-title">
+                            <a href="{{ path('trick_remove_video', {
+                                'slug': trick.slug,
+                                'id': video.id
+                            }) }}" class="fa fa-trash"></a>
+                        </p>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <p class="card-title">
-                        <a href="#" class="fa fa-pencil"></a>
-                        <a href="{{ path('video_delete', {'slug':trick.slug}, {'id':video.id}) }}" class="fa fa-trash"></a>
-                    </p>
-                </div>
+
             {% endfor %}
 
         </div>

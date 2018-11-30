@@ -2,6 +2,7 @@
 
 namespace App\Model\Entity;
 
+use App\Model\ValueObject\VideoMeta;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -65,7 +66,6 @@ class Video
         $this->createdAt = $createdAt;
     }
 
-
     public function setPlatform(string $platform)
     {
         $this->platform = $platform;
@@ -92,12 +92,12 @@ class Video
         }
     }
 
-    public static function create(string $platform, string $code): Video
+    public static function create(VideoMeta $videoMeta): Video
     {
         $video = new self();
 
-        $video->videoCode = $code;
-        $video->platform = $platform;
+        $video->videoCode = $videoMeta->getCode();
+        $video->platform = $videoMeta->getPlatform();
         $video->createdAt = new \DateTime('now');
 
         return $video;

@@ -4,14 +4,12 @@ namespace App\Controller;
 
 use App\Form\Trick\CreateTrickType;
 use App\Form\Trick\EditTrickType;
-use App\Form\Trick\TrickModificationFormType;
-use App\IO\EmbedVideo\TrickVideoCategorizer;
+use App\IO\EmbedVideo\VideoPlatformMatcher;
 use App\IO\Upload\TrickPhotoUploader;
 use App\Model\DTO\Trick\CreateTrickDTO;
 use App\Model\DTO\Trick\ModifyTrickDTO;
 use App\Model\Entity\Photo;
 use App\Model\Entity\Trick;
-use App\Form\Trick\TrickCreationFormType;
 use App\Model\Entity\Video;
 use App\Repository\PhotoRepository;
 use App\Repository\TrickGroupRepository;
@@ -20,7 +18,9 @@ use App\Repository\UserRepository;
 use App\Repository\VideoRepository;
 use App\Utils\Slugger;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,31 +37,35 @@ class TrickController extends AbstractController
      * @var UserRepository
      */
     private $userRepository;
+
     /**
      * @var TrickGroupRepository
      */
     private $trickGroupRepository;
+
     /**
      * @var Slugger
      */
     private $slugger;
+
     /**
      * @var PhotoRepository
      */
     private $photoRepository;
+
     /**
      * @var TrickPhotoUploader
      */
     private $trickPhotoUploader;
 
     /**
-     * @var TrickVideoCategorizer
-     */
-    private $videoCategorizer;
-    /**
      * @var VideoRepository
      */
     private $videoRepository;
+    /**
+     * @var EntityManagerInterface
+     */
+    private $entityManager;
 
     public function __construct(
         TrickRepository $trickRepository,
@@ -71,7 +75,7 @@ class TrickController extends AbstractController
         TrickPhotoUploader $trickPhotoUploader,
         VideoRepository $videoRepository,
         Slugger $slugger,
-        TrickVideoCategorizer $videoCategorizer
+        EntityManagerInterface $entityManager
     ) {
         $this->trickRepository = $trickRepository;
         $this->userRepository = $userRepository;
@@ -79,8 +83,8 @@ class TrickController extends AbstractController
         $this->slugger = $slugger;
         $this->photoRepository = $photoRepository;
         $this->trickPhotoUploader = $trickPhotoUploader;
-        $this->videoCategorizer = $videoCategorizer;
         $this->videoRepository = $videoRepository;
+        $this->entityManager = $entityManager;
     }
 
     /**
@@ -120,22 +124,18 @@ class TrickController extends AbstractController
         if ($trickForm->isSubmitted() && $trickForm->isValid()) {
             $slug = $this->slugger->slugify($createTrickDTO->getName());
 
-            // to do: ajouter un service pour préparer un tableau de video, vérifier qu'elles n'existent pas
-            // boucler sur la propriété video de mon dto et créer a la volé les entités video à partir des AddVideoLinkDTO
-            // ajouter un 3e arguments dans la méthode create (arrayCollection ou array de video)
-
             $videosCollection = new ArrayCollection();
 
-            foreach($createTrickDTO->getVideos() as $addVideoLinkDTO)
-            {
-                $platform = $this->videoCategorizer->getPlatformCode($addVideoLinkDTO)[0];
-                $code = $this->videoCategorizer->getPlatformCode($addVideoLinkDTO)[1];
+            // todo: ajouter method update video( (et update photos pour les photos) dans Trick,
+            // todo: a mettre après la création du trick
+            foreach ($createTrickDTO->getVideos() as $addVideoLinkDTO) {
+                $videoMeta = VideoPlatformMatcher::match($addVideoLinkDTO);
 
-                if(!$video = $this->videoRepository->findOneBy(['videoCode' => $code])){
+                if (!$video = $this->videoRepository->findOneBy(['videoCode' => $videoMeta->getCode()])) {
 
-                    $video = Video::create($code, $platform);
+                    $video = Video::create($videoMeta);
 
-                    $this->videoRepository->save($video);
+                    $this->entityManager->persist($video);
                 }
 
                 $videosCollection[] = $video;
@@ -152,7 +152,9 @@ class TrickController extends AbstractController
                 $trick->addPhoto($photo);
             }
 
-            $this->trickRepository->save($trick);
+            $this->entityManager->persist($trick);
+
+            $this->entityManager->flush();
 
             $this->addFlash('success', 'trick.success.creation');
 
@@ -177,6 +179,19 @@ class TrickController extends AbstractController
 
         if ($trickForm->isSubmitted() && $trickForm->isValid()) {
             $trick = Trick::modify($modifyTrickDTO);
+
+            foreach ($modifyTrickDTO->getVideos() as $addVideoLinkDTO) {
+                $videoMeta = VideoPlatformMatcher::match($addVideoLinkDTO);
+
+                if (!$video = $this->videoRepository->findOneBy(['videoCode' => $videoMeta->getCode()])) {
+
+                    $video = Video::create($videoMeta);
+
+                    $this->entityManager->persist($video);
+                }
+                $trick->addVideo($video);
+            }
+
 
             $fileArray = $modifyTrickDTO->getPhotos();
 
@@ -215,13 +230,17 @@ class TrickController extends AbstractController
 
     /**
      * @IsGranted("ROLE_USER")
-     * @Route("/video/delete/{slug}/{id}", name="video_delete")
+     * @Route("/trick/{slug}/video/{id}/delete", name="trick_remove_video")
+     * @ParamConverter("trick", options={"mapping": {"slug": "slug"}})
+     * @ParamConverter("video", options={"mapping": {"id": "id"}})
      */
     public function removeVideo(Trick $trick, Video $video)
     {
         $trick->removeVideo($video);
 
         $this->trickRepository->save($trick);
+
+        $this->addFlash('success', 'video.trick.success.deletion');
 
         return $this->redirectToRoute('trick_edit', [
             'slug' => $trick->getSlug(),

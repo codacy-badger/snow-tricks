@@ -69,5 +69,4 @@ class Photo
 
         return $photo;
     }
-
 }

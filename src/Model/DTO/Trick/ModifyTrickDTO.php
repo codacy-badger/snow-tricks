@@ -47,6 +47,8 @@ class ModifyTrickDTO
         $this->name = $trick->getName();
         $this->description = $trick->getDescription();
         $this->trickGroup = $trick->getTrickGroup();
+
+        $this->videos = new ArrayCollection();
     }
 
     public function getName(): ?string
@@ -121,5 +123,4 @@ class ModifyTrickDTO
 
         $this->videos->removeElement($videoLinkDTO);
     }
-
 }
