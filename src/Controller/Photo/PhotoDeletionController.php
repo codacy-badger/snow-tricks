@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Photo;
 
 use App\Model\Entity\Photo;
 use App\Repository\PhotoRepository;
@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class PhotoController extends AbstractController
+class PhotoDeletionController extends AbstractController
 {
     /**
      * @var PhotoRepository

@@ -3,18 +3,10 @@
 namespace App\Controller\Trick;
 
 use App\Form\Trick\EditTrickType;
-use App\IO\EmbedVideo\VideoPlatformMatcher;
 use App\IO\Upload\TrickPhotoUploader;
 use App\Model\DTO\Trick\ModifyTrickDTO;
-use App\Model\Entity\Photo;
 use App\Model\Entity\Trick;
-use App\Model\Entity\Video;
-use App\Repository\PhotoRepository;
-use App\Repository\TrickGroupRepository;
 use App\Repository\TrickRepository;
-use App\Repository\UserRepository;
-use App\Repository\VideoRepository;
-use App\Utils\Slugger;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -30,34 +22,10 @@ class TrickEditionController extends AbstractController
     private $trickRepository;
 
     /**
-     * @var UserRepository
-     */
-    private $userRepository;
-
-    /**
-     * @var TrickGroupRepository
-     */
-    private $trickGroupRepository;
-
-    /**
-     * @var Slugger
-     */
-    private $slugger;
-
-    /**
-     * @var PhotoRepository
-     */
-    private $photoRepository;
-
-    /**
      * @var TrickPhotoUploader
      */
     private $trickPhotoUploader;
 
-    /**
-     * @var VideoRepository
-     */
-    private $videoRepository;
     /**
      * @var EntityManagerInterface
      */
@@ -65,20 +33,11 @@ class TrickEditionController extends AbstractController
 
     public function __construct(
         TrickRepository $trickRepository,
-        UserRepository $userRepository,
-        TrickGroupRepository $trickGroupRepository,
-        PhotoRepository $photoRepository,
         TrickPhotoUploader $trickPhotoUploader,
-        VideoRepository $videoRepository,
-        Slugger $slugger,
         EntityManagerInterface $entityManager
     ) {
         $this->trickRepository = $trickRepository;
-        $this->userRepository = $userRepository;
-        $this->trickGroupRepository = $trickGroupRepository;
-        $this->photoRepository = $photoRepository;
         $this->trickPhotoUploader = $trickPhotoUploader;
-        $this->videoRepository = $videoRepository;
         $this->entityManager = $entityManager;
     }
 
@@ -99,26 +58,6 @@ class TrickEditionController extends AbstractController
             $trick->updateVideos($modifyTrickDTO->getVideos(), $this->entityManager);
 
             $trick->updatePhotos($modifyTrickDTO->getPhotos(),$this->trickPhotoUploader);
-
-/*            foreach ($modifyTrickDTO->getVideos() as $addVideoLinkDTO) {
-                $videoMeta = VideoPlatformMatcher::match($addVideoLinkDTO);
-
-                if (!$video = $this->videoRepository->findOneBy(['videoCode' => $videoMeta->getCode()])) {
-                    $video = Video::create($videoMeta);
-
-                    $this->entityManager->persist($video);
-                }
-                $trick->addVideo($video);
-            }*/
-/*
-            $fileArray = $modifyTrickDTO->getPhotos();
-
-            foreach ($fileArray as $file) {
-                $filename = $this->trickPhotoUploader->upload($file);
-
-                $photo = Photo::create($filename, $trick);
-                $trick->addPhoto($photo);
-            }*/
 
             $this->trickRepository->save($trick);
 
