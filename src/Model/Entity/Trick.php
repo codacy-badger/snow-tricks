@@ -2,10 +2,14 @@
 
 namespace App\Model\Entity;
 
+use App\IO\EmbedVideo\VideoPlatformMatcher;
+use App\IO\Upload\TrickPhotoUploader;
 use App\Model\DTO\Trick\CreateTrickDTO;
 use App\Model\DTO\Trick\ModifyTrickDTO;
+use App\Repository\VideoRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -213,7 +217,7 @@ class Trick
         $this->videos->removeElement($video);
     }
 
-    public static function create(CreateTrickDTO $createTrickDTO, string $trickSlug, ArrayCollection $videos): Trick
+    public static function create(CreateTrickDTO $createTrickDTO, string $trickSlug): Trick
     {
         $trick = new self();
 
@@ -224,7 +228,6 @@ class Trick
         $trick->updatedAt = new \DateTime('now');
         $trick->user = $createTrickDTO->getUser();
         $trick->slug = $trickSlug;
-        $trick->videos = $videos;
 
         return $trick;
     }
@@ -239,5 +242,33 @@ class Trick
         $trick->updatedAt = new \DateTime('now');
 
         return $trick;
+    }
+
+    public function updateVideos(ArrayCollection $videosCollection, EntityManagerInterface $entityManager)
+    {
+        foreach ($videosCollection as $addVideoLinkDTO) {
+            $videoMeta = VideoPlatformMatcher::match($addVideoLinkDTO);
+
+            if (!$video =
+                $entityManager->getRepository(Video::class)
+                    ->findOneBy(['videoCode' => $videoMeta->getCode()])
+            ) {
+                $video = Video::create($videoMeta);
+                $entityManager->persist($video);
+            }
+
+            $this->addVideo($video);
+        }
+    }
+
+    public function updatePhotos(Array $fileArray, TrickPhotoUploader $photoUploader)
+    {
+        foreach ($fileArray as $file) {
+            $filename = $photoUploader->upload($file);
+
+            $photo = Photo::create($filename, $this);
+
+            $this->addPhoto($photo);
+        }
     }
 }
