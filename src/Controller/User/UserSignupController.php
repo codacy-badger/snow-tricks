@@ -18,8 +18,8 @@ class UserSignupController extends AbstractController
      */
     private $userRepository;
 
-    public function __construct(UserRepository $userRepository) {
-
+    public function __construct(UserRepository $userRepository)
+    {
         $this->userRepository = $userRepository;
     }
 

@@ -14,7 +14,8 @@ class TrickIndexController extends AbstractController
      */
     private $trickRepository;
 
-    public function __construct(TrickRepository $trickRepository) {
+    public function __construct(TrickRepository $trickRepository)
+    {
         $this->trickRepository = $trickRepository;
     }
 
@@ -29,5 +30,4 @@ class TrickIndexController extends AbstractController
             'tricks' => $tricks,
         ]);
     }
-
 }

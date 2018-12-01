@@ -6,7 +6,6 @@ use App\IO\EmbedVideo\VideoPlatformMatcher;
 use App\IO\Upload\TrickPhotoUploader;
 use App\Model\DTO\Trick\CreateTrickDTO;
 use App\Model\DTO\Trick\ModifyTrickDTO;
-use App\Repository\VideoRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
@@ -261,7 +260,7 @@ class Trick
         }
     }
 
-    public function updatePhotos(Array $fileArray, TrickPhotoUploader $photoUploader)
+    public function updatePhotos(array $fileArray, TrickPhotoUploader $photoUploader)
     {
         foreach ($fileArray as $file) {
             $filename = $photoUploader->upload($file);

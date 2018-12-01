@@ -15,8 +15,8 @@ class UserLoginController extends AbstractController
      */
     private $authenticationUtils;
 
-    public function __construct(AuthenticationUtils $authenticationUtils) {
-
+    public function __construct(AuthenticationUtils $authenticationUtils)
+    {
         $this->authenticationUtils = $authenticationUtils;
     }
 
@@ -30,6 +30,8 @@ class UserLoginController extends AbstractController
         $error = $this->authenticationUtils->getLastAuthenticationError();
 
         $lastUsername = $this->authenticationUtils->getLastUsername();
+
+        $this->addFlash('success', 'user.success.login');
 
         return $this->render('user/login.html.twig', [
             'user_login_form' => $userLoginForm->createView(),

@@ -17,9 +17,11 @@ class TrickVideoRemovingController extends AbstractController
      */
     private $trickRepository;
 
-    public function __construct(TrickRepository $trickRepository) {
+    public function __construct(TrickRepository $trickRepository)
+    {
         $this->trickRepository = $trickRepository;
     }
+
     /**
      * @IsGranted("ROLE_USER")
      * @Route("/trick/{slug}/video/{id}/delete", name="trick_remove_video")

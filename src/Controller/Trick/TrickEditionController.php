@@ -57,7 +57,7 @@ class TrickEditionController extends AbstractController
 
             $trick->updateVideos($modifyTrickDTO->getVideos(), $this->entityManager);
 
-            $trick->updatePhotos($modifyTrickDTO->getPhotos(),$this->trickPhotoUploader);
+            $trick->updatePhotos($modifyTrickDTO->getPhotos(), $this->trickPhotoUploader);
 
             $this->trickRepository->save($trick);
 
