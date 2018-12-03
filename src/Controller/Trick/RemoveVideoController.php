@@ -10,7 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
-class TrickVideoRemovingController extends AbstractController
+class RemoveVideoController extends AbstractController
 {
     /**
      * @var TrickRepository

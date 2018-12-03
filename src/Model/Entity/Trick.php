@@ -243,31 +243,4 @@ class Trick
         return $trick;
     }
 
-    public function updateVideos(ArrayCollection $videosCollection, EntityManagerInterface $entityManager)
-    {
-        foreach ($videosCollection as $addVideoLinkDTO) {
-            $videoMeta = VideoPlatformMatcher::match($addVideoLinkDTO);
-
-            if (!$video =
-                $entityManager->getRepository(Video::class)
-                    ->findOneBy(['videoCode' => $videoMeta->getCode()])
-            ) {
-                $video = Video::create($videoMeta);
-                $entityManager->persist($video);
-            }
-
-            $this->addVideo($video);
-        }
-    }
-
-    public function updatePhotos(array $fileArray, TrickPhotoUploader $photoUploader)
-    {
-        foreach ($fileArray as $file) {
-            $filename = $photoUploader->upload($file);
-
-            $photo = Photo::create($filename, $this);
-
-            $this->addPhoto($photo);
-        }
-    }
 }

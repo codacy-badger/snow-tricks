@@ -2,14 +2,12 @@
 
 namespace App\Controller\Trick;
 
-use App\Model\Entity\Trick;
 use App\Repository\TrickRepository;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class TrickDeletionController extends AbstractController
+class ListController extends AbstractController
 {
     /**
      * @var TrickRepository
@@ -22,15 +20,14 @@ class TrickDeletionController extends AbstractController
     }
 
     /**
-     * @IsGranted("ROLE_USER")
-     * @Route("/trick/delete/{slug}", name="trick_delete")
+     * @Route("/", name="trick_list")
      */
-    public function delete(Trick $trick): Response
+    public function index(): Response
     {
-        $this->trickRepository->remove($trick);
+        $tricks = $this->trickRepository->findAll();
 
-        $this->addFlash('success', 'trick.success.deletion');
-
-        return $this->redirectToRoute('homepage');
+        return $this->render('trick/index.html.twig', [
+            'tricks' => $tricks,
+        ]);
     }
 }

@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class TrickShowController extends AbstractController
+class ShowController extends AbstractController
 {
     /**
      * @Route("/trick/show/{slug}", name="trick_show")

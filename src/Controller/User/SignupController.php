@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class UserSignupController extends AbstractController
+class SignupController extends AbstractController
 {
     /**
      * @var UserRepository
