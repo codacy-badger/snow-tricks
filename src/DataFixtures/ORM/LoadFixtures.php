@@ -26,7 +26,6 @@ class LoadFixtures extends Fixture
                 __DIR__.'/fixtures/users.yaml',
                 __DIR__.'/fixtures/trickgroups.yaml',
                 __DIR__.'/fixtures/tricks.yaml',
-                __DIR__.'/fixtures/messages.yaml',
                 __DIR__.'/fixtures/videos.yaml'
             ]
         );

@@ -71,6 +71,11 @@ class Video
         $this->createdAt = $createdAt;
     }
 
+    public function getPlatform()
+    {
+        return $this->platform;
+    }
+
     public function setPlatform(string $platform)
     {
         $this->platform = $platform;
@@ -107,4 +112,5 @@ class Video
 
         return $video;
     }
+
 }

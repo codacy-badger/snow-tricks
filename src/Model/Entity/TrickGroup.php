@@ -92,4 +92,6 @@ class TrickGroup
 
         return $this;
     }
+
+
 }
