@@ -112,5 +112,4 @@ class Video
 
         return $video;
     }
-
 }

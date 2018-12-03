@@ -26,12 +26,11 @@ class LoadFixtures extends Fixture
                 __DIR__.'/fixtures/users.yaml',
                 __DIR__.'/fixtures/trickgroups.yaml',
                 __DIR__.'/fixtures/tricks.yaml',
-                __DIR__.'/fixtures/videos.yaml'
+                __DIR__.'/fixtures/videos.yaml',
             ]
         );
 
-        foreach ($objectSet->getObjects() as $object)
-        {
+        foreach ($objectSet->getObjects() as $object) {
             $manager->persist($object);
         }
 
