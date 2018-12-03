@@ -16,12 +16,23 @@
 
                 {{ form_start(trickForm) }}
 
-                    {{ form_row(trickForm.name) }}
-                    {{ form_row(trickForm.description) }}
-                    {{ form_row(trickForm.trickGroup) }}
-                    {{ form_row(trickForm.photos) }}
+                {{ form_row(trickForm.name) }}
+                {{ form_row(trickForm.description) }}
+                {{ form_row(trickForm.trickGroup) }}
+                {{ form_row(trickForm.photos) }}
 
-                    <button type="submit" class="btn btn-primary" formnovalidate>{{ 'trick.form.label.create'|trans({}, 'form')}}</button>
+                <ul class="videos"
+                    data-prototype="{{ form_widget(trickForm.videos.vars.prototype)|e }}">
+
+                    {% for video in trickForm.videos %}
+                        <li>
+                            {{ form_row(video) }}
+                        </li>
+                    {% endfor %}
+                </ul>
+
+                <button type="submit" class="btn btn-primary"
+                        formnovalidate>{{ 'trick.form.button.create'|trans({}, 'form') }}</button>
 
                 {{ form_end(trickForm) }}
 

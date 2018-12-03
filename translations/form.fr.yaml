@@ -20,8 +20,12 @@ trick:
             description: "Description"
             groupname: "Type de figure"
             photofile: "Ajouter des photos"
-            create: "Créer"
-            modify: "Modifier"
+            videos: "Copier le lien de la vidéo à ajouter"
+
+        button:
+            create: "Créer la nouvelle figure"
+            modify: "Modifier la figure"
+            addvideos: "Ajouter un champ vidéo"
     header:
         new:
             title: "Ajouter une nouvelle figure"
@@ -29,4 +33,5 @@ trick:
         comment:
             placeholder: "Votre message"
             submit: "Laisser un commentaire"
+
 

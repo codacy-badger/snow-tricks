@@ -2,6 +2,7 @@
 
 namespace App\Model\Entity;
 
+use App\Model\ValueObject\VideoMeta;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -20,7 +21,7 @@ class Video
     private $id;
 
     /**
-     * @ORM\Column()
+     * @ORM\Column(unique=true)
      */
     private $videoCode;
 
@@ -55,11 +56,6 @@ class Video
         return $this->videoCode;
     }
 
-    public function setVideoCode(string $videoCode)
-    {
-        $this->videoCode = $videoCode;
-    }
-
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
@@ -70,19 +66,11 @@ class Video
         $this->createdAt = $createdAt;
     }
 
-    public function getPlatform(): ?string
-    {
-        return $this->platform;
-    }
-
     public function setPlatform(string $platform)
     {
         $this->platform = $platform;
     }
 
-    /**
-     * @return Collection|Trick[]
-     */
     public function getTricks(): Collection
     {
         return $this->tricks;
@@ -102,5 +90,16 @@ class Video
             $this->tricks->removeElement($trick);
             $trick->removeVideo($this);
         }
+    }
+
+    public static function create(VideoMeta $videoMeta): Video
+    {
+        $video = new self();
+
+        $video->videoCode = $videoMeta->getCode();
+        $video->platform = $videoMeta->getPlatform();
+        $video->createdAt = new \DateTime('now');
+
+        return $video;
     }
 }

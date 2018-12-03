@@ -35,17 +35,26 @@
                 </div>
             {% endfor %}
 
-            {% for video in trick.video %}
+            {% for video in trick.videos %}
                 <div class="col-md-3 col-sm-6 mb-4">
-                    <a href="#">
+                    <div class="card">
                         <img class="img-fluid" src="http://placehold.it/500x300" alt="">
-                    </a>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-title">
+                            <a href="{{ path('trick_remove_video', {
+                                'slug': trick.slug,
+                                'id': video.id
+                            }) }}" class="fa fa-trash"></a>
+                        </p>
+                    </div>
                 </div>
+
             {% endfor %}
 
         </div>
 
-        <!-- Contact Form -->
+        <!-- Trick modification form -->
         <div class="row">
             <div class="col-lg-8 mb-4">
 
@@ -56,8 +65,18 @@
                 {{ form_row(trickForm.trickGroup) }}
                 {{ form_row(trickForm.photos) }}
 
+                <ul class="videos"
+                    data-prototype="{{ form_widget(trickForm.videos.vars.prototype)|e }}">
+
+                    {% for video in trickForm.videos %}
+                        <li>
+                            {{ form_row(video) }}
+                        </li>
+                    {% endfor %}
+                </ul>
+
                 <button type="submit" class="btn btn-primary"
-                        formnovalidate>{{ 'trick.form.label.modify'|trans({}, 'form') }}</button>
+                        formnovalidate>{{ 'trick.form.button.modify'|trans({}, 'form') }}</button>
 
                 {{ form_end(trickForm) }}
 
