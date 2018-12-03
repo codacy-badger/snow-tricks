@@ -2,20 +2,20 @@
 
 namespace App\Repository;
 
-use App\Model\Entity\Message;
+use App\Model\Entity\Comment;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
- * @method Message|null find($id, $lockMode = null, $lockVersion = null)
- * @method Message|null findOneBy(array $criteria, array $orderBy = null)
- * @method Message[]    findAll()
- * @method Message[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Comment|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Comment|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Comment[]    findAll()
+ * @method Comment[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class MessageRepository extends BaseRepository
+class CommentRepository extends BaseRepository
 {
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, Message::class);
+        parent::__construct($registry, Comment::class);
     }
 
 //    /**

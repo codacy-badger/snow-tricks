@@ -50,9 +50,19 @@ class TrickGroup
         return $this->name;
     }
 
+    public function setName($name): void
+    {
+        $this->name = $name;
+    }
+
     public function getDescription(): ?string
     {
         return $this->description;
+    }
+
+    public function setDescription($description): void
+    {
+        $this->description = $description;
     }
 
     public function getTricks(): Collection
@@ -82,4 +92,5 @@ class TrickGroup
 
         return $this;
     }
+
 }

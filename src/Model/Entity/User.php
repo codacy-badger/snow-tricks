@@ -70,14 +70,14 @@ class User implements UserInterface
     private $tricks;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Model\Entity\Message", mappedBy="user", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Model\Entity\Comment", mappedBy="user", orphanRemoval=true)
      */
-    private $messages;
+    private $comments;
 
     public function __construct()
     {
         $this->tricks = new ArrayCollection();
-        $this->messages = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -185,26 +185,26 @@ class User implements UserInterface
         }
     }
 
-    public function getMessages(): Collection
+    public function getComments(): Collection
     {
-        return $this->messages;
+        return $this->comments;
     }
 
-    public function addMessage(Message $message): void
+    public function addComment(Comment $comment): void
     {
-        if (!$this->messages->contains($message)) {
-            $this->messages[] = $message;
-            $message->setUser($this);
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setUser($this);
         }
     }
 
-    public function removeMessage(Message $message): void
+    public function removeComment(Comment $comment): void
     {
-        if ($this->messages->contains($message)) {
-            $this->messages->removeElement($message);
+        if ($this->comments->contains($comment)) {
+            $this->comments->removeElement($comment);
             // set the owning side to null (unless already changed)
-            if ($message->getUser() === $this) {
-                $message->setUser(null);
+            if ($comment->getUser() === $this) {
+                $comment->setUser(null);
             }
         }
     }

@@ -65,9 +65,9 @@ class Trick
     private $trickGroup;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Model\Entity\Message", mappedBy="trick", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Model\Entity\Comment", mappedBy="trick", orphanRemoval=true)
      */
-    private $messages;
+    private $comments;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Model\Entity\Photo", mappedBy="trick", orphanRemoval=true, cascade={"persist"})
@@ -81,7 +81,7 @@ class Trick
 
     public function __construct()
     {
-        $this->messages = new ArrayCollection();
+        $this->comments = new ArrayCollection();
         $this->photos = new ArrayCollection();
         $this->videos = new ArrayCollection();
     }
@@ -136,27 +136,27 @@ class Trick
         $this->trickGroup = $trickGroup;
     }
 
-    public function getMessages(): Collection
+    public function getComments(): Collection
     {
-        return $this->messages;
+        return $this->comments;
     }
 
-    public function addMessage(Message $message)
+    public function addComments(Comment $comment)
     {
-        if (!$this->messages->contains($message)) {
-            $this->messages[] = $message;
-            $message->setTrick($this);
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setTrick($this);
         }
 
         return $this;
     }
 
-    public function removeMessage(Message $message)
+    public function removeComment(Comment $comment)
     {
-        if ($this->messages->contains($message)) {
-            $this->messages->removeElement($message);
-            if ($message->getTrick() === $this) {
-                $message->setTrick(null);
+        if ($this->comments->contains($comment)) {
+            $this->comments->removeElement($comment);
+            if ($comment->getTrick() === $this) {
+                $comment->setTrick(null);
             }
         }
 

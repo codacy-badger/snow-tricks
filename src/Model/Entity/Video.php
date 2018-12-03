@@ -56,6 +56,11 @@ class Video
         return $this->videoCode;
     }
 
+    public function setVideoCode($videoCode): void
+    {
+        $this->videoCode = $videoCode;
+    }
+
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
@@ -102,4 +107,6 @@ class Video
 
         return $video;
     }
+
+
 }
