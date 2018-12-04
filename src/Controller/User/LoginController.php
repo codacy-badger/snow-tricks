@@ -31,8 +31,6 @@ class LoginController extends AbstractController
 
         $lastUsername = $this->authenticationUtils->getLastUsername();
 
-        $this->addFlash('success', 'user.success.login');
-
         return $this->render('user/login.html.twig', [
             'user_login_form' => $userLoginForm->createView(),
             'last_username' => $lastUsername,

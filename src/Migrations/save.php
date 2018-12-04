@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Insert hard data in database tables
  */
-final class Version20191019145500 extends AbstractMigration
+final class save extends AbstractMigration
 {
     public function up(Schema $schema): void
     {

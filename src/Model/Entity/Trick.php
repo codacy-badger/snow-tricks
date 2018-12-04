@@ -2,13 +2,10 @@
 
 namespace App\Model\Entity;
 
-use App\IO\EmbedVideo\VideoPlatformMatcher;
-use App\IO\Upload\TrickPhotoUploader;
 use App\Model\DTO\Trick\CreateTrickDTO;
 use App\Model\DTO\Trick\ModifyTrickDTO;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -242,5 +239,4 @@ class Trick
 
         return $trick;
     }
-
 }

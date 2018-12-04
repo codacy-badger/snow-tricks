@@ -77,26 +77,30 @@
 
                         {{ form_start(commentForm) }}
 
-                        {{ form_row(commentForm.message) }}
+                            {{ form_row(commentForm.content) }}
 
-                        {{ form_end(trickForm) }}
+                        <button class="btn btn-secondary"
+                                type="submit">{{ 'trick.show.comment.submit'|trans({}, 'form') }}</button>
 
-                        <form method="post">
-                            <div class="input-group">
-                            <textarea class="form-control"
-                                      aria-label="Default"
-                                      aria-describedby="inputGroup-sizing-default"
-                                      id="content"
-                                      name="content"
-                                      placeholder="{{ 'trick.show.comment.placeholder'|trans({}, 'form') }}"
-                                      maxlength="100"
-                                      rows="1"></textarea>
-                                <span class="input-group-btn">
-                                <button class="btn btn-secondary"
-                                        type="button">{{ 'trick.show.comment.submit'|trans({}, 'form') }}</button>
-                            </span>
-                            </div>
-                        </form>
+
+                        {{ form_end(commentForm) }}
+
+                        {#<form method="post">#}
+                            {#<div class="input-group">#}
+                            {#<textarea class="form-control"#}
+                                      {#aria-label="Default"#}
+                                      {#aria-describedby="inputGroup-sizing-default"#}
+                                      {#id="content"#}
+                                      {#name="content"#}
+                                      {#placeholder="{{ 'trick.show.comment.placeholder'|trans({}, 'form') }}"#}
+                                      {#maxlength="100"#}
+                                      {#rows="1"></textarea>#}
+                                {#<span class="input-group-btn">#}
+                                {#<button class="btn btn-secondary"#}
+                                        {#type="button">{{ 'trick.show.comment.submit'|trans({}, 'form') }}</button>#}
+                            {#</span>#}
+                            {#</div>#}
+                        {#</form>#}
                     </div>
                 </div>
             {% endif %}
@@ -105,14 +109,14 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-8 col-md-10 mx-auto">
-                        {% for message in trick.messages %}
+                        {% for comment in trick.comments %}
                             <div class="media mb-4">
                                 <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
                                 <div class="media-body">
                                     <h5 class="mt-0">
-                                        {{ message.user.firstname }}{{ 'trick.show.comment.date'|trans({'%date%':message.createdAt|localizeddate }, 'trick') }}
+                                        {{ comment.user.firstname }}{{ 'trick.show.comment.date'|trans({'%date%':comment.createdAt|localizeddate }, 'trick') }}
                                     </h5>
-                                    {{ message.content }}
+                                    {{ comment.content }}
                                 </div>
                             </div>
                         {% endfor %}

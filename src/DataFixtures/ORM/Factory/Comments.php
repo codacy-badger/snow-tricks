@@ -15,6 +15,6 @@ class Comments
 
         $createCommentDTO->setContent($arguments['content']);
 
-        return Comment::create($createCommentDTO,  $arguments['trick'], $arguments['user']);
+        return Comment::create($createCommentDTO, $arguments['trick'], $arguments['user']);
     }
 }

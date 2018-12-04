@@ -15,7 +15,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class CommentCreationController extends AbstractController
 {
-
     /**
      * @var CommentRepository
      */
@@ -30,8 +29,10 @@ class CommentCreationController extends AbstractController
      * @Route("/trick/{slug}/comment/create", name="create_comment")
      * @IsGranted("ROLE_USER")
      */
-    public function create(Request $request, Trick $trick, User $user)
+    public function create(Request $request, Trick $trick)
     {
+        $user = $this->getUser();
+
         $createCommentDTO = new CreateCommentDTO();
 
         $commentForm = $this->createForm(CreateCommentType::class, $createCommentDTO);
@@ -39,18 +40,17 @@ class CommentCreationController extends AbstractController
         $commentForm->handleRequest($request);
 
         if ($commentForm->isSubmitted() && $commentForm->isValid()) {
-
             $comment = Comment::create($createCommentDTO, $trick, $user);
 
             $this->commentRepository->save($comment);
 
-            $this->addFlash('success', 'comment.success.creation');
+            $this->addFlash('success', 'comment.creation.success');
 
             return $this->redirectToRoute('trick_show', ['slug' => $trick->getSlug()]);
         }
 
-        return $this->render('trick/show.html.twig', [
-            'commentForm' => $commentForm->createView(),
-        ]);
+        $this->addFlash('success', 'comment.creation.fail');
+
+        return $this->redirectToRoute('trick_show', ['slug' => $trick->getSlug()]);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Model\DTO\Comment;
 
+use Symfony\Component\Validator\Constraints as Assert;
 
 class CreateCommentDTO
 {
@@ -12,7 +13,7 @@ class CreateCommentDTO
      */
     private $content;
 
-    public function getContent(): string
+    public function getContent(): ?string
     {
         return $this->content;
     }
@@ -21,5 +22,4 @@ class CreateCommentDTO
     {
         $this->content = $content;
     }
-
 }

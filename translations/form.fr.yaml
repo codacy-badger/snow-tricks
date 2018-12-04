@@ -33,5 +33,7 @@ trick:
         comment:
             placeholder: "Votre message"
             submit: "Laisser un commentaire"
+            label: "Ajouter un commentaire"
+
 
 

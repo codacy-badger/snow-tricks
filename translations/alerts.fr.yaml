@@ -20,3 +20,8 @@ user:
 photo:
     success:
         deletion: "La photo a bien été supprimée"
+
+comment:
+    creation:
+        success: "Votre commentaire a bien été ajouté"
+        fail: "Désolé, une erreur s'est produite, votre commentaire n'a pas été ajouté"
