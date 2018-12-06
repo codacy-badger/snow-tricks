@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
-class CommentCreationController extends AbstractController
+class CreateController extends AbstractController
 {
     /**
      * @var CommentRepository
@@ -26,7 +26,7 @@ class CommentCreationController extends AbstractController
     }
 
     /**
-     * @Route("/trick/{slug}/comment/create", name="create_comment")
+     * @Route("/trick/{slug}/comment/create", name="comment_create")
      * @IsGranted("ROLE_USER")
      */
     public function create(Request $request, Trick $trick)

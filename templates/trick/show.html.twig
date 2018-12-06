@@ -77,30 +77,14 @@
 
                         {{ form_start(commentForm) }}
 
-                            {{ form_row(commentForm.content) }}
+                        {{ form_row(commentForm.content) }}
 
-                        <button class="btn btn-secondary"
-                                type="submit">{{ 'trick.show.comment.submit'|trans({}, 'form') }}</button>
-
+                        <button class="btn btn-secondary" type="submit">
+                            {{ 'trick.show.comment.submit'|trans({}, 'form') }}
+                        </button>
 
                         {{ form_end(commentForm) }}
 
-                        {#<form method="post">#}
-                            {#<div class="input-group">#}
-                            {#<textarea class="form-control"#}
-                                      {#aria-label="Default"#}
-                                      {#aria-describedby="inputGroup-sizing-default"#}
-                                      {#id="content"#}
-                                      {#name="content"#}
-                                      {#placeholder="{{ 'trick.show.comment.placeholder'|trans({}, 'form') }}"#}
-                                      {#maxlength="100"#}
-                                      {#rows="1"></textarea>#}
-                                {#<span class="input-group-btn">#}
-                                {#<button class="btn btn-secondary"#}
-                                        {#type="button">{{ 'trick.show.comment.submit'|trans({}, 'form') }}</button>#}
-                            {#</span>#}
-                            {#</div>#}
-                        {#</form>#}
                     </div>
                 </div>
             {% endif %}

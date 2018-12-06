@@ -28,9 +28,6 @@ class CreateCommentType extends AbstractType
         $resolver->setDefaults([
             'data_class' => CreateCommentDTO::class,
             'translation_domain' => 'form',
-            'csrf_protection' => true,
-            'csrf_field_name' => '_csrf_token',
-            'csrf_token_id' => 'authenticate',
         ]);
     }
 }
