@@ -6,10 +6,6 @@
   padding-top: 40px;
 }
 
-.trick-show{
-  margin-top: 30px;
-}
-
 .trick-icons{
   padding: 10px;
 }
@@ -27,4 +23,12 @@
 .frontpage-title {
   margin-top: 50vh;
   transform: translateY(-50%);
+}
+
+.media-wrapper__show {
+  display: block;
+}
+
+.media-wrapper__hide {
+  display: none;
 }

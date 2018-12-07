@@ -14,7 +14,7 @@
             {% set urlBackgroundPhoto = 'http://placehold.it/1250x500' %}
         {% endif %}
 
-        <div class="row trick-show frontpage-image" style="background-image: url({{ urlBackgroundPhoto }}) ">
+        <div class="row mb-5 frontpage-image" style="background-image: url({{ urlBackgroundPhoto }}) ">
 
             <div class="trick-icons">
                 <a href="{{ path('trick_edit', {'slug':trick.slug}) }}" class="fa fa-pencil"></a>
@@ -25,7 +25,12 @@
             </div>
         </div>
 
-        <div class="row trick-show">
+
+
+        <button class="btn" data-action="display-medias-mobile">afficher medias</button>
+
+
+        <div class="row mb-5 media-wrapper">
             {% for photo in trick.photos %}
                 <div class="col-md-3 col-sm-6 mb-4">
                     <a href="#">
@@ -43,6 +48,16 @@
             {% endfor %}
 
         </div>
+
+        <script>
+            const showMediaButton = document.querySelector("[data-action='display-medias-mobile']");
+
+            showMediaButton.addEventListener("click", function(event) {
+                const mediaWrapper = document.querySelector(".media-wrapper");
+
+                mediaWrapper.classList.toggle('media-wrapper__hide');
+            })
+        </script>
 
         <div class="row">
             <div class="col-md-12">

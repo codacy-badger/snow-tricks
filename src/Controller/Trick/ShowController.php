@@ -20,7 +20,7 @@ class ShowController extends AbstractController
         $createCommentDTO = new CreateCommentDTO();
 
         $commentForm = $this->createForm(CreateCommentType::class, $createCommentDTO, [
-            'action' => $this->generateUrl('create_comment', ['slug' => $trick->getSlug()]),
+            'action' => $this->generateUrl('comment_create', ['slug' => $trick->getSlug()]),
         ]);
 
         $commentForm->handleRequest($request);
