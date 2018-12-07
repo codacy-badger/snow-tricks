@@ -2,13 +2,14 @@
 
 namespace App\Model\Entity;
 
+use App\Model\DTO\Comment\CreateCommentDTO;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\MessageRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\CommentRepository")
  */
-class Message
+class Comment
 {
     /**
      * @ORM\Id()
@@ -30,13 +31,13 @@ class Message
     private $created_at;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Model\Entity\User", inversedBy="messages")
+     * @ORM\ManyToOne(targetEntity="App\Model\Entity\User", inversedBy="comments")
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Model\Entity\Trick", inversedBy="messages")
+     * @ORM\ManyToOne(targetEntity="App\Model\Entity\Trick", inversedBy="comments")
      * @ORM\JoinColumn(nullable=false)
      */
     private $trick;
@@ -74,5 +75,17 @@ class Message
     public function setTrick($trick): void
     {
         $this->trick = $trick;
+    }
+
+    public static function create(CreateCommentDTO $createCommentDTO, Trick $trick, User $user)
+    {
+        $comment = new self();
+
+        $comment->content = $createCommentDTO->getContent();
+        $comment->trick = $trick;
+        $comment->user = $user;
+        $comment->created_at = new \DateTime('now');
+
+        return $comment;
     }
 }

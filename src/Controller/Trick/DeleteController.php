@@ -31,6 +31,6 @@ class DeleteController extends AbstractController
 
         $this->addFlash('success', 'trick.success.deletion');
 
-        return $this->redirectToRoute('homepage');
+        return $this->redirectToRoute('trick_list');
     }
 }

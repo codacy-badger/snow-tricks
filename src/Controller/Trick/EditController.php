@@ -56,7 +56,6 @@ class EditController extends AbstractController
      */
     public function edit(Trick $trick, Request $request): Response
     {
-
         $modifyTrickDTO = new ModifyTrickDTO($trick);
         $trickForm = $this->createForm(EditTrickType::class, $modifyTrickDTO);
 
