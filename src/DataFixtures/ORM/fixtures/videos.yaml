@@ -1,6 +1,6 @@
 App\Model\Entity\Video:
     video_{1..10}:
-        video_code: 'KoHzXi7Usl8'
+        video_code (unique): <trickVideos()>
         created_at: <dateTimeBetween('-2 years')>
         platform: 'youtube'
         tricks: '<numberBetween(1, 10)>x @trick_*'

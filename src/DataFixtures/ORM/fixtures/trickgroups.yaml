@@ -1,4 +1,7 @@
 App\Model\Entity\TrickGroup:
     trickgroup_{1..10}:
-        name (unique): 'grab_<current()>'
-        description: <paragraphs(3, true)>
+        __factory:
+            App\DataFixtures\ORM\Factory\TrickGroups::create:
+                -
+                    name: 'grab_<current()>'
+                    description: <paragraphs(3, true)>
