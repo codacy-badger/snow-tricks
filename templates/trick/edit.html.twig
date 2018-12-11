@@ -38,7 +38,7 @@
             {% for video in trick.videos %}
                 <div class="col-md-3 col-sm-6 mb-4">
                     <div class="card">
-                        <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+                        {{ video|embedded_video }}
                     </div>
                     <div class="card-body">
                         <p class="card-title">

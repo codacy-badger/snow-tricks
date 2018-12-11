@@ -26,7 +26,6 @@
         </div>
 
 
-
         <button class="btn" data-action="display-medias-mobile">afficher medias</button>
 
 
@@ -41,9 +40,7 @@
 
             {% for video in trick.videos %}
                 <div class="col-md-3 col-sm-6 mb-4">
-                    <a href="#">
-                        <img class="img-fluid" src="http://placehold.it/500x300" alt="">
-                    </a>
+                    {{ video|embedded_video }}
                 </div>
             {% endfor %}
 
@@ -52,7 +49,7 @@
         <script>
             const showMediaButton = document.querySelector("[data-action='display-medias-mobile']");
 
-            showMediaButton.addEventListener("click", function(event) {
+            showMediaButton.addEventListener("click", function (event) {
                 const mediaWrapper = document.querySelector(".media-wrapper");
 
                 mediaWrapper.classList.toggle('media-wrapper__hide');
