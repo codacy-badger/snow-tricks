@@ -24,9 +24,13 @@ class Photo
 
     /**
      * @ORM\Column(type="datetime")
-     * @Assert\DateTime()
      */
     private $createdAt;
+
+    /**
+     * @ORM\Column(type="boolean", options={"default":true})
+     */
+    private $imageOnTop;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Model\Entity\Trick", inversedBy="photos")
@@ -49,6 +53,16 @@ class Photo
         return $this->createdAt;
     }
 
+    public function isImageOnTop()
+    {
+        return $this->imageOnTop;
+    }
+
+    public function setImageOnTop($imageOnTop): void
+    {
+        $this->imageOnTop = $imageOnTop;
+    }
+
     public function getTrick(): ?Trick
     {
         return $this->trick;
@@ -63,10 +77,11 @@ class Photo
     {
         $photo = new self();
 
-        $photo->filename = $filename;
+        $photo->filename = $filename;a
         $photo->createdAt = new \DateTime('now');
         $photo->trick = $trick;
 
         return $photo;
     }
+
 }
