@@ -12,7 +12,7 @@ class Slugger
         foreach ($slugArray as $word) {
             $slug .= $word.'-';
         }
-        $slug = substr($slug, 0, strlen($slug) - 1);
+        $slug = strtolower(substr($slug, 0, strlen($slug) - 1));
 
         return $slug;
     }
