@@ -77,9 +77,10 @@ class Photo
     {
         $photo = new self();
 
-        $photo->filename = $filename;a
+        $photo->filename = $filename;
         $photo->createdAt = new \DateTime('now');
         $photo->trick = $trick;
+        $photo->imageOnTop = false;
 
         return $photo;
     }

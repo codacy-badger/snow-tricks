@@ -8,10 +8,18 @@
     <div class="container">
 
         <!-- Portfolio Item Row -->
-        {% if trick.photos|first() %}
-            {% set urlBackgroundPhoto = asset('photos/'~trick.photos|first().filename) %}
-        {% else %}
-            {% set urlBackgroundPhoto = 'http://placehold.it/1250x500' %}
+        {% for photo in trick.photos %}
+            {% if photo.imageOnTop == true %}
+                {% set urlBackgroundPhoto = asset('photos/'~photo.filename) %}
+            {% endif %}
+        {% endfor %}
+
+        {% if urlBackgroundPhoto is not defined %}
+            {% if trick.photos|first() %}
+                {% set urlBackgroundPhoto = asset('photos/'~trick.photos|first().filename) %}
+            {% else %}
+                {% set urlBackgroundPhoto = 'http://placehold.it/1250x500' %}
+            {% endif %}
         {% endif %}
 
         <div class="row trick-show frontpage-image" style="background-image: url({{ urlBackgroundPhoto }}) ">
@@ -28,7 +36,7 @@
                     </div>
                     <div class="card-body">
                         <p class="card-title">
-                            <a href="#" class="fa fa-pencil"></a>
+                            <a href="{{ path('photo_add_on_top', {'id':photo.id}) }}">Passer en image à la une</a>
                             <a href="{{ path('photo_delete', {'id':photo.id}) }}" class="fa fa-trash"></a>
                         </p>
                     </div>
