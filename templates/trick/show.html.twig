@@ -7,9 +7,10 @@
     <!-- Page Content -->
     <div class="container">
 
-        <!-- Portfolio Item Row -->
-        {% if trick.photos|first() %}
-            {% set urlBackgroundPhoto = asset('photos/'~trick.photos|first().filename) %}
+        {% if trick.thumbnailPhoto %}
+            {% set urlBackgroundPhoto = asset('photos/'~trick.thumbnailPhoto.filename) %}
+        {% elseif not trick.photos is empty %}
+            {% set urlBackgroundPhoto = asset('photos/'~trick.photos|first.filename) %}
         {% else %}
             {% set urlBackgroundPhoto = 'http://placehold.it/1250x500' %}
         {% endif %}
@@ -46,6 +47,7 @@
 
         </div>
 
+        {#todo: mettre dans un fichier spécifique#}
         <script>
             const showMediaButton = document.querySelector("[data-action='display-medias-mobile']");
 

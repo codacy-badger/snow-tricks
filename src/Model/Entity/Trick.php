@@ -83,6 +83,33 @@ class Trick
         $this->videos = new ArrayCollection();
     }
 
+    public static function create(CreateTrickDTO $createTrickDTO, string $trickSlug): Trick
+    {
+        $trick = new self();
+
+        $trick->name = $createTrickDTO->getName();
+        $trick->description = $createTrickDTO->getDescription();
+        $trick->trickGroup = $createTrickDTO->getTrickGroup();
+        $trick->createdAt = new \DateTime('now');
+        $trick->updatedAt = new \DateTime('now');
+        $trick->user = $createTrickDTO->getUser();
+        $trick->slug = $trickSlug;
+
+        return $trick;
+    }
+
+    public static function modify(ModifyTrickDTO $modifyTrickDTO): Trick
+    {
+        $trick = $modifyTrickDTO->getTrick();
+
+        $trick->name = $modifyTrickDTO->getName();
+        $trick->description = $modifyTrickDTO->getDescription();
+        $trick->trickGroup = $modifyTrickDTO->getTrickGroup();
+        $trick->updatedAt = new \DateTime('now');
+
+        return $trick;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -165,6 +192,19 @@ class Trick
         return $this->photos;
     }
 
+    public function getThumbnailPhoto(): ?Photo
+    {
+        $photoThumbnails = $this->photos->filter(function (Photo $photo) {
+            return $photo->isImageOnTop();
+        });
+
+        if ($photoThumbnails->isEmpty()) {
+            return null;
+        };
+
+        return $photoThumbnails->first();
+    }
+
     public function addPhoto(Photo $photo): void
     {
         if ($this->photos->contains($photo)) {
@@ -213,30 +253,5 @@ class Trick
         $this->videos->removeElement($video);
     }
 
-    public static function create(CreateTrickDTO $createTrickDTO, string $trickSlug): Trick
-    {
-        $trick = new self();
 
-        $trick->name = $createTrickDTO->getName();
-        $trick->description = $createTrickDTO->getDescription();
-        $trick->trickGroup = $createTrickDTO->getTrickGroup();
-        $trick->createdAt = new \DateTime('now');
-        $trick->updatedAt = new \DateTime('now');
-        $trick->user = $createTrickDTO->getUser();
-        $trick->slug = $trickSlug;
-
-        return $trick;
-    }
-
-    public static function modify(ModifyTrickDTO $modifyTrickDTO): Trick
-    {
-        $trick = $modifyTrickDTO->getTrick();
-
-        $trick->name = $modifyTrickDTO->getName();
-        $trick->description = $modifyTrickDTO->getDescription();
-        $trick->trickGroup = $modifyTrickDTO->getTrickGroup();
-        $trick->updatedAt = new \DateTime('now');
-
-        return $trick;
-    }
 }

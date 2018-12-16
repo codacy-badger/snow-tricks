@@ -4,22 +4,14 @@
 
 {% block body %}
 
-    <!-- Page Content -->
     <div class="container">
 
-        <!-- Portfolio Item Row -->
-        {% for photo in trick.photos %}
-            {% if photo.imageOnTop == true %}
-                {% set urlBackgroundPhoto = asset('photos/'~photo.filename) %}
-            {% endif %}
-        {% endfor %}
-
-        {% if urlBackgroundPhoto is not defined %}
-            {% if trick.photos|first() %}
-                {% set urlBackgroundPhoto = asset('photos/'~trick.photos|first().filename) %}
-            {% else %}
-                {% set urlBackgroundPhoto = 'http://placehold.it/1250x500' %}
-            {% endif %}
+        {% if trick.thumbnailPhoto %}
+            {% set urlBackgroundPhoto = asset('photos/'~trick.thumbnailPhoto.filename) %}
+        {% elseif not trick.photos is empty %}
+            {% set urlBackgroundPhoto = asset('photos/'~trick.photos|first.filename) %}
+        {% else %}
+            {% set urlBackgroundPhoto = 'http://placehold.it/1250x500' %}
         {% endif %}
 
         <div class="row trick-show frontpage-image" style="background-image: url({{ urlBackgroundPhoto }}) ">

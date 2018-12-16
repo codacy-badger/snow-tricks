@@ -4,6 +4,7 @@ namespace App\Controller\Photo;
 
 use App\Model\Entity\Photo;
 use App\Repository\PhotoRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,13 +13,13 @@ use Symfony\Component\Routing\Annotation\Route;
 class AddOnTopController extends AbstractController
 {
     /**
-     * @var PhotoRepository
+     * @var EntityManagerInterface
      */
-    private $photoRepository;
+    private $entityManager;
 
-    public function __construct(PhotoRepository $photoRepository)
+    public function __construct(EntityManagerInterface $entityManager)
     {
-        $this->photoRepository = $photoRepository;
+        $this->entityManager = $entityManager;
     }
 
     /**
@@ -31,18 +32,20 @@ class AddOnTopController extends AbstractController
 
         $photos = $photoOnTop->getTrick()->getPhotos();
 
+        //Todo: faire une fonction trick->updateThumbnail a la place
         /**
          * @var Photo $photo
          */
         foreach($photos as $photo)
         {
             $photo->setImageOnTop(false);
-            $this->photoRepository->save($photo);
+            $this->entityManager->persist($photo);
         }
 
         $photoOnTop->setImageOnTop(true);
 
-        $this->photoRepository->save($photo);
+        $this->entityManager->persist($photoOnTop);
+        $this->entityManager->flush();
 
         $this->addFlash('success', 'photo.success.modification');
 
