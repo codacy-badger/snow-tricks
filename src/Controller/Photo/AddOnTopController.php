@@ -26,25 +26,15 @@ class AddOnTopController extends AbstractController
      * @IsGranted("ROLE_USER")
      * @Route("/photo/add-on-top/{id}", name="photo_add_on_top")
      */
-    public function addOnTop(Photo $photoOnTop): Response
+    public function addOnTop(Photo $photoThumbnail): Response
     {
-        $trickSlug = $photoOnTop->getTrick()->getSlug();
+        $trick = $photoThumbnail->getTrick();
 
-        $photos = $photoOnTop->getTrick()->getPhotos();
+        $trickSlug = $trick->getSlug();
 
-        //Todo: faire une fonction trick->updateThumbnail a la place
-        /**
-         * @var Photo $photo
-         */
-        foreach($photos as $photo)
-        {
-            $photo->setImageOnTop(false);
-            $this->entityManager->persist($photo);
-        }
+        $trick->updateThumbnail($photoThumbnail);
 
-        $photoOnTop->setImageOnTop(true);
-
-        $this->entityManager->persist($photoOnTop);
+        $this->entityManager->persist($trick);
         $this->entityManager->flush();
 
         $this->addFlash('success', 'photo.success.modification');

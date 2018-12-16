@@ -3,6 +3,7 @@
 namespace App\Model\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Types\Boolean;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -30,7 +31,7 @@ class Photo
     /**
      * @ORM\Column(type="boolean", options={"default":true})
      */
-    private $imageOnTop;
+    private $thumbnail;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Model\Entity\Trick", inversedBy="photos")
@@ -53,14 +54,14 @@ class Photo
         return $this->createdAt;
     }
 
-    public function isImageOnTop()
+    public function isThumbnail()
     {
-        return $this->imageOnTop;
+        return $this->thumbnail;
     }
 
-    public function setImageOnTop($imageOnTop): void
+    public function modifyThumbnailStatus(bool $thumbnailStatus): void
     {
-        $this->imageOnTop = $imageOnTop;
+        $this->thumbnail = $thumbnailStatus;
     }
 
     public function getTrick(): ?Trick
@@ -80,7 +81,7 @@ class Photo
         $photo->filename = $filename;
         $photo->createdAt = new \DateTime('now');
         $photo->trick = $trick;
-        $photo->imageOnTop = false;
+        $photo->thumbnail = false;
 
         return $photo;
     }

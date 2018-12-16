@@ -183,7 +183,6 @@ class Trick
                 $comment->setTrick(null);
             }
         }
-
         return $this;
     }
 
@@ -195,7 +194,7 @@ class Trick
     public function getThumbnailPhoto(): ?Photo
     {
         $photoThumbnails = $this->photos->filter(function (Photo $photo) {
-            return $photo->isImageOnTop();
+            return $photo->isThumbnail();
         });
 
         if ($photoThumbnails->isEmpty()) {
@@ -203,6 +202,15 @@ class Trick
         };
 
         return $photoThumbnails->first();
+    }
+
+    public function updateThumbnail(Photo $photoThumbnail): void
+    {
+        foreach ($this->getPhotos() as $photo) {
+
+            $photo->modifyThumbnailStatus(false);
+        }
+        $photoThumbnail->modifyThumbnailStatus(true);
     }
 
     public function addPhoto(Photo $photo): void
