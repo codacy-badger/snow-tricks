@@ -4,7 +4,6 @@ namespace App\Model\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use phpDocumentor\Reflection\Types\Boolean;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PhotoRepository")
@@ -85,5 +84,4 @@ class Photo
 
         return $photo;
     }
-
 }

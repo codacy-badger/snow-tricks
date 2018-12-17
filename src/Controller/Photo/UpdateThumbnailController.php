@@ -3,14 +3,13 @@
 namespace App\Controller\Photo;
 
 use App\Model\Entity\Photo;
-use App\Repository\PhotoRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class AddOnTopController extends AbstractController
+class UpdateThumbnailController extends AbstractController
 {
     /**
      * @var EntityManagerInterface
@@ -24,9 +23,9 @@ class AddOnTopController extends AbstractController
 
     /**
      * @IsGranted("ROLE_USER")
-     * @Route("/photo/add-on-top/{id}", name="photo_add_on_top")
+     * @Route("/photo/update-thumbnail/{id}", name="photo_update_thumbnail")
      */
-    public function addOnTop(Photo $photoThumbnail): Response
+    public function updateThumbnail(Photo $photoThumbnail): Response
     {
         $trick = $photoThumbnail->getTrick();
 

@@ -183,6 +183,7 @@ class Trick
                 $comment->setTrick(null);
             }
         }
+
         return $this;
     }
 
@@ -199,7 +200,7 @@ class Trick
 
         if ($photoThumbnails->isEmpty()) {
             return null;
-        };
+        }
 
         return $photoThumbnails->first();
     }
@@ -207,7 +208,6 @@ class Trick
     public function updateThumbnail(Photo $photoThumbnail): void
     {
         foreach ($this->getPhotos() as $photo) {
-
             $photo->modifyThumbnailStatus(false);
         }
         $photoThumbnail->modifyThumbnailStatus(true);
@@ -260,6 +260,4 @@ class Trick
 
         $this->videos->removeElement($video);
     }
-
-
 }
