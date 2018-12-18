@@ -20,14 +20,18 @@ class ListController extends AbstractController
     }
 
     /**
-     * @Route("/", name="trick_list")
+     * @Route("/all-tricks/{page}", name="trick_list")
      */
-    public function index(): Response
+    public function index(int $page = 1): Response
     {
-        $tricks = $this->trickRepository->findAll();
+        $tricks = $this->trickRepository->findAllSortAndPaginate($page);
+
+        $nbPages = intval(ceil($tricks->count() / 20));
 
         return $this->render('trick/index.html.twig', [
             'tricks' => $tricks,
+            'nbPages' => $nbPages,
+            'page' => $page
         ]);
     }
 }
