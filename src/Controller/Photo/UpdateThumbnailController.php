@@ -29,8 +29,6 @@ class UpdateThumbnailController extends AbstractController
     {
         $trick = $photoThumbnail->getTrick();
 
-        $trickSlug = $trick->getSlug();
-
         $trick->updateThumbnail($photoThumbnail);
 
         $this->entityManager->persist($trick);
@@ -39,7 +37,7 @@ class UpdateThumbnailController extends AbstractController
         $this->addFlash('success', 'photo.success.modification');
 
         return $this->redirectToRoute('trick_edit', [
-            'slug' => $trickSlug,
+            'slug' => $trick->getSlug(),
         ]);
     }
 }
