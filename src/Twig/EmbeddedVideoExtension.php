@@ -6,7 +6,7 @@ use App\Model\Entity\Video;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 
-class AppExtension extends AbstractExtension
+class EmbeddedVideoExtension extends AbstractExtension
 {
     public function getFilters()
     {

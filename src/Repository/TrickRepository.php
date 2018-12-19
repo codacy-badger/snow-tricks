@@ -21,7 +21,7 @@ class TrickRepository extends BaseRepository
         parent::__construct($registry, Trick::class);
     }
 
-    public function findAllSortAndPaginate($page, $maxTricksPerPage = 20)
+    public function findAllSortAndPaginate($page, $maxTricksPerPage)
     {
         $qb = $this->createQueryBuilder('trick')
             ->orderBy('trick.createdAt', 'DESC');
@@ -29,7 +29,9 @@ class TrickRepository extends BaseRepository
         $query = $qb->getQuery();
 
         $firstResult = ($page - 1) * $maxTricksPerPage;
+
         $query->setFirstResult($firstResult)->setMaxResults($maxTricksPerPage);
+
         $paginator = new Paginator($query);
 
         if (($paginator->count() <= $firstResult) && $page != 1) {
@@ -37,7 +39,6 @@ class TrickRepository extends BaseRepository
         }
 
         return $paginator;
-
     }
 
 //    /**
