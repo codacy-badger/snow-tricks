@@ -3,7 +3,6 @@
 namespace App\Model\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use phpDocumentor\Reflection\Types\Boolean;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PhotoRepository")

@@ -4,7 +4,6 @@ namespace App\Repository;
 
 use App\Model\Entity\Trick;
 use Doctrine\ORM\Tools\Pagination\Paginator;
-use mysql_xdevapi\Exception;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -40,33 +39,4 @@ class TrickRepository extends BaseRepository
 
         return $paginator;
     }
-
-//    /**
-//     * @return Trick[] Returns an array of Trick objects
-//     */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('t.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Trick
-    {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

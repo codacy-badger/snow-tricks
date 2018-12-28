@@ -1,29 +1,14 @@
 ago:
-    years:
-        without_month: "Il y a %year% ans"
-        with_month: "Il y a %year% ans et %month% mois"
-    oneyear:
-        without_month: "Il y a un an"
-        with_month: "Il y a un ans et %month% mois"
-    months:
-        without_days: "Il y a %month% mois"
-        with_days:
-            days: "Il y a %month% mois et %day% jours"
-            one_day: "Il y a %month% mois et %day% jour"
-    days:
-        without_hours: "Il y a %day% jours"
-        with_hours:
-            hours: "Il y a %day% jours et %hour% heures"
-            one_hour: "Il y a %day% jours et 1 heure"
-    one_day:
-        without_hours: "Il y a un jour"
-        with_hours:
-            hours: "Il y a un jour et %hour% heures"
-            one_hour: "Il y a un jour et 1 heure"
-    hours: "Il y a %hours% heures"
+    years: "Il y a plus de nbYears ans"
+    one_year: "Il y a plus d'un an"
+    one_month: "Il y a un mois"
+    months: "Il y a nbMonth mois"
+    days: "Il y a nbDays jours"
+    one_day: "Il y a un jour"
+    hours: "Il y a nbHours heures"
     one_hour : "Il y a une heure"
-    minutes: "Il y a %minutes% minutes"
-    one_minute: "Il y a une minute"
-    seconds: "Il y a %seconds% secondes"
-    one_seconds: "Il y a une seconde"
+    minutes: "Il y a nbMinutes minutes"
+    one_minute: "Il y a 1 minute"
+    seconds: "Il y a nbSeconds secondes"
+    one_seconds: "Il y a plus d'une seconde"
     now: "à l'instant"

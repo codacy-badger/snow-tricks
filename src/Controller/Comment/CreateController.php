@@ -6,7 +6,6 @@ use App\Form\Comment\CreateCommentType;
 use App\Model\DTO\Comment\CreateCommentDTO;
 use App\Model\Entity\Comment;
 use App\Model\Entity\Trick;
-use App\Model\Entity\User;
 use App\Repository\CommentRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;

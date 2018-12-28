@@ -33,7 +33,7 @@ class ListController extends AbstractController
         return $this->render('trick/index.html.twig', [
             'tricks' => $tricks,
             'nbPages' => $nbPages,
-            'page' => $page
+            'page' => $page,
         ]);
     }
 }
