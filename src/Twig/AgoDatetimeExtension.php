@@ -36,13 +36,15 @@ class AgoDatetimeExtension extends AbstractExtension
                 return $this->translator->trans(
                     'ago.one_year',
                     ['nbYears' => $diffFromNow->y],
-                    'date');
+                    'date'
+                );
             }
 
             return $this->translator->trans(
                 'ago.years',
                 ['nbYears' => $diffFromNow->y],
-                'date');
+                'date'
+            );
         }
 
         if ($diffFromNow->m > 0) {
@@ -50,13 +52,15 @@ class AgoDatetimeExtension extends AbstractExtension
                 return $this->translator->trans(
                     'ago.one_month',
                     [],
-                    'date');
+                    'date'
+                );
             }
 
             return $this->translator->trans(
                 'ago.months',
                 ['nbMonth' => $diffFromNow->m],
-                'date');
+                'date'
+            );
         }
 
         if ($diffFromNow->d > 0) {
@@ -64,13 +68,15 @@ class AgoDatetimeExtension extends AbstractExtension
                 return $this->translator->trans(
                     'ago.one_day',
                     [],
-                    'date');
+                    'date'
+                );
             }
 
             return $this->translator->trans(
                 'ago.days',
                 ['nbDays' => $diffFromNow->d],
-                'date');
+                'date'
+            );
         }
 
         if ($diffFromNow->h > 0) {
@@ -78,13 +84,15 @@ class AgoDatetimeExtension extends AbstractExtension
                 return $this->translator->trans(
                     'ago.one_hour',
                     [],
-                    'date');
+                    'date'
+                );
             }
 
             return $this->translator->trans(
                 'ago.hours',
                 ['nbHours' => $diffFromNow->h],
-                'date');
+                'date'
+            );
         }
 
         if ($diffFromNow->i > 0) {
@@ -92,13 +100,15 @@ class AgoDatetimeExtension extends AbstractExtension
                 return $this->translator->trans(
                     'ago.one_minute',
                     [],
-                    'date');
+                    'date'
+                );
             }
 
             return $this->translator->trans(
                 'ago.minutes',
                 ['nbMinutes' => $diffFromNow->i],
-                'date');
+                'date'
+            );
         }
 
         if ($diffFromNow->s > 0) {
@@ -106,15 +116,21 @@ class AgoDatetimeExtension extends AbstractExtension
                 return $this->translator->trans(
                     'ago.one_seconds',
                     [],
-                    'date');
+                    'date'
+                );
             }
 
             return $this->translator->trans(
                 'ago.seconds',
                 ['nbSeconds' => $diffFromNow->s],
-                'date');
+                'date'
+            );
         }
 
-        return "à l'instant";
+        return $this->translator->trans(
+            'ago.now',
+            [],
+            'date'
+        );
     }
 }

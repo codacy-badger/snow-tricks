@@ -1,16 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Snowtricks! | create trick{% endblock %}
+{% block title %}{{ 'trick.new.title'|trans({}, 'trick') }}{% endblock %}
 
 {% block body %}
 
-    <!-- Page Content -->
     <div class="container">
 
-        <!-- Page Heading/Breadcrumbs -->
         <h1 class="mt-4 mb-3">{{ 'trick.header.new.title'|trans({}, 'form') }}</h1>
 
-        <!-- Contact Form -->
         <div class="row">
             <div class="col-lg-8 mb-4">
 
@@ -38,8 +35,6 @@
 
             </div>
         </div>
-        <!-- /.row -->
     </div>
-    <!-- /.container -->
 
 {% endblock %}

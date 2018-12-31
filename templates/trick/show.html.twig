@@ -1,10 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Snowtricks! | {{ trick.name }}{% endblock %}
+{% block title %}{{ 'trick.show.title'|trans({'%trickname%': trick.name}, 'trick') }}{% endblock %}
 
 {% block body %}
 
-    <!-- Page Content -->
     <div class="container">
 
         {% if trick.thumbnailPhoto %}
@@ -27,7 +26,8 @@
         </div>
 
 
-        <button class="btn" data-action="display-medias-mobile">afficher medias</button>
+        <button class="btn"
+                data-action="display-medias-mobile">{{ 'trick.show.display.mobile'|trans({}, 'trick') }}</button>
 
 
         <div class="row mb-5 media-wrapper">
@@ -46,17 +46,6 @@
             {% endfor %}
 
         </div>
-
-        {#todo: mettre dans un fichier spécifique#}
-        <script>
-            const showMediaButton = document.querySelector("[data-action='display-medias-mobile']");
-
-            showMediaButton.addEventListener("click", function (event) {
-                const mediaWrapper = document.querySelector(".media-wrapper");
-
-                mediaWrapper.classList.toggle('media-wrapper__hide');
-            })
-        </script>
 
         <div class="row">
             <div class="col-md-12">
@@ -82,8 +71,6 @@
 
         <hr/>
 
-
-        <!-- Comments Form -->
         <div class="container">
             {% if is_granted('ROLE_USER') %}
                 <div class="row">
@@ -125,7 +112,5 @@
 
         </div>
     </div>
-
-    <!-- /.container -->
 
 {% endblock %}

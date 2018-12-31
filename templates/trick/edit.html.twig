@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Snowtricks! | Homepage{% endblock %}
+{% block title %}{{ 'trick.edit.title'|trans({'%trickname%': trick.name}, 'trick') }}{% endblock %}
 
 {% block body %}
 
@@ -28,7 +28,7 @@
                     </div>
                     <div class="card-body">
                         <p class="card-title">
-                            <a href="{{ path('photo_update_thumbnail', {'id':photo.id}) }}">Passer en image à la une</a>
+                            <a href="{{ path('photo_update_thumbnail', {'id':photo.id}) }}">{{ 'trick.edit.thumbnail'|trans({}, 'trick') }}</a>
                             <a href="{{ path('photo_delete', {'id':photo.id}) }}" class="fa fa-trash"></a>
                         </p>
                     </div>
@@ -54,7 +54,6 @@
 
         </div>
 
-        <!-- Trick modification form -->
         <div class="row">
             <div class="col-lg-8 mb-4">
 
@@ -82,8 +81,6 @@
 
             </div>
         </div>
-        <!-- /.row -->
     </div>
-    <!-- /.container -->
 
 {% endblock %}

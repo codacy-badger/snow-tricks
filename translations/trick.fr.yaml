@@ -1,8 +1,18 @@
 trick:
     show:
+        title: "Snowtricks! | %trickname%"
         date:
             creation: "créé le %date%"
             modification: "modifié le %date% "
         group:
             nogroup: "aucun groupe !"
+        display:
+            mobile: "Afficher les médias"
+    edit:
+        title: "Snowtricks! | Modification de %trickname%"
+        thumbnail: "Passer en image à la une"
+    new:
+        title: "Snowtricks! | Création"
+
+
 
