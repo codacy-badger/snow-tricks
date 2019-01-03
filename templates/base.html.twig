@@ -9,9 +9,9 @@
     <title>{% block title %}{{ 'title'|trans({}, 'seo') }}{% endblock %}</title>
     <meta name="description" content="{{ 'description'|trans({}, 'seo') }}">
 
-    <link rel="apple-touch-icon" sizes="180x180" href="">
-    <link rel="icon" type="image/png" sizes="32x32" href="">
-    <link rel="icon" type="image/png" sizes="16x16" href="">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('images/favicon_snowboard.ico') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('images/favicon_snowboard.ico') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/favicon_snowboard.ico') }}">
     <link rel="manifest" href="">
     <link rel="mask-icon" href="" color="#f4199a">
     <meta name="msapplication-config" content="">
@@ -19,7 +19,6 @@
     <meta name="theme-color" content="#ffffff">
 
     {% block stylesheets %}
-        <!-- Bootstrap custom styles for this template -->
         <link href="{{ asset('css/modern-business.css') }}" rel="stylesheet">
         <link href="{{ asset('css/snow-trick.css') }}" rel="stylesheet">
     {% endblock %}
@@ -38,6 +37,8 @@
 
 </div>
 
+<button onclick="topFunction()" id="top-arrow-button" title="Go to top">Top</button>
+
 {{ include('layout/footer.html.twig') }}
 
 {% block javascripts %}
@@ -46,7 +47,12 @@
     <script src="{{ asset('js/modern-business/contact_me.js') }}"></script>
     <script src="{{ asset('js/modern-business/add-collection-widget.js') }}"></script>
     <script src="{{ asset('js/modern-business/jqBootstrapValidation.js') }}"></script>
+<<<<<<< HEAD
     <script src="{{ asset('js/modern-business/mobile_medias_hider.js') }}"></script>
+=======
+    <script src="{{ asset('js/modern-business/display_mobile.js') }}"></script>
+    <script src="{{ asset('js/modern-business/scroll_arrows.js') }}"></script>
+>>>>>>> add on top arrow
 
 {% endblock %}
 

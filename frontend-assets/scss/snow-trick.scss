@@ -2,6 +2,8 @@
  * Specific SCSS for snow-trick website
  */
 
+@import "snow-tricks/arrow-wrapper";
+
 .tricks_list {
   padding-top: 40px;
 }
@@ -31,4 +33,7 @@
 
 .media-wrapper__hide {
   display: none;
+}
+.carousel-item {
+  height: 95vh;
 }

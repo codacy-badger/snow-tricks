@@ -9,7 +9,11 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ListController extends AbstractController
 {
+<<<<<<< HEAD
     const MAX_TRICKS_PER_PAGE = 10;
+=======
+    const MAX_TRICKS_PER_PAGE = 4;
+>>>>>>> add on top arrow
 
     /**
      * @var TrickRepository
@@ -22,7 +26,19 @@ class ListController extends AbstractController
     }
 
     /**
+<<<<<<< HEAD
      * @Route("/all-tricks/{page}", name="trick_list", defaults={"page"=1})
+=======
+     * @Route("/", name="homepage")
+     */
+    public function redirectHomepage(): Response
+    {
+        return $this->redirectToRoute('trick_list');
+    }
+
+    /**
+     * @Route("/all-tricks/{page}", name="trick_list")
+>>>>>>> add on top arrow
      */
     public function index(int $page): Response
     {
