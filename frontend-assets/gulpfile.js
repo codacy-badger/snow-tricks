@@ -59,6 +59,7 @@ gulp.task('browserSync', function () {
 // Dev task
 gulp.task('dev', ['browserSync'], function() {
   gulp.watch('./scss/*.scss', ['compile-theme', browserSync.reload]);
+  gulp.watch('./scss/*/*.scss', ['compile-theme', browserSync.reload]);
   gulp.watch('./js/*.js', ['copy', browserSync.reload]);
   gulp.watch('../templates/*.twig', browserSync.reload);
   gulp.watch('../templates/**/*.twig', browserSync.reload);

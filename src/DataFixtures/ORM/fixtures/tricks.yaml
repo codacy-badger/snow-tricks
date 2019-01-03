@@ -18,7 +18,7 @@ App\Model\Entity\Trick:
     trick_3:
         __factory:
             App\DataFixtures\ORM\Factory\Tricks::create:
-                -   name: 'Curt Cobains'
+                -   name: 'Beef Cobains'
                     description: <paragraphs(3, true)>
                     trickgroup: '@trickgroup_*'
                     user: '@user_*'
@@ -29,3 +29,50 @@ App\Model\Entity\Trick:
                     description: <paragraphs(3, true)>
                     trickgroup: '@trickgroup_*'
                     user: '@user_*'
+    trick_5:
+        __factory:
+            App\DataFixtures\ORM\Factory\Tricks::create:
+                -
+                    name: 'Japan Air'
+                    description: <paragraphs(3, true)>
+                    trickgroup: '@trickgroup_*'
+                    user: '@user_*'
+    trick_6:
+        __factory:
+            App\DataFixtures\ORM\Factory\Tricks::create:
+                -
+                    name: 'Canadian Bacon'
+                    description: <paragraphs(3, true)>
+                    trickgroup: '@trickgroup_*'
+                    user: '@user_*'
+    trick_7:
+        __factory:
+            App\DataFixtures\ORM\Factory\Tricks::create:
+                -   name: 'Cannonball'
+                    description: <paragraphs(3, true)>
+                    trickgroup: '@trickgroup_*'
+                    user: '@user_*'
+    trick_8:
+        __factory:
+            App\DataFixtures\ORM\Factory\Tricks::create:
+                -   name: 'Chicken Salad'
+                    description: <paragraphs(3, true)>
+                    trickgroup: '@trickgroup_*'
+                    user: '@user_*'
+    trick_9:
+        __factory:
+            App\DataFixtures\ORM\Factory\Tricks::create:
+                -
+                    name: 'Cross Rocket'
+                    description: <paragraphs(3, true)>
+                    trickgroup: '@trickgroup_*'
+                    user: '@user_*'
+    trick_10:
+        __factory:
+            App\DataFixtures\ORM\Factory\Tricks::create:
+                -
+                    name: 'Dunk Driver'
+                    description: <paragraphs(3, true)>
+                    trickgroup: '@trickgroup_*'
+                    user: '@user_*'
+
