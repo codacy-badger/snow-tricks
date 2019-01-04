@@ -3,7 +3,7 @@
 namespace App\Model\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
+use phpDocumentor\Reflection\Types\Boolean;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PhotoRepository")
@@ -24,9 +24,13 @@ class Photo
 
     /**
      * @ORM\Column(type="datetime")
-     * @Assert\DateTime()
      */
     private $createdAt;
+
+    /**
+     * @ORM\Column(type="boolean", options={"default":true})
+     */
+    private $isThumbnail;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Model\Entity\Trick", inversedBy="photos")
@@ -49,6 +53,21 @@ class Photo
         return $this->createdAt;
     }
 
+    public function isThumbnail()
+    {
+        return $this->isThumbnail;
+    }
+
+    public function markAsThumbnail(): void
+    {
+        $this->isThumbnail = true;
+    }
+
+    public function unmarkAsThumbnail(): void
+    {
+        $this->isThumbnail = false;
+    }
+
     public function getTrick(): ?Trick
     {
         return $this->trick;
@@ -66,6 +85,7 @@ class Photo
         $photo->filename = $filename;
         $photo->createdAt = new \DateTime('now');
         $photo->trick = $trick;
+        $photo->isThumbnail = false;
 
         return $photo;
     }
