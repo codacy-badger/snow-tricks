@@ -30,7 +30,7 @@ class Photo
     /**
      * @ORM\Column(type="boolean", options={"default":true})
      */
-    private $thumbnail;
+    private $isThumbnail;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Model\Entity\Trick", inversedBy="photos")
@@ -55,12 +55,17 @@ class Photo
 
     public function isThumbnail()
     {
-        return $this->thumbnail;
+        return $this->isThumbnail;
     }
 
-    public function modifyThumbnailStatus(bool $thumbnailStatus): void
+    public function markAsThumbnail(): void
     {
-        $this->thumbnail = $thumbnailStatus;
+        $this->isThumbnail = true;
+    }
+
+    public function unmarkAsThumbnail(): void
+    {
+        $this->isThumbnail = false;
     }
 
     public function getTrick(): ?Trick
@@ -80,7 +85,7 @@ class Photo
         $photo->filename = $filename;
         $photo->createdAt = new \DateTime('now');
         $photo->trick = $trick;
-        $photo->thumbnail = false;
+        $photo->isThumbnail = false;
 
         return $photo;
     }

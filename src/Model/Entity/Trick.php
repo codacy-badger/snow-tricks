@@ -207,10 +207,12 @@ class Trick
 
     public function updateThumbnail(Photo $photoThumbnail): void
     {
+        /** @var Photo $photo */
         foreach ($this->getPhotos() as $photo) {
-            $photo->modifyThumbnailStatus(false);
+            $photo->unmarkAsThumbnail();
         }
-        $photoThumbnail->modifyThumbnailStatus(true);
+
+        $photoThumbnail->markAsThumbnail();
     }
 
     public function addPhoto(Photo $photo): void
