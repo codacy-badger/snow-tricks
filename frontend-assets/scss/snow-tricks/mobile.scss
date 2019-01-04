@@ -1,0 +1,19 @@
+.mobile-btn {
+  display: none;
+}
+
+.media-wrapper__show {
+  display: block;
+}
+
+@media screen and (max-width: 600px) {
+  .mobile-btn {
+    display: block;
+  }
+  .media-wrapper {
+    display: none;
+  }
+  .media-wrapper__show {
+    display: block;
+  }
+}
