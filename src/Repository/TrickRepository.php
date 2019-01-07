@@ -7,12 +7,6 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-/**
- * @method Trick|null find($id, $lockMode = null, $lockVersion = null)
- * @method Trick|null findOneBy(array $criteria, array $orderBy = null)
- * @method Trick[]    findAll()
- * @method Trick[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- */
 class TrickRepository extends BaseRepository
 {
     public function __construct(RegistryInterface $registry)
@@ -20,20 +14,21 @@ class TrickRepository extends BaseRepository
         parent::__construct($registry, Trick::class);
     }
 
-    public function findAllSortAndPaginate($page, $maxTricksPerPage)
+    public function findAllSortAndPaginate(int $page, int $limit)
     {
         $qb = $this->createQueryBuilder('trick')
             ->orderBy('trick.createdAt', 'DESC');
 
         $query = $qb->getQuery();
 
-        $firstResult = ($page - 1) * $maxTricksPerPage;
+        $offset = ($page - 1) * $limit;
 
-        $query->setFirstResult($firstResult)->setMaxResults($maxTricksPerPage);
+        $query->setFirstResult($offset)->setMaxResults($limit);
 
         $paginator = new Paginator($query);
 
-        if (($paginator->count() <= $firstResult) && $page != 1) {
+        //Todo:  vérifier ce bout de code
+        if (($paginator->count() <= $offset) && $page != 1) {
             throw new NotFoundHttpException();
         }
 

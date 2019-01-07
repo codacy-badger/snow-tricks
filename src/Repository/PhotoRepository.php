@@ -5,12 +5,6 @@ namespace App\Repository;
 use App\Model\Entity\Photo;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
-/**
- * @method Photo|null find($id, $lockMode = null, $lockVersion = null)
- * @method Photo|null findOneBy(array $criteria, array $orderBy = null)
- * @method Photo[]    findAll()
- * @method Photo[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- */
 class PhotoRepository extends BaseRepository
 {
     public function __construct(RegistryInterface $registry)

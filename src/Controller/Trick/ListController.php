@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ListController extends AbstractController
 {
-    const MAX_TRICKS_PER_PAGE = 2;
+    const MAX_TRICKS_PER_PAGE = 10;
 
     /**
      * @var TrickRepository
@@ -22,9 +22,9 @@ class ListController extends AbstractController
     }
 
     /**
-     * @Route("/all-tricks/{page}", name="trick_list")
+     * @Route("/all-tricks/{page}", name="trick_list", defaults={"page"=1})
      */
-    public function index(int $page = 1): Response
+    public function index(int $page): Response
     {
         $tricks = $this->trickRepository->findAllSortAndPaginate($page, self::MAX_TRICKS_PER_PAGE);
 
