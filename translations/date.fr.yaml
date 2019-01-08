@@ -1,5 +1,4 @@
 ago:
-<<<<<<< HEAD
     years: "Il y a %nbYears% an|Il y a %nbYears% ans"
     months: "Il y a %nbMonths% mois"
     weeks: "Il y a %nbWeeks% semaine|Il y a %nbWeeks% semaines"
@@ -7,18 +6,4 @@ ago:
     hours: "Il y a %nbHours% heure|Il y a %nbHours% heures"
     minutes: "Il y a %nbMinutes% minute|Il y a %nbMinutes% minutes"
     seconds: 'Il y a %nbSeconds% seconde|Il y a %nbSeconds% secondes'
-=======
-    years: "Il y a plus de nbYears ans"
-    one_year: "Il y a plus d'un an"
-    one_month: "Il y a un mois"
-    months: "Il y a nbMonth mois"
-    days: "Il y a nbDays jours"
-    one_day: "Il y a un jour"
-    hours: "Il y a nbHours heures"
-    one_hour : "Il y a une heure"
-    minutes: "Il y a nbMinutes minutes"
-    one_minute: "Il y a 1 minute"
-    seconds: "Il y a nbSeconds secondes"
-    one_seconds: "Il y a plus d'une seconde"
->>>>>>> cleaning code in progress
     now: "à l'instant"

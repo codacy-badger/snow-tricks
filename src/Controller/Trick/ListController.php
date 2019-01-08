@@ -31,7 +31,7 @@ class ListController extends AbstractController
     }
 
     /**
-     * @Route("/all-tricks/{page = 1}", name="trick_list")
+     * @Route("/all-tricks/{page}", name="trick_list", defaults={"page"=1})
      */
     public function index(int $page): Response
     {
