@@ -6,7 +6,6 @@ trick:
             modification: "modifié le %date% "
         group:
             nogroup: "aucun groupe !"
-<<<<<<< HEAD
         display:
             mobile: "Afficher les médias"
     edit:
@@ -14,8 +13,4 @@ trick:
         thumbnail: "Passer en image à la une"
     new:
         title: "Snowtricks! | Création"
-
-
-=======
->>>>>>> cleaning code in progress
 
