@@ -1,0 +1,9 @@
+ago:
+    years: "Il y a %nbYears% an|Il y a %nbYears% ans"
+    months: "Il y a %nbMonths% mois"
+    weeks: "Il y a %nbWeeks% semaine|Il y a %nbWeeks% semaines"
+    days: "Il y a %nbDays% jour|Il y a %nbDays% jours"
+    hours: "Il y a %nbHours% heure|Il y a %nbHours% heures"
+    minutes: "Il y a %nbMinutes% minute|Il y a %nbMinutes% minutes"
+    seconds: 'Il y a %nbSeconds% seconde|Il y a %nbSeconds% secondes'
+    now: "à l'instant"

@@ -3,14 +3,10 @@
 namespace App\Repository;
 
 use App\Model\Entity\Trick;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-/**
- * @method Trick|null find($id, $lockMode = null, $lockVersion = null)
- * @method Trick|null findOneBy(array $criteria, array $orderBy = null)
- * @method Trick[]    findAll()
- * @method Trick[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- */
 class TrickRepository extends BaseRepository
 {
     public function __construct(RegistryInterface $registry)
@@ -18,32 +14,24 @@ class TrickRepository extends BaseRepository
         parent::__construct($registry, Trick::class);
     }
 
-//    /**
-//     * @return Trick[] Returns an array of Trick objects
-//     */
-    /*
-    public function findByExampleField($value)
+    public function findAllSortAndPaginate(int $page, int $limit)
     {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('t.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $qb = $this->createQueryBuilder('trick')
+            ->orderBy('trick.createdAt', 'DESC');
 
-    /*
-    public function findOneBySomeField($value): ?Trick
-    {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $query = $qb->getQuery();
+
+        $offset = ($page - 1) * $limit;
+
+        $query->setFirstResult($offset)->setMaxResults($limit);
+
+        $paginator = new Paginator($query);
+
+        //Todo:  vérifier ce bout de code
+        if (($paginator->count() <= $offset) && $page != 1) {
+            throw new NotFoundHttpException();
+        }
+
+        return $paginator;
     }
-    */
 }

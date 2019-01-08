@@ -9,6 +9,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ListController extends AbstractController
 {
+    const MAX_TRICKS_PER_PAGE = 10;
+
     /**
      * @var TrickRepository
      */
@@ -20,14 +22,18 @@ class ListController extends AbstractController
     }
 
     /**
-     * @Route("/", name="trick_list")
+     * @Route("/all-tricks/{page}", name="trick_list", defaults={"page"=1})
      */
-    public function index(): Response
+    public function index(int $page): Response
     {
-        $tricks = $this->trickRepository->findAll();
+        $tricks = $this->trickRepository->findAllSortAndPaginate($page, self::MAX_TRICKS_PER_PAGE);
+
+        $nbPages = intval(ceil($tricks->count() / self::MAX_TRICKS_PER_PAGE));
 
         return $this->render('trick/index.html.twig', [
             'tricks' => $tricks,
+            'nbPages' => $nbPages,
+            'page' => $page,
         ]);
     }
 }

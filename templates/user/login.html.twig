@@ -1,12 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Snowtricks! | Login{% endblock %}
+{% block title %}{{ 'login.title'|trans({}, 'user') }}{% endblock %}
 
 {% block body %}
-    <!-- Page Content -->
+
     <div class="container">
 
-        <!-- Page Heading/Breadcrumbs -->
         <h1 class="mt-4 mb-3">{{ 'user.header.login.title'|trans({}, 'form') }}
             <small>{{ 'user.header.login.subtitle'|trans({}, 'form') }}</small>
         </h1>
@@ -30,8 +29,5 @@
             </div>
         </div>
     </div>
-
-
-
 
 {% endblock %}

@@ -1,9 +1,31 @@
 App\Model\Entity\Trick:
-    trick_{1..1}:
+    trick_1:
         __factory:
             App\DataFixtures\ORM\Factory\Tricks::create:
             -
-                    name: <trickName()>
+                    name: 'Crail'
+                    description: <paragraphs(3, true)>
+                    trickgroup: '@trickgroup_*'
+                    user: '@user_*'
+    trick_2:
+        __factory:
+            App\DataFixtures\ORM\Factory\Tricks::create:
+                -
+                    name: 'Bloody Dracula'
+                    description: <paragraphs(3, true)>
+                    trickgroup: '@trickgroup_*'
+                    user: '@user_*'
+    trick_3:
+        __factory:
+            App\DataFixtures\ORM\Factory\Tricks::create:
+                -   name: 'Curt Cobains'
+                    description: <paragraphs(3, true)>
+                    trickgroup: '@trickgroup_*'
+                    user: '@user_*'
+    trick_4:
+        __factory:
+            App\DataFixtures\ORM\Factory\Tricks::create:
+                -   name: 'China Air'
                     description: <paragraphs(3, true)>
                     trickgroup: '@trickgroup_*'
                     user: '@user_*'

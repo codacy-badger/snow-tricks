@@ -37,7 +37,7 @@ class Video
     private $platform;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Model\Entity\Trick", mappedBy="video")
+     * @ORM\ManyToMany(targetEntity="App\Model\Entity\Trick", mappedBy="videos")
      */
     private $tricks;
 
