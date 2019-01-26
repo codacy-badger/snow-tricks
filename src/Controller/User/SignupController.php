@@ -7,6 +7,8 @@ use App\Model\Entity\User;
 use App\Form\User\UserSignupType;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Form\FormEvent;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,10 +19,15 @@ class SignupController extends AbstractController
      * @var UserRepository
      */
     private $userRepository;
+    /**
+     * @var EventDispatcherInterface
+     */
+    private $eventDispatcher;
 
-    public function __construct(UserRepository $userRepository)
+    public function __construct(UserRepository $userRepository, EventDispatcherInterface $eventDispatcher)
     {
         $this->userRepository = $userRepository;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -36,6 +43,10 @@ class SignupController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $user = User::create($createUser);
+
+            $event = new FormEvent($form, $user);
+
+            $this->eventDispatcher->dispatch('user.registration.success', $event);
 
             $this->userRepository->save($user);
 
