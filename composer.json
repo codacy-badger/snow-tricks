@@ -31,6 +31,8 @@
         "doctrine/doctrine-fixtures-bundle": "^3.0",
         "hautelook/alice-bundle": "^2.0",
         "m6web/php-cs-fixer-config": "^1.0",
+        "symfony/browser-kit": "*",
+        "symfony/css-selector": "*",
         "symfony/debug-pack": "*",
         "symfony/dotenv": "*",
         "symfony/maker-bundle": "^1.0",
