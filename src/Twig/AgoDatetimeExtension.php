@@ -27,11 +27,7 @@ class AgoDatetimeExtension extends AbstractExtension
         ];
     }
 
-<<<<<<< HEAD
     public function ago(\DateTime $dateTime, string $stringDateNow = 'now'): string
-=======
-    public function ago(\DateTime $dateTime, String $stringDateNow = 'now'): string
->>>>>>> add new tests
     {
         $diffFromNow = date_diff($dateTime, new \DateTime($stringDateNow));
 
