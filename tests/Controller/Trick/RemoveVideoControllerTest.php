@@ -2,26 +2,16 @@
 
 namespace App\Tests\Controller\Trick;
 
-use App\Tests\Controller\Traits\FakeAuthenticationTrait;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class RemoveVideoControllerTest extends WebTestCase
 {
-    use FakeAuthenticationTrait;
-
-    private $client = null;
-
-    public function setUp()
-    {
-        $this->client = static::createClient();
-    }
-
     public function testRemoveVideoTrick()
     {
-        $this->logIn();
+        $client = static::createClient();
 
-        $this->client->request('GET', '/trick/china-air/video/1/delete');
+        $client->request('GET', '/trick/japan-air/video/1/delete');
 
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
 }

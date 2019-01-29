@@ -2,26 +2,16 @@
 
 namespace App\Tests\Controller\Comment;
 
-use App\Tests\Controller\Traits\FakeAuthenticationTrait;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class CreateControllerTest extends WebTestCase
 {
-    use FakeAuthenticationTrait;
-
-    private $client = null;
-
-    public function setUp()
-    {
-        $this->client = static::createClient();
-    }
-
     public function testCreateComment()
     {
-        $this->logIn();
+        $client = static::createClient();
 
-        $this->client->request('GET', '/trick/crail/comment/create');
+        $client->request('GET', '/comment/create');
 
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
 }

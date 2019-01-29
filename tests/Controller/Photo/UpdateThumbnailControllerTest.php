@@ -2,26 +2,16 @@
 
 namespace App\Tests\Controller\Photo;
 
-use App\Tests\Controller\Traits\FakeAuthenticationTrait;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class UpdateThumbnailControllerTest extends WebTestCase
 {
-    use FakeAuthenticationTrait;
-
-    private $client = null;
-
-    public function setUp()
-    {
-        $this->client = static::createClient();
-    }
-
     public function testUpdateThumbnailPhoto()
     {
-        $this->logIn();
+        $client = static::createClient();
 
-        $this->client->request('GET', '/photo/update-thumbnail/1');
+        $client->request('GET', '/photo/update-thumbnail/1');
 
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
 }

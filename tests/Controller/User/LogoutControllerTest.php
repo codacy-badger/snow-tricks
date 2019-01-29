@@ -2,26 +2,16 @@
 
 namespace App\Tests\Controller\User;
 
-use App\Tests\Controller\Traits\FakeAuthenticationTrait;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class LogoutControllerTest extends WebTestCase
 {
-    use FakeAuthenticationTrait;
-
-    private $client = null;
-
-    public function setUp()
+    public function testLogoutUser()
     {
-        $this->client = static::createClient();
-    }
+        $client = static::createClient();
 
-    public function testUserLogout()
-    {
-        $this->logIn();
+        $client->request('GET', '/user/logout');
 
-        $this->client->request('GET', '/user/logout');
-
-        $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
 }
