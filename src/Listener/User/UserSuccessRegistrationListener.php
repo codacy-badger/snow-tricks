@@ -8,7 +8,7 @@ use App\Model\Entity\User;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvent;
 
-class EmailConfirmationListener implements EventSubscriberInterface
+class UserSuccessRegistrationListener implements EventSubscriberInterface
 {
     /**
      * @var \Swift_Mailer
