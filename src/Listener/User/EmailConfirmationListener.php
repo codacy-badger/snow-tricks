@@ -3,14 +3,21 @@
 namespace App\Listener\User;
 
 
+use App\Mailer\Mailer;
 use App\Model\Entity\User;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvent;
 
 class EmailConfirmationListener implements EventSubscriberInterface
 {
-    public function __construct()
+    /**
+     * @var \Swift_Mailer
+     */
+    private $mailer;
+
+    public function __construct(Mailer $mailer)
     {
+        $this->mailer = $mailer;
     }
 
     public static function getSubscribedEvents()
@@ -24,6 +31,10 @@ class EmailConfirmationListener implements EventSubscriberInterface
     {
         /** @var User $user */
         $user = $formEvent->getData();
+
+        $emailToken = random_bytes(10);
+
+        $this->mailer->sendConfirmationEmail($user, $emailToken);
 
     }
 }

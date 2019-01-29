@@ -55,6 +55,16 @@ class User implements UserInterface
     private $firstname;
 
     /**
+     * @ORM\Column(nullable=false)
+     */
+    private $status;
+
+    /**
+     * @ORM\Column(nullable=false)
+     */
+    private $confirmationToken;
+
+    /**
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
