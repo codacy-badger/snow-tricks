@@ -12,6 +12,6 @@ class LoginControllerTest extends WebTestCase
 
         $client->request('GET', '/user/login');
 
-        $this->assertEquals(200,$client->getResponse()->getStatusCode());
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
 }

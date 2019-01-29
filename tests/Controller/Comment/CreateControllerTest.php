@@ -12,6 +12,6 @@ class CreateControllerTest extends WebTestCase
 
         $client->request('GET', '/comment/create');
 
-        $this->assertEquals(200,$client->getResponse()->getStatusCode());
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
 }

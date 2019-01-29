@@ -12,6 +12,6 @@ class ListControllerTest extends WebTestCase
 
         $client->request('GET', '/all-tricks');
 
-        $this->assertEquals(200,$client->getResponse()->getStatusCode());
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
 }

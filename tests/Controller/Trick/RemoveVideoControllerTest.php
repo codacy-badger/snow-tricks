@@ -12,6 +12,6 @@ class RemoveVideoControllerTest extends WebTestCase
 
         $client->request('GET', '/trick/japan-air/video/1/delete');
 
-        $this->assertEquals(200,$client->getResponse()->getStatusCode());
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
 }

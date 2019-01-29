@@ -12,6 +12,6 @@ class LogoutControllerTest extends WebTestCase
 
         $client->request('GET', '/user/logout');
 
-        $this->assertEquals(200,$client->getResponse()->getStatusCode());
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
 }

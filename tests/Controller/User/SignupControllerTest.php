@@ -12,6 +12,6 @@ class SignupControllerTest extends WebTestCase
 
         $client->request('GET', '/user/signup');
 
-        $this->assertEquals(200,$client->getResponse()->getStatusCode());
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
 }

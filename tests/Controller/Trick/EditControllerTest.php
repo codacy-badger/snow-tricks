@@ -12,6 +12,6 @@ class EditControllerTest extends WebTestCase
 
         $client->request('GET', '/trick/edit/japan-air');
 
-        $this->assertEquals(200,$client->getResponse()->getStatusCode());
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
 }

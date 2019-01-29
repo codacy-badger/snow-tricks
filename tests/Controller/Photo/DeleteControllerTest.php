@@ -12,6 +12,6 @@ class DeleteControllerTest extends WebTestCase
 
         $client->request('GET', '/photo/delete/1');
 
-        $this->assertEquals(200,$client->getResponse()->getStatusCode());
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
 }
