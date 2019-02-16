@@ -2,6 +2,7 @@
 
 namespace App\Model\Entity;
 
+use App\Model\DTO\User\ConfirmUserDTO;
 use App\Model\DTO\User\CreateUserDTO;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -27,7 +28,7 @@ class User implements UserInterface
     private $email;
 
     /**
-     * @ORM\Column(type="json")
+     * @ORM\Column(type="array")
      */
     private $roles = [];
 
@@ -55,12 +56,12 @@ class User implements UserInterface
     private $firstname;
 
     /**
-     * @ORM\Column(nullable=false)
+     * @ORM\Column(type="string", nullable=false)
      */
     private $status;
 
     /**
-     * @ORM\Column(nullable=false)
+     * @ORM\Column(type="string", nullable=false)
      */
     private $confirmationToken;
 
@@ -142,6 +143,17 @@ class User implements UserInterface
     {
         return $this->firstname;
     }
+
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    public function getConfirmationToken()
+    {
+        return $this->confirmationToken;
+    }
+
 
     public function getCreatedAt(): ?\DateTimeInterface
     {
@@ -234,7 +246,15 @@ class User implements UserInterface
         $user->plainPassword = $userDTO->getPlainPassword();
         $user->roles = ['ROLE_USER'];
         $user->createdAt = new \DateTime('now');
+        $user->status = 'pending';
+        $user->confirmationToken = $userDTO->getConfirmationToken();
 
         return $user;
     }
+
+    public function confirm(): void
+    {
+        $this->status = 'enabled';
+    }
+
 }

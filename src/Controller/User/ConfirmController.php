@@ -2,6 +2,7 @@
 
 namespace App\Controller\User;
 
+use App\Model\DTO\User\ConfirmUserDTO;
 use App\Model\DTO\User\CreateUserDTO;
 use App\Model\Entity\User;
 use App\Form\User\UserSignupType;
@@ -13,7 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class SignupController extends AbstractController
+class ConfirmController extends AbstractController
 {
     /**
      * @var UserRepository
@@ -31,33 +32,18 @@ class SignupController extends AbstractController
     }
 
     /**
-     * @Route("/user/sign-up", name="user_signup")
+     * @Route("/user/confirm/{confirmationToken}", name="user_confirm")
      */
-    public function signUp(Request $request): Response
+    public function confirm(Request $request): Response
     {
-        $createUser = new CreateUserDTO();
+        /** @var User $user */
+        $user = $this->userRepository->findBy(['confirmationToken']);
 
-        $form = $this->createForm(UserSignupType::class, $createUser);
+        if($user != null){
 
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $event = new FormEvent($form, $createUser);
-
-            $this->eventDispatcher->dispatch('user.registration.success', $event);
-
-            $user = User::create($createUser);
-
-            $this->userRepository->save($user);
-
-            $this->addFlash('success', 'user.success.creation');
-
-            return $this->redirectToRoute('trick_list');
+            $user->confirm();
         }
 
-        return $this->render('user/signup.html.twig', [
-            'userSignup' => $form->createView(),
-        ]);
+        return $this->redirectToRoute('user_login');
     }
 }

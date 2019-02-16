@@ -23,6 +23,8 @@ public/fonts
 public/js
 public/photos
 
+.idea/
+
 ###> friendsofphp/php-cs-fixer ###
 /.php_cs.cache
 ###< friendsofphp/php-cs-fixer ###

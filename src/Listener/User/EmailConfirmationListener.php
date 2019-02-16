@@ -4,7 +4,7 @@ namespace App\Listener\User;
 
 
 use App\Mailer\Mailer;
-use App\Model\Entity\User;
+use App\Model\DTO\User\CreateUserDTO;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvent;
 
@@ -29,12 +29,12 @@ class EmailConfirmationListener implements EventSubscriberInterface
 
     public function onRegistrationSuccess(FormEvent $formEvent)
     {
-        /** @var User $user */
-        $user = $formEvent->getData();
+        /** @var CreateUserDTO $createUser */
+        $createUser = $formEvent->getData();
 
-        $emailToken = random_bytes(10);
+        $createUser->setConfirmationToken($token = bin2hex(random_bytes(10)));
 
-        $this->mailer->sendConfirmationEmail($user, $emailToken);
+        $this->mailer->sendConfirmationEmail($createUser, $token);
 
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Mailer;
 
 
+use App\Model\DTO\User\CreateUserDTO;
 use App\Model\Entity\User;
 
 class Mailer
@@ -17,10 +18,10 @@ class Mailer
         $this->mailer = $mailer;
     }
 
-    public function sendConfirmationEmail(User $user, string $emailToken){
+    public function sendConfirmationEmail(CreateUserDTO $createUser, string $emailToken){
         $message = (new \Swift_Message('[SnowTricks] Confirm your email'))
         ->setFrom('contact@snowtricks.fr')
-            ->setTo($user->getEmail())
+            ->setTo($createUser->getEmail())
             ->setBody(
                 'your token : '. $emailToken
             );
