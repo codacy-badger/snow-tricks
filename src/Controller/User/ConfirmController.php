@@ -2,15 +2,10 @@
 
 namespace App\Controller\User;
 
-use App\Model\DTO\User\ConfirmUserDTO;
-use App\Model\DTO\User\CreateUserDTO;
 use App\Model\Entity\User;
-use App\Form\User\UserSignupType;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -34,16 +29,17 @@ class ConfirmController extends AbstractController
     /**
      * @Route("/user/confirm/{confirmationToken}", name="user_confirm")
      */
-    public function confirm(Request $request): Response
+    public function confirm(string $confirmationToken): Response
     {
         /** @var User $user */
-        $user = $this->userRepository->findBy(['confirmationToken']);
+        $user = $this->userRepository->findOneBy(['confirmationToken' => $confirmationToken]);
 
-        if($user != null){
+        if($user){
 
             $user->confirm();
-        }
 
+            $this->userRepository->save($user);
+        }
         return $this->redirectToRoute('user_login');
     }
 }
