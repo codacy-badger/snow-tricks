@@ -16,15 +16,14 @@ class Mailer
      */
     private $urlGenerator;
 
-
     public function __construct(\Swift_Mailer $mailer, UrlGeneratorInterface $urlGenerator)
     {
         $this->mailer = $mailer;
         $this->urlGenerator = $urlGenerator;
     }
 
-    public function sendConfirmationEmail(CreateUserDTO $createUser, string $emailToken){
-
+    public function sendConfirmationEmail(CreateUserDTO $createUser, string $emailToken)
+    {
         $confirmLink = $this->urlGenerator->generate(
             'user_confirm',
             ['confirmationToken' => $emailToken],
@@ -35,7 +34,7 @@ class Mailer
         ->setFrom('contact@snowtricks.fr')
             ->setTo($createUser->getEmail())
             ->setBody(
-                'Follow this link to activate your account : '. $confirmLink
+                'Follow this link to activate your account : '.$confirmLink
             );
 
         $this->mailer->send($message);

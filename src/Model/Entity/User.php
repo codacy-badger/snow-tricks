@@ -2,7 +2,6 @@
 
 namespace App\Model\Entity;
 
-use App\Model\DTO\User\ConfirmUserDTO;
 use App\Model\DTO\User\CreateUserDTO;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -154,7 +153,6 @@ class User implements UserInterface
         return $this->confirmationToken;
     }
 
-
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
@@ -256,5 +254,4 @@ class User implements UserInterface
     {
         $this->status = 'enabled';
     }
-
 }

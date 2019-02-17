@@ -37,5 +37,4 @@ class ConfirmUserDTO
     {
         $this->status = $status;
     }
-
 }

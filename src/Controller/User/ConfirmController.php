@@ -34,12 +34,12 @@ class ConfirmController extends AbstractController
         /** @var User $user */
         $user = $this->userRepository->findOneBy(['confirmationToken' => $confirmationToken]);
 
-        if($user){
-
+        if ($user) {
             $user->confirm();
 
             $this->userRepository->save($user);
         }
+
         return $this->redirectToRoute('user_login');
     }
 }
