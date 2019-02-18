@@ -17,6 +17,7 @@ class Users
         $createUserDTO->setLastname($arguments['lastname']);
         $createUserDTO->setEmail($arguments['email']);
         $createUserDTO->setPlainPassword($arguments['plain_password']);
+        $createUserDTO->setConfirmationToken($arguments['confirmation_token']);
 
         return User::create($createUserDTO);
     }

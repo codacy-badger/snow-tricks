@@ -34,6 +34,11 @@ class CreateUserDTO
      */
     private $firstname;
 
+    /**
+     * @var string|null
+     */
+    private $confirmationToken;
+
     public function getEmail(): ?string
     {
         return $this->email;
@@ -72,5 +77,15 @@ class CreateUserDTO
     public function setFirstname(?string $firstname): void
     {
         $this->firstname = $firstname;
+    }
+
+    public function getConfirmationToken(): ?string
+    {
+        return $this->confirmationToken;
+    }
+
+    public function setConfirmationToken(?string $confirmationToken): void
+    {
+        $this->confirmationToken = $confirmationToken;
     }
 }

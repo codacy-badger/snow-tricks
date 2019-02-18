@@ -10,6 +10,8 @@ App\Model\Entity\User:
                     created_at: <dateTimeBetween('-2 years')>
                     updated_at: <dateTimeBetween('-2 years')>
                     email: <email()>
+                    confirmation_token: <regexify('[a-z0-9]{20}')>
+                    enabled: false
     user_51:
         __factory:
             App\DataFixtures\ORM\Factory\Users::create:
@@ -21,3 +23,5 @@ App\Model\Entity\User:
                     created_at: <dateTimeBetween('-2 years')>
                     updated_at: <dateTimeBetween('-2 years')>
                     email: 'fabianrupin@hotmail.com'
+                    confirmation_token: <regexify('[a-z0-9]{20}')>
+                    enabled: true
