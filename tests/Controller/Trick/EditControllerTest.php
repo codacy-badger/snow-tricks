@@ -2,16 +2,26 @@
 
 namespace App\Tests\Controller\Trick;
 
+use App\Tests\Controller\Traits\FakeAuthenticationTrait;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class EditControllerTest extends WebTestCase
 {
-    public function testEditTrick()
+    use FakeAuthenticationTrait;
+
+    private $client = null;
+
+    public function setUp()
     {
-        $client = static::createClient();
+        $this->client = static::createClient();
+    }
 
-        $client->request('GET', '/trick/edit/japan-air');
+    public function testDeleteTrick()
+    {
+        $this->logIn();
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->client->request('GET', '/trick/edit/china-air');
+
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
     }
 }
