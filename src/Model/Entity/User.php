@@ -55,12 +55,12 @@ class User implements UserInterface
     private $firstname;
 
     /**
-     * @ORM\Column(type="boolean", nullable=false)
+     * @ORM\Column(type="boolean")
      */
     private $enabled;
 
     /**
-     * @ORM\Column(type="string", nullable=false)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $confirmationToken;
 
@@ -143,7 +143,7 @@ class User implements UserInterface
         return $this->firstname;
     }
 
-    public function isEnabled()
+    public function isEnabled(): bool
     {
         return $this->enabled;
     }
@@ -253,5 +253,6 @@ class User implements UserInterface
     public function confirm(): void
     {
         $this->enabled = true;
+        $this->confirmationToken = null;
     }
 }
