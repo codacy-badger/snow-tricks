@@ -3,9 +3,11 @@
 namespace App\Security;
 
 use App\Model\Entity\User as AppUser;
-use Symfony\Component\Config\Definition\Exception\Exception;
+
+use Symfony\Component\Security\Core\Exception\DisabledException;
 use Symfony\Component\Security\Core\User\UserCheckerInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+
 
 class UserChecker implements UserCheckerInterface
 {
@@ -15,8 +17,8 @@ class UserChecker implements UserCheckerInterface
             return;
         }
 
-        if ($user->getStatus() != 'enabled') {
-            throw new Exception('Your accound wasn\'t  validate. Please consult your mailbox');
+        if (!$user->isEnabled()) {
+            throw new DisabledException('Your accound wasn\'t  validate. Please consult your mailbox');
         }
     }
 

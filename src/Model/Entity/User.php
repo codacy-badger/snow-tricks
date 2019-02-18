@@ -55,9 +55,9 @@ class User implements UserInterface
     private $firstname;
 
     /**
-     * @ORM\Column(type="string", nullable=false)
+     * @ORM\Column(type="boolean", nullable=false)
      */
-    private $status;
+    private $enabled;
 
     /**
      * @ORM\Column(type="string", nullable=false)
@@ -143,9 +143,9 @@ class User implements UserInterface
         return $this->firstname;
     }
 
-    public function getStatus()
+    public function isEnabled()
     {
-        return $this->status;
+        return $this->enabled;
     }
 
     public function getConfirmationToken()
@@ -244,7 +244,7 @@ class User implements UserInterface
         $user->plainPassword = $userDTO->getPlainPassword();
         $user->roles = ['ROLE_USER'];
         $user->createdAt = new \DateTime('now');
-        $user->status = 'pending';
+        $user->enabled = false;
         $user->confirmationToken = $userDTO->getConfirmationToken();
 
         return $user;
@@ -252,6 +252,6 @@ class User implements UserInterface
 
     public function confirm(): void
     {
-        $this->status = 'enabled';
+        $this->enabled = true;
     }
 }

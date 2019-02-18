@@ -11,7 +11,7 @@ App\Model\Entity\User:
                     updated_at: <dateTimeBetween('-2 years')>
                     email: <email()>
                     confirmation_token: <regexify('[a-z0-9]{20}')>
-                    status: 'pending'
+                    enabled: false
     user_51:
         __factory:
             App\DataFixtures\ORM\Factory\Users::create:
@@ -24,4 +24,4 @@ App\Model\Entity\User:
                     updated_at: <dateTimeBetween('-2 years')>
                     email: 'fabianrupin@hotmail.com'
                     confirmation_token: <regexify('[a-z0-9]{20}')>
-                    status: 'enabled'
+                    enabled: true
