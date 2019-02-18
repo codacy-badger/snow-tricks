@@ -2,16 +2,24 @@
 
 namespace App\Tests\Controller\User;
 
+use App\Tests\Controller\Traits\FakeAuthenticationTrait;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class LoginControllerTest extends WebTestCase
 {
+    use FakeAuthenticationTrait;
+
+    private $client = null;
+
+    public function setUp()
+    {
+        $this->client = static::createClient();
+    }
+
     public function testUserLogin()
     {
-        $client = static::createClient();
+        $this->client->request('GET', '/user/login');
 
-        $client->request('GET', '/user/login');
-
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
     }
 }

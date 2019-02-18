@@ -2,16 +2,26 @@
 
 namespace App\Tests\Controller\Photo;
 
+use App\Tests\Controller\Traits\FakeAuthenticationTrait;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class DeleteControllerTest extends WebTestCase
 {
+    use FakeAuthenticationTrait;
+
+    private $client = null;
+
+    public function setUp()
+    {
+        $this->client = static::createClient();
+    }
+
     public function testDeletePhoto()
     {
-        $client = static::createClient();
+        $this->logIn();
 
-        $client->request('GET', '/photo/delete/1');
+        $this->client->request('GET', '/photo/delete/1');
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
     }
 }
