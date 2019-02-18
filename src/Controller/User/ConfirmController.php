@@ -5,7 +5,6 @@ namespace App\Controller\User;
 use App\Model\Entity\User;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -15,15 +14,10 @@ class ConfirmController extends AbstractController
      * @var UserRepository
      */
     private $userRepository;
-    /**
-     * @var EventDispatcherInterface
-     */
-    private $eventDispatcher;
 
-    public function __construct(UserRepository $userRepository, EventDispatcherInterface $eventDispatcher)
+    public function __construct(UserRepository $userRepository)
     {
         $this->userRepository = $userRepository;
-        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**

@@ -11,7 +11,7 @@ class UserChecker implements UserCheckerInterface
 {
     public function checkPreAuth(UserInterface $user)
     {
-        if(!$user instanceof AppUser){
+        if (!$user instanceof AppUser) {
             return;
         }
 
@@ -25,7 +25,5 @@ class UserChecker implements UserCheckerInterface
         if (!$user instanceof AppUser) {
             return;
         }
-
-
     }
 }

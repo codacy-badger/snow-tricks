@@ -22,7 +22,7 @@ class Mailer
         $this->urlGenerator = $urlGenerator;
     }
 
-    public function sendConfirmationEmail(CreateUserDTO $createUser, string $emailToken)
+    public function sendConfirmationEmail(CreateUserDTO $createUser, string $emailToken): void
     {
         $confirmLink = $this->urlGenerator->generate(
             'user_confirm',
@@ -38,7 +38,5 @@ class Mailer
             );
 
         $this->mailer->send($message);
-
-        return;
     }
 }
