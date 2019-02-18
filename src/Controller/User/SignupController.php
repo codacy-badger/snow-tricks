@@ -42,11 +42,11 @@ class SignupController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $user = User::create($createUser);
-
-            $event = new FormEvent($form, $user);
+            $event = new FormEvent($form, $createUser);
 
             $this->eventDispatcher->dispatch('user.registration.success', $event);
+
+            $user = User::create($createUser);
 
             $this->userRepository->save($user);
 
