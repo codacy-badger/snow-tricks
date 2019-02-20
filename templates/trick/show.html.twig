@@ -20,16 +20,14 @@
 
             <div class="trick-icons">
                 <a
-                        data-toggle="modal"
-                        data-target="#confirm-delete"
-                        href="#"
+                        href="{{ path('trick_edit', {'slug':trick.slug}) }}"
                         data-href="{{ path('trick_edit', {'slug':trick.slug}) }}"
                         class="fa fa-pencil"
                 ></a>
                 <a data-toggle="modal"
                    data-target="#confirm-delete"
-                   href="#"
                    data-href="{{ path('trick_delete', {'slug':trick.slug}) }}"
+                   href="#"
                    class="fa fa-trash"
                 ></a>
             </div>
