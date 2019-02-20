@@ -18,6 +18,8 @@ class ShowControllerTest extends WebTestCase
 
     public function testShowTrick()
     {
+        $this->logIn();
+
         $this->client->request('GET', '/trick/show/china-air');
 
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
