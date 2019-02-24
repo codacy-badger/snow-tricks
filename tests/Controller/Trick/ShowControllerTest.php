@@ -20,7 +20,7 @@ class ShowControllerTest extends WebTestCase
     {
         $this->logIn();
 
-        $this->client->request('GET', '/trick/show/china-air');
+        $this->client->request('GET', '/trick/show/crail');
 
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
     }
