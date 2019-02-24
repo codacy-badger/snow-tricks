@@ -20,7 +20,7 @@ class CreateControllerTest extends WebTestCase
     {
         $this->logIn();
 
-        $this->client->request('GET', '/trick/china-air/comment/create');
+        $this->client->request('GET', '/trick/crail/comment/create');
 
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
     }

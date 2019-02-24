@@ -14,10 +14,11 @@ trait FakeAuthenticationTrait
 
         $manager = $this->client->getContainer()->get('doctrine');
 
+        /** @var User $user */
         $user = $manager->getRepository(User::class)->find(1);
 
-        // you may need to use a different token class depending on your application.
-        // for example, when using Guard authentication you must instantiate PostAuthenticationGuardToken
+        $user->confirm();
+
         $token = new PostAuthenticationGuardToken(
             $user,
             'security.user.provider.concrete.app_user_provider',
