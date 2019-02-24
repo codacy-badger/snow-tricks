@@ -1,0 +1,7 @@
+App\Model\Entity\Photo:
+    photo_{1..10}:
+        __factory:
+            App\DataFixtures\ORM\Factory\Photos::create:
+                -
+                    filename: <trickPhotos()>
+                    trick: '@trick_*'

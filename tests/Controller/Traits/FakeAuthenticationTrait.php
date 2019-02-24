@@ -24,7 +24,9 @@ trait FakeAuthenticationTrait
             'security.user.provider.concrete.app_user_provider',
             $user->getRoles()
         );
+
         $session->set('_security_main', serialize($token));
+
         $session->save();
 
         $cookie = new Cookie($session->getName(), $session->getId());

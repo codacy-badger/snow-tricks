@@ -40,6 +40,12 @@ final class SnowboardProvider extends BaseProvider
         'K-RKP3BizWM',
     ];
 
+    const TRICK_PHOTOS_LINK_PROVIDER = [
+        'fixtures/snowboard.jpg',
+        'fixtures/snowboard-2.jpg',
+        'fixtures/snowboard-3.jpg'
+    ];
+
     public function trickName(): string
     {
         return self::randomElement(self::TRICK_NAME_PROVIDER);
@@ -48,5 +54,10 @@ final class SnowboardProvider extends BaseProvider
     public function trickVideos(): string
     {
         return self::randomElement(self::TRICK_VIDEOS_PROVIDER);
+    }
+
+    public function trickPhotos(): string
+    {
+        return self::randomElement(self::TRICK_PHOTOS_LINK_PROVIDER);
     }
 }
