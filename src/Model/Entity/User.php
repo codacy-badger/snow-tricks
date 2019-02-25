@@ -27,7 +27,7 @@ class User implements UserInterface
     private $email;
 
     /**
-     * @ORM\Column(type="json")
+     * @ORM\Column(type="array")
      */
     private $roles = [];
 
@@ -53,6 +53,16 @@ class User implements UserInterface
      * @Assert\Length(min =3)
      */
     private $firstname;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $enabled;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $confirmationToken;
 
     /**
      * @ORM\Column(type="datetime")
@@ -131,6 +141,16 @@ class User implements UserInterface
     public function getFirstname(): ?string
     {
         return $this->firstname;
+    }
+
+    public function isEnabled(): bool
+    {
+        return $this->enabled;
+    }
+
+    public function getConfirmationToken()
+    {
+        return $this->confirmationToken;
     }
 
     public function getCreatedAt(): ?\DateTimeInterface
@@ -224,7 +244,15 @@ class User implements UserInterface
         $user->plainPassword = $userDTO->getPlainPassword();
         $user->roles = ['ROLE_USER'];
         $user->createdAt = new \DateTime('now');
+        $user->enabled = false;
+        $user->confirmationToken = $userDTO->getConfirmationToken();
 
         return $user;
+    }
+
+    public function confirm(): void
+    {
+        $this->enabled = true;
+        $this->confirmationToken = null;
     }
 }

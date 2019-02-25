@@ -1,0 +1,22 @@
+trick:
+    delete:
+        title: "Suppression d'une figure"
+        description: "Vous allez supprimer un figure, êtes vous sur ?"
+        button:
+            confirm: "Supprimer"
+            cancel: "Annuler"
+photo:
+    delete:
+        title: "Suppression d'une photo"
+        description: "Vous allez supprimer une photo, êtes vous sur ?"
+        button:
+            confirm: "Supprimer"
+            cancel: "Annuler"
+
+video:
+    delete:
+        title: "Suppression d'une video"
+        description: "Vous allez supprimer cette vidéo. êtes vous sur ?"
+        button:
+            confirm: "Supprimer"
+            cancel: "Annuler"
