@@ -3,7 +3,10 @@
 namespace App\Repository;
 
 use App\Model\Entity\Comment;
+use App\Model\Entity\Trick;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class CommentRepository extends BaseRepository
 {
@@ -11,4 +14,26 @@ class CommentRepository extends BaseRepository
     {
         parent::__construct($registry, Comment::class);
     }
+
+    public function findByTrickSortAndPaginate(Trick $trick, int $page, int $limit)
+    {
+        $qb = $this->createQueryBuilder('comment')
+            ->andWhere('comment.trick = '.$trick->getId())
+            ->orderBy('comment.createdAt', 'DESC');
+
+        $query = $qb->getQuery();
+
+        $offset = ($page - 1) * $limit;
+
+        $query->setFirstResult($offset)->setMaxResults($limit);
+
+        $paginator = new Paginator($query);
+
+        if (($paginator->count() <= $offset) && $page != 1) {
+            throw new NotFoundHttpException();
+        }
+
+        return $paginator;
+    }
+
 }

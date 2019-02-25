@@ -27,7 +27,6 @@ class TrickRepository extends BaseRepository
 
         $paginator = new Paginator($query);
 
-        //Todo:  vérifier ce bout de code
         if (($paginator->count() <= $offset) && $page != 1) {
             throw new NotFoundHttpException();
         }
