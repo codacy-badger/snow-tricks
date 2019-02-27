@@ -15,11 +15,11 @@ class CommentRepository extends BaseRepository
         parent::__construct($registry, Comment::class);
     }
 
-    public function findByTrickSortAndPaginate(Trick $trick, int $page, int $limit)
+    public function findByTrickSortAndPaginate(int $trickID, int $page, int $limit)
     {
         $qb = $this->createQueryBuilder('comment')
-            ->andWhere('comment.trick = '.$trick->getId())
-            ->orderBy('comment.createdAt', 'DESC');
+            ->andWhere('comment.trick = '.$trickID)
+            ->orderBy('comment.created_at', 'DESC');
 
         $query = $qb->getQuery();
 

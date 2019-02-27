@@ -102,12 +102,12 @@
             <hr/>
 
             <div class="container">
-                <div class="row">
+                <div class="row" id="comments">
                     <div class="col-lg-8 col-md-10 mx-auto">
                         {% for comment in trick.comments %}
                             <div class="media mb-4">
                                 <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-                                <div class="media-body">
+                                <div class="media-body" id="comments">
                                     <h5 class="mt-0">
                                         {{ comment.user.firstname }} {{ comment.createdAt|ago_datetime }}
                                     </h5>
@@ -115,6 +115,13 @@
                                 </div>
                             </div>
                         {% endfor %}
+                        <button
+                                class="btn btn-secondary"
+                                id="load-comments"
+                                data-trick="{{ trick.id }}"
+                                data-index="1">
+                            {{ 'trick.show.comment.submit'|trans({}, 'form') }}
+                        </button>
                     </div>
                 </div>
             </div>
