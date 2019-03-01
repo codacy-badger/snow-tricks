@@ -34,6 +34,4 @@ trick:
             placeholder: "Votre message"
             submit: "Laisser un commentaire"
             label: "Ajouter un commentaire"
-
-
-
+            loadmore: "Charger plus de commentaire"

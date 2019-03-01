@@ -3,6 +3,7 @@
 namespace App\Controller\Comment;
 
 
+use App\Model\Entity\Trick;
 use App\Repository\CommentRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -10,9 +11,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 
-class GetController extends AbstractController
+class PaginationController extends AbstractController
 {
-    const NUMBER_OF_COMMENTS_PER_LOAD = 5;
+    const NUMBER_OF_COMMENTS_PER_LOAD = 2;
 
     /**
      * @var CommentRepository
@@ -26,29 +27,22 @@ class GetController extends AbstractController
     }
 
     /**
-     * @Route("/comments/getmore", name="comments_get")
+     * @Route("/trick/{slug}/comment/pagination", name="comment_pagination")
      */
-    public function get(Request $request): Response
+    public function paginate(Request $request, Trick $trick): Response
     {
-        $trick = $request->query->get('trick');
-        $index = $request->query->get('index');
+        $page = $request->query->get('page');
 
         $comments = $this->commentRepository->findByTrickSortAndPaginate(
-            $trick,
-            $index,
+            $trick->getId(),
+            $page,
             self::NUMBER_OF_COMMENTS_PER_LOAD
         );
 
-        return $this->render('comments/__show.html.twig', [
+        return $this->render('comments/paginated-comments-list.html.twig', [
             'comments' => $comments,
-            'index' => $index,
+            'page' => $page,
         ]);
 
-/*        $response = new Response();
-
-        $response->headers->set('Content-Type', 'application/json');
-        $response->setContent(json_encode($comments));
-
-        return $response;*/
     }
 }

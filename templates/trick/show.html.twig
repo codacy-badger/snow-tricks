@@ -14,7 +14,7 @@
             {% set urlBackgroundPhoto = 'http://placehold.it/1250x500' %}
         {% endif %}
 
-        {{ include('trick/__modal-confirmation.html.twig') }}
+        {{ include('trick/_modal-confirmation.html.twig') }}
 
         <div class="row mb-5 frontpage-image" style="background-image: url({{ urlBackgroundPhoto }}) ">
 
@@ -102,9 +102,9 @@
             <hr/>
 
             <div class="container">
-                <div class="row" id="comments">
-                    <div class="col-lg-8 col-md-10 mx-auto">
-                        {% for comment in trick.comments %}
+                <div class="row">
+                    <div class="col-lg-8 col-md-10 mx-auto" id="comments">
+                        {% for comment in comments %}
                             <div class="media mb-4">
                                 <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
                                 <div class="media-body" id="comments">
@@ -115,12 +115,20 @@
                                 </div>
                             </div>
                         {% endfor %}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col text-center">
                         <button
-                                class="btn btn-secondary"
-                                id="load-comments"
-                                data-trick="{{ trick.id }}"
-                                data-index="1">
-                            {{ 'trick.show.comment.submit'|trans({}, 'form') }}
+                            class="btn btn-secondary text-center"
+                            id="load-comments"
+                            data-trick="{{ trick.id }}"
+                            data-page="1"
+                            data-total-pages={{ nbPages }}
+                            data-pagination-path="{{ path('comment_pagination', {'slug':trick.slug}) }}"
+                        >
+                            {{ 'trick.show.comment.loadmore'|trans({}, 'form') }}
                         </button>
                     </div>
                 </div>

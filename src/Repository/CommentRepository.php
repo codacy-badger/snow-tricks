@@ -3,7 +3,6 @@
 namespace App\Repository;
 
 use App\Model\Entity\Comment;
-use App\Model\Entity\Trick;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;

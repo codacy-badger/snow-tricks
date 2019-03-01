@@ -51,7 +51,7 @@ class EditController extends AbstractController
     }
 
     /**
-     * @Route("/trick/edit/{slug}", name="trick_edit")
+     * @Route("/trick/{slug}/edit", name="trick_edit")
      * @IsGranted("ROLE_USER")
      */
     public function edit(Trick $trick, Request $request): Response
