@@ -15,6 +15,7 @@ user:
     success:
         creation: "Votre compte a bien été créée"
         login: "Content de vous revoir !"
+        resetting: "Nous avons envoyé un lien de changement de mot de passe sur votre adresse mail"
 
 photo:
     success:

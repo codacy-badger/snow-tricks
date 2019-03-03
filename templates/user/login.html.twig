@@ -22,7 +22,14 @@
                 {{ form_row(user_login_form.email) }}
                 {{ form_row(user_login_form.plainPassword) }}
 
+<<<<<<< HEAD
                 <button type="submit" class="btn btn-primary" formnovalidate>{{ 'user.form.label.submit.signin'|trans({}, 'form') }}</button>
+=======
+                <div><a href={{ path('user_forgot_password') }}>{{ 'user.form.label.forgotPass'|trans({}, 'form') }}</a></div>
+
+
+                <button type="submit" class="btn btn-primary" formnovalidate>sign up</button>
+>>>>>>> add form to reset password
 
                 {{ form_end(user_login_form) }}
 

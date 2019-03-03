@@ -3,6 +3,7 @@
 namespace App\Model\Entity;
 
 use App\Model\DTO\User\CreateUserDTO;
+use App\Model\DTO\User\ResetPassUserDTO;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -58,6 +59,11 @@ class User implements UserInterface
      * @ORM\Column(type="boolean")
      */
     private $enabled;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $passwordForgotten = false;
 
     /**
      * @ORM\Column(type="string", nullable=true)
@@ -146,6 +152,11 @@ class User implements UserInterface
     public function isEnabled(): bool
     {
         return $this->enabled;
+    }
+
+    public function isPasswordForgotten(): bool
+    {
+        return $this->passwordForgotten;
     }
 
     public function getConfirmationToken()
@@ -250,9 +261,21 @@ class User implements UserInterface
         return $user;
     }
 
+    public static function resetPass(ResetPassUserDTO $userDTO): User
+    {
+        $user = $userDTO->getUser();
+
+        $user->updatedAt = new \DateTime('now');
+        $user->confirmationToken = $userDTO->getConfirmationToken();
+        $user->passwordForgotten = true;
+
+        return $user;
+    }
+
     public function confirm(): void
     {
         $this->enabled = true;
         $this->confirmationToken = null;
     }
+
 }

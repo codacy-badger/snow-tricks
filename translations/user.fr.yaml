@@ -2,3 +2,5 @@ login:
     title: "Authentification"
 signup:
     title: "Création de compte"
+forgot:
+    title: "Mot de passe oublié"
