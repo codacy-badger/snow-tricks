@@ -289,5 +289,4 @@ class User implements UserInterface
         $this->enabled = true;
         $this->confirmationToken = null;
     }
-
 }

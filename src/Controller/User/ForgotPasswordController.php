@@ -15,7 +15,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ForgotPasswordController extends AbstractController
 {
-
     /**
      * @var UserRepository
      */
@@ -27,7 +26,6 @@ class ForgotPasswordController extends AbstractController
 
     public function __construct(UserRepository $userRepository, EventDispatcherInterface $eventDispatcher)
     {
-
         $this->userRepository = $userRepository;
         $this->eventDispatcher = $eventDispatcher;
     }
@@ -46,8 +44,7 @@ class ForgotPasswordController extends AbstractController
         if ($userForgotPassForm->isSubmitted() && $userForgotPassForm->isValid()) {
             /** @var User $user */
             $user = $this->userRepository->findOneBy(['email' => $resetPassUserDTO->getEmail()]);
-            if($user)
-            {
+            if ($user) {
                 $resetPassUserDTO->setUser($user);
 
                 $event = new FormEvent($userForgotPassForm, $resetPassUserDTO);
@@ -60,8 +57,6 @@ class ForgotPasswordController extends AbstractController
             $user::resetPass($resetPassUserDTO);
 
             $this->userRepository->save($user);
-
-
 
             return $this->redirectToRoute('trick_list');
         }

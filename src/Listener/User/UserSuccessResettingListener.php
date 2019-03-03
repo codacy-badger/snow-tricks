@@ -3,9 +3,7 @@
 namespace App\Listener\User;
 
 use App\Mailer\Mailer;
-use App\Model\DTO\User\CreateUserDTO;
 use App\Model\DTO\User\ResetPassUserDTO;
-use App\Model\Entity\User;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvent;
 

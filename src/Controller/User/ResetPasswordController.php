@@ -36,10 +36,9 @@ class ResetPasswordController extends AbstractController
     public function resetPassword(Request $request, string $confirmationToken): Response
     {
         /** @var User $user */
-        $user = $this->userRepository->findOneBy(['confirmationToken'=> $confirmationToken]);
+        $user = $this->userRepository->findOneBy(['confirmationToken' => $confirmationToken]);
 
-        if($user != null)
-        {
+        if ($user != null) {
             $resetPassUserDTO = new ResetPassUserDTO();
 
             $form = $this->createForm(UserResetPassType::class, $resetPassUserDTO);
@@ -47,23 +46,21 @@ class ResetPasswordController extends AbstractController
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
+                $resetPassUserDTO->setUser($user);
 
-                {
-                    $resetPassUserDTO->setUser($user);
+                $event = new FormEvent($form, $resetPassUserDTO);
 
-                    $event = new FormEvent($form, $resetPassUserDTO);
+                $this->eventDispatcher->dispatch('user.changePass.success', $event);
 
-                    $this->eventDispatcher->dispatch('user.changePass.success', $event);
+                $user = User::resetPass($resetPassUserDTO);
 
-                    $user = User::resetPass($resetPassUserDTO);
+                $this->userRepository->save($user);
 
-                    $this->userRepository->save($user);
+                $this->addFlash('success', 'user.success.creation');
 
-                    $this->addFlash('success', 'user.success.creation');
-
-                    return $this->redirectToRoute('trick_list');
-                }
+                return $this->redirectToRoute('trick_list');
             }
+
             return $this->render('user/reset-pass.html.twig', [
                 'user_reset_pass_form' => $form->createView(),
             ]);
