@@ -6,6 +6,7 @@ use App\Form\Trick\EditTrickType;
 use App\IO\EmbedVideo\VideoPlatformMatcher;
 use App\IO\Upload\TrickPhotoUploader;
 use App\Model\DTO\Trick\ModifyTrickDTO;
+use App\Model\DTO\Video\AddVideoLinkDTO;
 use App\Model\Entity\Photo;
 use App\Model\Entity\Trick;
 use App\Model\Entity\Video;
@@ -51,7 +52,7 @@ class EditController extends AbstractController
     }
 
     /**
-     * @Route("/trick/edit/{slug}", name="trick_edit")
+     * @Route("/trick/{slug}/edit", name="trick_edit")
      * @IsGranted("ROLE_USER")
      */
     public function edit(Trick $trick, Request $request): Response
@@ -83,18 +84,21 @@ class EditController extends AbstractController
 
     private function updateVideos(ArrayCollection $videosCollection)
     {
+        /** @var AddVideoLinkDTO $addVideoLinkDTO */
         foreach ($videosCollection as $addVideoLinkDTO) {
-            $videoMeta = VideoPlatformMatcher::match($addVideoLinkDTO);
+            if (!$addVideoLinkDTO->getLink() == null) {
+                $videoMeta = VideoPlatformMatcher::match($addVideoLinkDTO);
 
-            if (!$video =
-                $this->entityManager->getRepository(Video::class)
-                    ->findOneBy(['videoCode' => $videoMeta->getCode()])
-            ) {
-                $video = Video::create($videoMeta);
-                $this->entityManager->persist($video);
+                if (!$video =
+                    $this->entityManager->getRepository(Video::class)
+                        ->findOneBy(['videoCode' => $videoMeta->getCode()])
+                ) {
+                    $video = Video::create($videoMeta);
+
+                    $this->entityManager->persist($video);
+                }
+                $this->trick->addVideo($video);
             }
-
-            $this->trick->addVideo($video);
         }
     }
 

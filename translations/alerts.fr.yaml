@@ -6,7 +6,6 @@ flash:
     danger:
         title: "Opération non permise"
         form: "Le formulaire contient des erreurs"
-
 trick:
     success:
         creation: "Vous avez bien créé une nouvelle figure !"
@@ -20,6 +19,11 @@ user:
 photo:
     success:
         deletion: "La photo a bien été supprimée"
+        modification: "Les photos ont bien été ajoutés"
+video:
+    trick:
+        success:
+            deletion: "La vidéo a bien été supprimée"
 
 comment:
     creation:

@@ -23,7 +23,7 @@ class DeleteController extends AbstractController
 
     /**
      * @IsGranted("ROLE_USER")
-     * @Route("/trick/delete/{slug}", name="trick_delete")
+     * @Route("/trick/{slug}/delete", name="trick_delete")
      */
     public function delete(Trick $trick): Response
     {

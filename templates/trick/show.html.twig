@@ -14,21 +14,31 @@
             {% set urlBackgroundPhoto = 'http://placehold.it/1250x500' %}
         {% endif %}
 
+        {{ include('trick/_modal-confirmation.html.twig') }}
+
         <div class="row mb-5 frontpage-image" style="background-image: url({{ urlBackgroundPhoto }}) ">
 
             <div class="trick-icons">
-                <a href="{{ path('trick_edit', {'slug':trick.slug}) }}" class="fa fa-pencil"></a>
-                <a href="{{ path('trick_delete', {'slug':trick.slug}) }}" class="fa fa-trash"></a>
+                <a
+                        href="{{ path('trick_edit', {'slug':trick.slug}) }}"
+                        data-href="{{ path('trick_edit', {'slug':trick.slug}) }}"
+                        class="fa fa-pencil"
+                ></a>
+                <a data-toggle="modal"
+                   data-target="#confirm-delete"
+                   data-href="{{ path('trick_delete', {'slug':trick.slug}) }}"
+                   href="#"
+                   class="fa fa-trash"
+                ></a>
             </div>
             <div class="col-md-12 frontpage-title">
                 <h1 class="display-2">{{ trick.name }}</h1>
             </div>
         </div>
 
-
-        <button class="btn"
-                data-action="display-medias-mobile">{{ 'trick.show.display.mobile'|trans({}, 'trick') }}</button>
-
+        <button class="btn mobile-btn"
+                data-action="display-medias-mobile">{{ 'trick.show.display.mobile'|trans({}, 'trick') }}
+        </button>
 
         <div class="row mb-5 media-wrapper">
             {% for photo in trick.photos %}
@@ -93,11 +103,11 @@
 
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-8 col-md-10 mx-auto">
-                        {% for comment in trick.comments %}
+                    <div class="col-lg-8 col-md-10 mx-auto" id="comments">
+                        {% for comment in comments %}
                             <div class="media mb-4">
                                 <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-                                <div class="media-body">
+                                <div class="media-body" id="comments">
                                     <h5 class="mt-0">
                                         {{ comment.user.firstname }} {{ comment.createdAt|ago_datetime }}
                                     </h5>
@@ -105,6 +115,21 @@
                                 </div>
                             </div>
                         {% endfor %}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col text-center">
+                        <button
+                            class="btn btn-secondary text-center"
+                            id="load-comments"
+                            data-trick="{{ trick.id }}"
+                            data-page="1"
+                            data-total-pages={{ nbPages }}
+                            data-pagination-path="{{ path('comment_pagination', {'slug':trick.slug}) }}"
+                        >
+                            {{ 'trick.show.comment.loadmore'|trans({}, 'form') }}
+                        </button>
                     </div>
                 </div>
             </div>

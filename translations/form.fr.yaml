@@ -5,7 +5,10 @@ user:
             lastname: "Nom"
             email: "Adresse électronique"
             password: "Mot de passe"
-            submit: "S'inscrire"
+            submit:
+                signup: "S'inscrire"
+                signin: "Se connecter"
+
     header:
         signup:
             title: "Inscrivez-vous"
@@ -34,6 +37,4 @@ trick:
             placeholder: "Votre message"
             submit: "Laisser un commentaire"
             label: "Ajouter un commentaire"
-
-
-
+            loadmore: "Charger plus de commentaire"

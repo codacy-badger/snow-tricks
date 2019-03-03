@@ -2,6 +2,9 @@
  * Specific SCSS for snow-trick website
  */
 
+@import "snow-tricks/arrow-wrapper";
+@import "snow-tricks/mobile";
+
 .tricks_list {
   padding-top: 40px;
 }
@@ -25,10 +28,10 @@
   transform: translateY(-50%);
 }
 
-.media-wrapper__show {
-  display: block;
+.carousel-item {
+  height: 95vh;
 }
 
-.media-wrapper__hide {
-  display: none;
+footer {
+  margin-top: 10px;
 }
