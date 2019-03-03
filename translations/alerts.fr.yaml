@@ -21,15 +21,12 @@ user:
 photo:
     success:
         deletion: "La photo a bien été supprimée"
-<<<<<<< HEAD
         modification: "Les photos ont bien été ajoutés"
 video:
     trick:
         success:
             deletion: "La vidéo a bien été supprimée"
-=======
-        modification: "La photo a bien été mise à jour"
->>>>>>> add photos fixtures
+            modification: "La photo a bien été mise à jour"
 
 comment:
     creation:
