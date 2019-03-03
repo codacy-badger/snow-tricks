@@ -261,13 +261,25 @@ class User implements UserInterface
         return $user;
     }
 
-    public static function resetPass(ResetPassUserDTO $userDTO): User
+    public static function forgotPass(ResetPassUserDTO $userDTO): User
     {
         $user = $userDTO->getUser();
 
         $user->updatedAt = new \DateTime('now');
         $user->confirmationToken = $userDTO->getConfirmationToken();
         $user->passwordForgotten = true;
+
+        return $user;
+    }
+
+    public static function resetPass(ResetPassUserDTO $userDTO): User
+    {
+        $user = $userDTO->getUser();
+
+        $user->updatedAt = new \DateTime('now');
+        $user->confirmationToken = null;
+        $user->passwordForgotten = false;
+        $user->plainPassword = $userDTO->getPlainPassword();
 
         return $user;
     }

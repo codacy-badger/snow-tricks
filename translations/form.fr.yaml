@@ -26,6 +26,8 @@ user:
             subtitle: "Vous pourrez bientôt ajouter vos propres tricks !"
         forgot:
             title: "Réinitialisation de mot de passe"
+        reset:
+            title: "Changement de mot de passe"
 
 trick:
     form:
