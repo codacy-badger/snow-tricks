@@ -24,7 +24,7 @@ class PaginationController extends AbstractController
     }
 
     /**
-     * @Route("/trick/{slug}/comment/pagination", name="comment_pagination")
+     * @Route("/trick/{slug}/comment/pagination", name="comment_pagination", condition="request.isXmlHttpRequest()")
      */
     public function paginate(Request $request, Trick $trick): Response
     {
