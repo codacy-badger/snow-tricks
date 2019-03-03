@@ -8,12 +8,12 @@ $(document).ready(function () {
 
         loadCommentsButton.data('page', newPaginationIndex);
         $.ajax({
-            url: paginationPath + '?page=' + loadCommentsButton.data('page'),
+            url: paginationPath + '?page=' + newPaginationIndex,
             type: 'GET',
             datatype: 'html',
             success: function (comments, status) {
+                $(comments).appendTo('#comments');
                 if(totalPages <=  newPaginationIndex) {
-                    $(comments).appendTo('#comments');
                     loadCommentsButton.prop("hidden", true);
                 }
             },

@@ -1,16 +1,20 @@
-// When the user scrolls down 20px from the top of the document, show the button
-window.onscroll = function() {scrollFunction()};
 
 
-function scrollFunction() {
-    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-        document.getElementById("top-arrow-button").style.display = "block";
-        document.getElementById("down-arrow-button").style.display = "none";
-    } else {
-        document.getElementById("top-arrow-button").style.display = "none";
-        document.getElementById("down-arrow-button").style.display = "block";
+if(document.getElementById("top-arrow-button") != null) {
+    // When the user scrolls down 20px from the top of the document, show the button
+    window.onscroll = function() {scrollFunction()};
+
+    function scrollFunction() {
+        if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+            document.getElementById("top-arrow-button").style.display = "block";
+            document.getElementById("down-arrow-button").style.display = "none";
+        } else {
+            document.getElementById("top-arrow-button").style.display = "none";
+            document.getElementById("down-arrow-button").style.display = "block";
+        }
     }
 }
+
 
 // When the user clicks on the button, scroll to the top of the document
 function topFunction() {

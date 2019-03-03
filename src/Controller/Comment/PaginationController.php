@@ -40,8 +40,7 @@ class PaginationController extends AbstractController
         );
 
         return $this->render('comments/paginated-comments-list.html.twig', [
-            'comments' => $comments,
-            'page' => $page,
+            'comments' => $comments
         ]);
 
     }
