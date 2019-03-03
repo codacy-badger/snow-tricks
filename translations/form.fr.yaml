@@ -5,7 +5,10 @@ user:
             lastname: "Nom"
             email: "Adresse électronique"
             password: "Mot de passe"
-            submit: "S'inscrire"
+            submit:
+                signup: "S'inscrire"
+                signin: "Se connecter"
+
     header:
         signup:
             title: "Inscrivez-vous"

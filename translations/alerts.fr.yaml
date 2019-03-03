@@ -20,6 +20,10 @@ photo:
     success:
         deletion: "La photo a bien été supprimée"
         modification: "Les photos ont bien été ajoutés"
+video:
+    trick:
+        success:
+            deletion: "La vidéo a bien été supprimée"
 
 comment:
     creation:

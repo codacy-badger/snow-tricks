@@ -2,14 +2,12 @@
 
 namespace App\Controller\Comment;
 
-
 use App\Model\Entity\Trick;
 use App\Repository\CommentRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
 
 class PaginationController extends AbstractController
 {
@@ -19,7 +17,6 @@ class PaginationController extends AbstractController
      * @var CommentRepository
      */
     private $commentRepository;
-
 
     public function __construct(CommentRepository $commentRepository)
     {
@@ -40,8 +37,7 @@ class PaginationController extends AbstractController
         );
 
         return $this->render('comments/paginated-comments-list.html.twig', [
-            'comments' => $comments
+            'comments' => $comments,
         ]);
-
     }
 }

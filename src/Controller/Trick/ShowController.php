@@ -20,7 +20,6 @@ class ShowController extends AbstractController
      */
     private $commentRepository;
 
-
     public function __construct(CommentRepository $commentRepository)
     {
         $this->commentRepository = $commentRepository;
@@ -37,7 +36,6 @@ class ShowController extends AbstractController
             'action' => $this->generateUrl('comment_create', ['slug' => $trick->getSlug()]),
         ]);
 
-
         $commentForm->handleRequest($request);
 
         $comments = $this->commentRepository->findByTrickSortAndPaginate(
@@ -52,7 +50,7 @@ class ShowController extends AbstractController
             'commentForm' => $commentForm->createView(),
             'trick' => $trick,
             'comments' => $comments,
-            'nbPages' => $nbPages
+            'nbPages' => $nbPages,
         ]);
     }
 }

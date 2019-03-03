@@ -34,5 +34,4 @@ class CommentRepository extends BaseRepository
 
         return $paginator;
     }
-
 }
