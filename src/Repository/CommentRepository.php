@@ -16,11 +16,11 @@ class CommentRepository extends BaseRepository
 
     public function findByTrickSortAndPaginate(int $trickID, int $page, int $limit)
     {
-        $qb = $this->createQueryBuilder('comment')
+        $queryBuilder = $this->createQueryBuilder('comment')
             ->andWhere('comment.trick = '.$trickID)
             ->orderBy('comment.created_at', 'DESC');
 
-        $query = $qb->getQuery();
+        $query = $queryBuilder->getQuery();
 
         $offset = ($page - 1) * $limit;
 

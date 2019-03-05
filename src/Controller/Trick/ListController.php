@@ -28,7 +28,7 @@ class ListController extends AbstractController
     {
         $tricks = $this->trickRepository->findAllSortAndPaginate($page, self::MAX_TRICKS_PER_PAGE);
 
-        $nbPages = intval(ceil($tricks->count() / self::MAX_TRICKS_PER_PAGE));
+        $nbPages = (int)(ceil($tricks->count() / self::MAX_TRICKS_PER_PAGE));
 
         return $this->render('trick/index.html.twig', [
             'tricks' => $tricks,

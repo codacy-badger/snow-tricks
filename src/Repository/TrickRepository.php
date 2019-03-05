@@ -16,10 +16,10 @@ class TrickRepository extends BaseRepository
 
     public function findAllSortAndPaginate(int $page, int $limit)
     {
-        $qb = $this->createQueryBuilder('trick')
+        $queryBuilder = $this->createQueryBuilder('trick')
             ->orderBy('trick.createdAt', 'DESC');
 
-        $query = $qb->getQuery();
+        $query = $queryBuilder->getQuery();
 
         $offset = ($page - 1) * $limit;
 
