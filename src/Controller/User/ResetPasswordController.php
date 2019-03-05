@@ -56,9 +56,9 @@ class ResetPasswordController extends AbstractController
 
                 $this->userRepository->save($user);
 
-                $this->addFlash('success', 'user.success.creation');
+                $this->addFlash('success', 'user.success.changePass');
 
-                return $this->redirectToRoute('trick_list');
+                return $this->redirectToRoute('homepage');
             }
 
             return $this->render('user/reset-pass.html.twig', [
@@ -66,6 +66,6 @@ class ResetPasswordController extends AbstractController
             ]);
         }
 
-        return $this->redirectToRoute('trick_list');
+        return $this->redirectToRoute('homepage');
     }
 }

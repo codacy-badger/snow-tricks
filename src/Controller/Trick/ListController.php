@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ListController extends AbstractController
 {
-    const MAX_TRICKS_PER_PAGE = 10;
+    const MAX_TRICKS_PER_PAGE = 4;
 
     /**
      * @var TrickRepository

@@ -52,7 +52,7 @@ class SignupController extends AbstractController
 
             $this->addFlash('success', 'user.success.creation');
 
-            return $this->redirectToRoute('trick_list');
+            return $this->redirectToRoute('homepage');
         }
 
         return $this->render('user/signup.html.twig', [

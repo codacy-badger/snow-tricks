@@ -58,7 +58,7 @@ class ForgotPasswordController extends AbstractController
 
             $this->userRepository->save($user);
 
-            return $this->redirectToRoute('trick_list');
+            return $this->redirectToRoute('homepage');
         }
 
         return $this->render('user/forgot-pass.html.twig', [
