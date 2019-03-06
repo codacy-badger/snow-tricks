@@ -16,11 +16,11 @@ class EditControllerTest extends WebTestCase
         $this->client = static::createClient();
     }
 
-    public function testDeleteTrick()
+    public function testEditTrick()
     {
         $this->logIn();
 
-        $this->client->request('GET', '/trick/edit/crail');
+        $this->client->request('GET', '/trick/crail/edit');
 
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
     }

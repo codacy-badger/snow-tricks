@@ -17,7 +17,7 @@ trait FakeAuthenticationTrait
         /** @var User $user */
         $user = $manager->getRepository(User::class)->find(7);
 
-        //$user->confirm();
+        $user->confirm();
 
         $token = new PostAuthenticationGuardToken(
             $user,
