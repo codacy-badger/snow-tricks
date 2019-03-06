@@ -36,7 +36,7 @@ class PaginationController extends AbstractController
             self::NUMBER_OF_COMMENTS_PER_LOAD
         );
 
-        return $this->render('comments/paginated-comments-list.html.twig', [
+        return $this->render('comments/paginated-list.html.twig', [
             'comments' => $comments,
         ]);
     }

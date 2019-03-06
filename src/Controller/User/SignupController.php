@@ -2,9 +2,9 @@
 
 namespace App\Controller\User;
 
+use App\Form\User\UserSignupType;
 use App\Model\DTO\User\CreateUserDTO;
 use App\Model\Entity\User;
-use App\Form\User\UserSignupType;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -52,7 +52,7 @@ class SignupController extends AbstractController
 
             $this->addFlash('success', 'user.success.creation');
 
-            return $this->redirectToRoute('trick_list');
+            return $this->redirectToRoute('homepage');
         }
 
         return $this->render('user/signup.html.twig', [

@@ -7,10 +7,10 @@ use App\Model\DTO\Comment\CreateCommentDTO;
 use App\Model\Entity\Comment;
 use App\Model\Entity\Trick;
 use App\Repository\CommentRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class CreateController extends AbstractController
 {
