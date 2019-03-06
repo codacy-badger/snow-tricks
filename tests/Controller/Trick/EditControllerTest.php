@@ -20,7 +20,7 @@ class EditControllerTest extends WebTestCase
     {
         $this->logIn();
 
-        $this->client->request('GET', '/trick/edit/china-air');
+        $this->client->request('GET', '/trick/edit/crail');
 
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
     }

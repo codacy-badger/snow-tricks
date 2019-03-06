@@ -20,7 +20,7 @@ class UpdateThumbnailControllerTest extends WebTestCase
     {
         $this->logIn();
 
-        $this->client->request('GET', '/photo/update-thumbnail/1');
+        $this->client->request('GET', '/photo/update-thumbnail/5');
 
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
     }

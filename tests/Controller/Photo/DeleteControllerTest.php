@@ -20,7 +20,7 @@ class DeleteControllerTest extends WebTestCase
     {
         $this->logIn();
 
-        $this->client->request('GET', '/photo/delete/1');
+        $this->client->request('GET', '/photo/delete/3');
 
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
     }

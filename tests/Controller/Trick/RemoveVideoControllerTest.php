@@ -20,7 +20,7 @@ class RemoveVideoControllerTest extends WebTestCase
     {
         $this->logIn();
 
-        $this->client->request('GET', '/trick/china-air/video/1/delete');
+        $this->client->request('GET', '/trick/crail/video/1/delete');
 
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
     }
