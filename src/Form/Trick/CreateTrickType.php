@@ -7,11 +7,4 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CreateTrickType extends AbstractTrickFormType
 {
-    public function configureOptions(OptionsResolver $resolver): void
-    {
-        $resolver->setDefaults([
-            'data_class' => CreateTrickDTO::class,
-            'translation_domain' => 'form',
-        ]);
-    }
 }

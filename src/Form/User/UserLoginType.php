@@ -29,8 +29,7 @@ class UserLoginType extends AbstractType
             'data_class' => User::class,
             'translation_domain' => 'form',
             'csrf_protection' => true,
-            'csrf_field_name' => '_csrf_token',
-            'csrf_token_id' => 'authenticate',
+            'csrf_token_id' => 'authenticate'
         ]);
     }
 }

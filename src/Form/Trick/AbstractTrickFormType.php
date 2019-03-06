@@ -52,6 +52,7 @@ abstract class AbstractTrickFormType extends AbstractType
         $resolver->setDefaults([
             'data_class' => CreateTrickDTO::class,
             'translation_domain' => 'form',
+            'csrf_protection' => true,
         ]);
     }
 }

@@ -11,7 +11,6 @@ class EditTrickType extends AbstractTrickFormType
     {
         $resolver->setDefaults([
             'data_class' => ModifyTrickDTO::class,
-            'translation_domain' => 'form',
         ]);
     }
 }
