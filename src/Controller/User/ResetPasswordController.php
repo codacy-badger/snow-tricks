@@ -7,8 +7,6 @@ use App\Model\DTO\User\ResetPassUserDTO;
 use App\Model\Entity\User;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\Form\FormEvent;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,15 +17,10 @@ class ResetPasswordController extends AbstractController
      * @var UserRepository
      */
     private $userRepository;
-    /**
-     * @var EventDispatcherInterface
-     */
-    private $eventDispatcher;
 
-    public function __construct(UserRepository $userRepository, EventDispatcherInterface $eventDispatcher)
+    public function __construct(UserRepository $userRepository)
     {
         $this->userRepository = $userRepository;
-        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -38,21 +31,15 @@ class ResetPasswordController extends AbstractController
         /** @var User $user */
         $user = $this->userRepository->findOneBy(['confirmationToken' => $confirmationToken]);
 
-        if ($user != null) {
-            $resetPassUserDTO = new ResetPassUserDTO();
+        if ($user) {
+            $resetPassUserDTO = new ResetPassUserDTO($user);
 
             $form = $this->createForm(UserResetPassType::class, $resetPassUserDTO);
 
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                $resetPassUserDTO->setUser($user);
-
-                $event = new FormEvent($form, $resetPassUserDTO);
-
-                $this->eventDispatcher->dispatch('user.changePass.success', $event);
-
-                $user = User::resetPass($resetPassUserDTO);
+                $user->resetPass($resetPassUserDTO);
 
                 $this->userRepository->save($user);
 

@@ -28,7 +28,7 @@ class User implements UserInterface
     private $email;
 
     /**
-     * @ORM\Column(type="array")
+     * @ORM\Column(type="json")
      */
     private $roles = [];
 
@@ -251,25 +251,17 @@ class User implements UserInterface
         return $user;
     }
 
-    public static function forgotPass(ResetPassUserDTO $userDTO): User
+    public function askRenewPassword(string $token): void
     {
-        $user = $userDTO->getUser();
-
-        $user->updatedAt = new \DateTime('now');
-        $user->confirmationToken = $userDTO->getConfirmationToken();
-
-        return $user;
+        $this->updatedAt = new \DateTime('now');
+        $this->confirmationToken = $token;
     }
 
-    public static function resetPass(ResetPassUserDTO $userDTO): User
+    public function resetPass(ResetPassUserDTO $userDTO): void
     {
-        $user = $userDTO->getUser();
-
-        $user->updatedAt = new \DateTime('now');
-        $user->confirmationToken = null;
-        $user->plainPassword = $userDTO->getPlainPassword();
-
-        return $user;
+        $this->updatedAt = new \DateTime('now');
+        $this->confirmationToken = null;
+        $this->plainPassword = $userDTO->getPlainPassword();
     }
 
     public function confirm(): void

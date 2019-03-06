@@ -25,12 +25,13 @@ class ResetPassUserDTO
      * @var string|null
      */
     private $confirmationToken;
+
     /**
      * @var User
      */
     private $user;
 
-    public function __construct(User $user = null)
+    public function __construct(User $user)
     {
         $this->user = $user;
     }
