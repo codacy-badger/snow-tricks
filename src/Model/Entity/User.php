@@ -61,11 +61,6 @@ class User implements UserInterface
     private $enabled;
 
     /**
-     * @ORM\Column(type="boolean")
-     */
-    private $passwordForgotten = false;
-
-    /**
      * @ORM\Column(type="string", nullable=true)
      */
     private $confirmationToken;
@@ -152,11 +147,6 @@ class User implements UserInterface
     public function isEnabled(): bool
     {
         return $this->enabled;
-    }
-
-    public function isPasswordForgotten(): bool
-    {
-        return $this->passwordForgotten;
     }
 
     public function getConfirmationToken()
@@ -267,7 +257,6 @@ class User implements UserInterface
 
         $user->updatedAt = new \DateTime('now');
         $user->confirmationToken = $userDTO->getConfirmationToken();
-        $user->passwordForgotten = true;
 
         return $user;
     }
@@ -278,7 +267,6 @@ class User implements UserInterface
 
         $user->updatedAt = new \DateTime('now');
         $user->confirmationToken = null;
-        $user->passwordForgotten = false;
         $user->plainPassword = $userDTO->getPlainPassword();
 
         return $user;
