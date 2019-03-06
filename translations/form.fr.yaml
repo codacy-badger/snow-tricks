@@ -5,16 +5,22 @@ user:
             lastname: "Nom"
             email: "Adresse électronique"
             password: "Mot de passe"
+            forgotPass: "J'ai oublié mon mot de passe"
+            remindPass: "Je me souviens de mon mot de passe finalement"
             submit:
                 signup: "S'inscrire"
                 signin: "Se connecter"
-
+                forgot: "M'envoyer un mail de réinitialisation"
     header:
         signup:
             title: "Inscrivez-vous"
         login:
             title: "Connectez-vous"
             subtitle: "Vous pourrez bientôt ajouter vos propres tricks !"
+        forgot:
+            title: "Réinitialisation de mot de passe"
+        reset:
+            title: "Changement de mot de passe"
 
 trick:
     form:

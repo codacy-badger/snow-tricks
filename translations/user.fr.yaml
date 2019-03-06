@@ -2,3 +2,7 @@ login:
     title: "Authentification"
 signup:
     title: "Création de compte"
+forgot:
+    title: "Mot de passe oublié"
+reset:
+    title: "Changement de mot de passe"

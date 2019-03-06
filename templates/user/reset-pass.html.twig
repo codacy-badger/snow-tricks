@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'reset.title'|trans({}, 'user') }}{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+
+        <h1 class="mt-4 mb-3">{{ 'user.header.reset.title'|trans({}, 'form') }}
+        </h1>
+
+        <div class="row">
+            <div class="col-lg-8 mb-4">
+
+                {{ form_start(user_reset_pass_form) }}
+
+                {{ form_row(user_reset_pass_form.plainPassword) }}
+
+                <button type="submit" class="btn btn-primary" formnovalidate>
+                    {{ 'user.form.label.submit.forgot'|trans({}, 'form') }}
+                </button>
+
+                {{ form_end(user_reset_pass_form) }}
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

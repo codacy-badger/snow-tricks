@@ -3,6 +3,7 @@
 namespace App\Model\Entity;
 
 use App\Model\DTO\User\CreateUserDTO;
+use App\Model\DTO\User\ResetPassUserDTO;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -27,7 +28,7 @@ class User implements UserInterface
     private $email;
 
     /**
-     * @ORM\Column(type="array")
+     * @ORM\Column(type="json")
      */
     private $roles = [];
 
@@ -248,6 +249,19 @@ class User implements UserInterface
         $user->confirmationToken = $userDTO->getConfirmationToken();
 
         return $user;
+    }
+
+    public function askRenewPassword(string $token): void
+    {
+        $this->updatedAt = new \DateTime('now');
+        $this->confirmationToken = $token;
+    }
+
+    public function resetPass(ResetPassUserDTO $userDTO): void
+    {
+        $this->updatedAt = new \DateTime('now');
+        $this->confirmationToken = null;
+        $this->plainPassword = $userDTO->getPlainPassword();
     }
 
     public function confirm(): void
