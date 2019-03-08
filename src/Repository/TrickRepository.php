@@ -14,7 +14,7 @@ class TrickRepository extends BaseRepository
         parent::__construct($registry, Trick::class);
     }
 
-    public function findAllSortAndPaginate(int $page, int $limit)
+    public function findAllSortAndPaginate(string $page, int $limit)
     {
         $queryBuilder = $this->createQueryBuilder('trick')
             ->orderBy('trick.createdAt', 'DESC');

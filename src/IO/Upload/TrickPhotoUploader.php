@@ -9,7 +9,7 @@ class TrickPhotoUploader
 {
     private $targetDirectory;
 
-    public function __construct($targetDirectory)
+    public function __construct(string $targetDirectory)
     {
         $this->targetDirectory = $targetDirectory;
     }

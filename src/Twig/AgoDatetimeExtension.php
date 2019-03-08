@@ -2,7 +2,7 @@
 
 namespace App\Twig;
 
-use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 
@@ -27,9 +27,9 @@ class AgoDatetimeExtension extends AbstractExtension
         ];
     }
 
-    public function ago(\DateTime $dateTime): string
+    public function ago(\DateTime $dateTime, string $stringDateNow = 'now'): string
     {
-        $diffFromNow = date_diff($dateTime, new \DateTime());
+        $diffFromNow = date_diff($dateTime, new \DateTime($stringDateNow));
 
         if ($diffFromNow->y > 0) {
             return $this->translator->transChoice(

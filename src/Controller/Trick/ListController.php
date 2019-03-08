@@ -24,7 +24,7 @@ class ListController extends AbstractController
     /**
      * @Route("/{page}", name="homepage", defaults={"page"=1})
      */
-    public function index(int $page): Response
+    public function index(string $page): Response
     {
         $tricks = $this->trickRepository->findAllSortAndPaginate($page, self::MAX_TRICKS_PER_PAGE);
 
