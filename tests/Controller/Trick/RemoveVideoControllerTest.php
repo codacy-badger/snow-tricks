@@ -22,6 +22,8 @@ class RemoveVideoControllerTest extends WebTestCase
 
         $this->client->request('GET', '/trick/crail/video/1/delete');
 
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
+
+        $this->assertTrue($this->client->getResponse()->isRedirect('/trick/crail/edit'));
     }
 }

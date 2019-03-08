@@ -22,6 +22,8 @@ class DeleteControllerTest extends WebTestCase
 
         $this->client->request('GET', '/photo/delete/3');
 
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
+
+        $this->assertTrue($this->client->getResponse()->isRedirect('/trick/canadian-bacon/edit'));
     }
 }
