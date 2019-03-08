@@ -16,7 +16,7 @@ class TrickPhotoUploader
 
     public function upload(UploadedFile $file): string
     {
-        $filename = md5(uniqid()).'.'.$file->guessExtension();
+        $filename = sha1_file(uniqid()).'.'.$file->guessExtension();
 
         try {
             $file->move($this->getTargetDirectory(), $filename);

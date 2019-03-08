@@ -44,7 +44,7 @@ class ShowController extends AbstractController
             self::NUMBER_OF_COMMENTS_PER_LOAD
         );
 
-        $nbPages = intval(ceil($comments->count() / self::NUMBER_OF_COMMENTS_PER_LOAD));
+        $nbPages = (int) (ceil($comments->count() / self::NUMBER_OF_COMMENTS_PER_LOAD));
 
         return $this->render('trick/show.html.twig', [
             'commentForm' => $commentForm->createView(),

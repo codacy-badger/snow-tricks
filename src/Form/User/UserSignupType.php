@@ -35,6 +35,7 @@ class UserSignupType extends AbstractType
         $resolver->setDefaults([
             'data_class' => CreateUserDTO::class,
             'translation_domain' => 'form',
+            'csrf_protection' => true,
         ]);
     }
 }

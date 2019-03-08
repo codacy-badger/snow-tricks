@@ -21,6 +21,7 @@ class AddVideoLinkEmbeddedType extends AbstractType
         $resolver->setDefaults([
             'data_class' => AddVideoLinkDTO::class,
             'translation_domain' => 'form',
+            'csrf_protection' => true,
         ]);
     }
 }
