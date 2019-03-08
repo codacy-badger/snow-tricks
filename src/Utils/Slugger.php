@@ -4,12 +4,9 @@ namespace App\Utils;
 
 class Slugger
 {
-    public static function slugify($string)
+    public static function slugify(string $name)
     {
         $dict = [
-            "I'm" => 'I am',
-            'thier' => 'their',
-            // Add your own replacements here
         ];
 
         return strtolower(
@@ -21,7 +18,7 @@ class Slugger
                     str_replace( // preg_replace can be used to support more complicated replacements
                         array_keys($dict),
                         array_values($dict),
-                        urldecode($string)
+                        urldecode($name)
                     )
                 )
             )

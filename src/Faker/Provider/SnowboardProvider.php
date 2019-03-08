@@ -43,7 +43,7 @@ final class SnowboardProvider extends BaseProvider
     const TRICK_PHOTOS_LINK_PROVIDER = [
         'fixtures/snowboard.jpg',
         'fixtures/snowboard-2.jpg',
-        'fixtures/snowboard-3.jpg'
+        'fixtures/snowboard-3.jpg',
     ];
 
     public function trickName(): string
